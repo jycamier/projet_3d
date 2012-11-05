@@ -1,0 +1,71 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{float}
+
+%opening
+\title{Projet 3D\\
+Compte-Rendu}
+\author{CAMIER Jean-yves \\
+CORTICCHIATO Damien \\
+FOURT Maxime}
+
+\begin{document}
+
+\maketitle
+
+\section{Context}
+
+Création d'un jeu de type labyrinthe s'inspirant de « la maison qui rend fou »du dessin animé « les 12 travaux d'Astérix ». Le joueur incarne un personnage dont le but sera de découvrir le laisser-passer A38. Nous allons maintenant parcourir les éléments principaux qui vont caractériser ce jeu.
+
+\section{Le joueur}
+
+Il aura la possibilité de se déplacer librement dans l'immeuble (à condition d'avoir déverrouillé les étages, ce dont nous parlerons plus tard). Le joueur pourra récupérer des objets divers (verre d'eau, morceaux de charbon etc.) et aura à sa disposition un inventaire dans lequel il pourra les stocker. Il pourra rencontrer des personnages non jouables et discuter avec eux, c'est par ce biais que le joueur sera mit au courant des objectifs à remplir. Une dernière caractéristique du joueur concerne le compteur de folie.
+
+\section{Compteur de folie}
+
+Le cœur du jeux repose sur ce principe. En effet un compteur s'incrémente continuellement pendant la partie et symbolise le degré de folie du personnage. Celle-ci aura une incidence sur le gameplay et cela sur plusieurs niveaux. L'état initial est normal, aucun changement (musique et déplacement normal). Une fois le premier palier franchi les 4 contrôles sont inversés, la musique change pour un thème plus déjanté.  Le deuxième palier voir apparaître un changement d'angle de vue (entre 180 et 360 degrés), la musique devient totalement dérangée et les contrôles changent aléatoirement toute les 1 minutes. Le dernier palier symbolise le game over, le joueur aura alors perdu.
+
+\section{Les étages}
+
+Le jeu comportera 4 étages (en comptant le rez-de-chaussé), chacun sera distinct et unique par rapport aux autres. Le joueur devra atteindre le dernier étage où sera stocké le laisser-passer.
+La partie qui va suivre va décrire l'environnement de chaque étage ainsi que les énigmes qui s'y trouvent.
+
+\subsection{Rez-de-chaussé}
+
+Le joueur commence la partie au rez-de-chaussé. Ce niveau sera composé de divers meubles ainsi que des guichets dans lesquels se trouveront des personnages, on y trouvera aussi une fontaine d'eau, un ascenseur ainsi que 2 escaliers. Le joueur doit interagir avec un guichetier, celui-ci voudra un verre d'eau que le joueur devra lui apporter. Le guichetier déverrouille l'ascenseur, il n'y a pas de courant cependant. Il devra prendre l'escalier qui mène à la cave (l'autre escalier est en réparation), et remettre le courant actionnant un interrupteur. Le joueur peut maintenant accéder au premier étage.
+
+\subsection{La Cave}
+
+Etage composé d'une centrale à charbon, d'un tas de charbon, d'un intérupteur permettant d'y voir quelque chose, de divers élements de décors, ainsi que d'une probable Warp Zone (donc caché), histoire de gagner un peu de temps, dans certaines situations. La centrale à charbon va permettre de faire fonctionner l'ascenseur du Rez-de-chaussé.
+
+\subsection{1er étage}
+
+Dans cet étage il faudra discuter avec une personne dans un bureau et lui fournir à manger. Pour cela il faut se rendre à la cafétéria et prendre un flamby sur une table. Pour cela il faut répondre à une devinette d'un autre personnage. Pour pouvoir y répondre il faudra discuter avec un personnage dans une autre salle qui nous donnera la réponse. Le joueur peut donc répondre correctement et récupérer le flamby pour le donner au premier personnage qui nous donnera un accès au deuxième étage.
+
+\subsection{2e étage}
+
+Cet étage sera composé d'un terrain de handball, une salle de répétition avec un piano avec une seule note ainsi que des bureaux. S'il veut avancer dans le jeu le joueur doit d'abord discuter avec l'arbitre du terrain qui lui proposera d'écouter « au clair de la lune » composé avec3 sifflets, il donnera ensuite au joueur une partition de cette musique mais sur une seule note (do). Il faut donner la partition à la personne située dans la salle de répétition, elle nous donnera accès au dernier étage pour récompense.
+
+\subsection{3e étage}
+
+Dernier étage du jeu, on y trouve une ambiance solennelle (salle de trône par exemple). Un personnage représentant le roi des fous est assit sur son trône, à coté de lui se trouve un coffre dans lequel se trouve le laisser-passer A38. Pour ouvrir le coffre le roi demande au joueur du café, celui-ci doit donc redescendre aux étages inférieurs pour trouver ces objets (charbon, eau, gobelet et sucre) et les combiner. Le jeu se termine quand le laisser-passe est en possession du joueur.
+
+\section{Les Design-pattern}
+
+Nous avons choisie d'implementer les deux Design-pattern :
+\begin{itemize}
+ \item la fabrique ;
+ \item la chaîne de responsabilité ;
+\end{itemize}
+
+\subsection{La Fabrique}
+
+Le contexte de l'utilisation de ce design-pattern est lié aux étages : l'instanciation des étages va entrainé la création de nombreux autres élements de décoration, et de gameplay. Nous souhaitons donc déléguer cette construction à une fabrique, qui passera à notre place tous les paramètres nécéssaire à cette construction. Elle permettra également de simplifier le gestion des élements et de gameplay.
+
+\subsection{La chaîne de responsabilité}
+
+Le contexte de l'utilisation de ce design-pattern est lié à les gestions des évènements de gameplay entre le personnage et les décors : le personnage aura la possibilité d'intéragir avec des objets d'inventaire présent dans tout le jeu (il pourra par exemple, pousser une porte ou ramasser une clef). La chaîne des responsabilité va permettre la gestion de ces intéractions.
+
+
+\end{document}
