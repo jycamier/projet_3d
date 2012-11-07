@@ -16,3 +16,7 @@
 *.log
 *.tex~
 *.tex.backup
+
+#Eclipse file
+.cproject
+.project
