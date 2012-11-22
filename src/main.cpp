@@ -38,9 +38,7 @@ int main(int argc, char *argv[])
 
 	glEnable(GL_TEXTURE_2D);
 	int sol = loadTexture("textures/carrelage1.jpg");
-	int coco2 = loadTexture("textures/barril1.jpg");
 	int mur1 = loadTexture("textures/mur1.jpg");
-	int coco4 = loadTexture("textures/crate2.jpg");
 	int ascenseur = loadTexture("textures/test.jpg");
 	int plafond = loadTexture("textures/plafond1.jpg");
 	int pilier = loadTexture("textures/pilier1.jpg");
