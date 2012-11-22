@@ -5,6 +5,8 @@
 #include "sdlglutils.h"
 #include "barril.h"
 #include "caisse.h"
+#include "etage.h"
+
 
 // Taille de la fenêtre
 #define LARGEUR 800
@@ -35,9 +37,9 @@ int main(int argc, char *argv[])
 	Uint32 current_time;
 
 	glEnable(GL_TEXTURE_2D);
-	int coco = loadTexture("textures/carrelage1.jpg");
+	int sol = loadTexture("textures/carrelage1.jpg");
 	int coco2 = loadTexture("textures/barril1.jpg");
-	int coco3 = loadTexture("textures/mur1.jpg");
+	int mur1 = loadTexture("textures/mur1.jpg");
 	int coco4 = loadTexture("textures/crate2.jpg");
 	int ascenseur = loadTexture("textures/test.jpg");
 	int plafond = loadTexture("textures/plafond1.jpg");
@@ -111,19 +113,8 @@ int main(int argc, char *argv[])
 		// Caisse * c = new Caisse(10,0,10,2);
 		// c->draw(quad1,coco4);
 
-
-		//plate-forme
-		glBindTexture(GL_TEXTURE_2D, coco);
-
-		glBegin(GL_QUADS);		
-		glColor3ub(168,163,165);
-
-		glTexCoord2d(20,10); glVertex3d(-longueur_etage,0,-largeur_etage);
-		glTexCoord2d(10,10); glVertex3d(-longueur_etage,0,largeur_etage);
-		glTexCoord2d(10,20); glVertex3d(longueur_etage,0,largeur_etage);
-		glTexCoord2d(20,20); glVertex3d(longueur_etage,0,-largeur_etage);
-		
-		glEnd() ;
+		Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1);
+		rez_de_chaussee->draw(ascenseur);
 
 		//piliers
 		Barril * p1 = new Barril(-20,0,-40);
@@ -143,123 +134,7 @@ int main(int argc, char *argv[])
 		Barril * p8 = new Barril(20,0,20);
 		p8->draw(quad1,pilier);		
 
-		//plafond
-		glBindTexture(GL_TEXTURE_2D, plafond);
 
-		glBegin(GL_QUADS);		
-		glColor3ub(223,223,223);
-
-		glTexCoord2d(15,7); glVertex3d(-longueur_etage,hauteur_etage,-largeur_etage);
-		glTexCoord2d(7,7); glVertex3d(-longueur_etage,hauteur_etage,largeur_etage);
-		glTexCoord2d(7,15); glVertex3d(longueur_etage,hauteur_etage,largeur_etage);
-		glTexCoord2d(15,15); glVertex3d(longueur_etage,hauteur_etage,-largeur_etage);
-		
-		glEnd() ;
-
-		//mur 1
-		glBindTexture(GL_TEXTURE_2D, coco3);		
-		glBegin(GL_QUADS);
-		glColor3ub(223,223,223);
-
-		glTexCoord2d(5,2); glVertex3d(-longueur_etage,0,-largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(-longueur_etage,0,largeur_etage);
-		glTexCoord2d(2,5); glVertex3d(-longueur_etage,hauteur_etage,largeur_etage);
-		glTexCoord2d(5,5); glVertex3d(-longueur_etage,hauteur_etage,-largeur_etage);
-		
-		glEnd() ;
-
-		//mur 2
-		glBindTexture(GL_TEXTURE_2D, coco3);		
-		glBegin(GL_QUADS);
-
-		glTexCoord2d(5,2); glVertex3d(longueur_etage,0,-largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(longueur_etage,0,largeur_etage);
-		glTexCoord2d(2,5); glVertex3d(longueur_etage,hauteur_etage,largeur_etage);
-		glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,-largeur_etage);
-
-		glEnd() ;
-
-
-		//mur 3
-		glBindTexture(GL_TEXTURE_2D, coco3);		
-		glBegin(GL_QUADS);
-
-		glTexCoord2d(5,2); glVertex3d(longueur_etage,0,-largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(-longueur_etage,0,-largeur_etage);
-		glTexCoord2d(2,5); glVertex3d(-longueur_etage,hauteur_etage,-largeur_etage);
-		glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,-largeur_etage);
-		
-		glEnd() ;
-
-		// mur 4
-		glBindTexture(GL_TEXTURE_2D, coco3);		
-		glBegin(GL_QUADS);
-
-		glTexCoord2d(5,2); glVertex3d(longueur_etage,0,largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(-longueur_etage,0,largeur_etage);
-		glTexCoord2d(2,5); glVertex3d(-longueur_etage,hauteur_etage,largeur_etage);
-		glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,largeur_etage);
-		
-		glEnd() ;
-
-		// escalier ascenseur
-		/////////////////////////////////////////////////////////
-		
-		//mur de gauche
-		glBindTexture(GL_TEXTURE_2D, coco3);		
-		glBegin(GL_QUADS);
-		glColor3ub(223,223,223);
-
-		glTexCoord2d(5,2); glVertex3d(60,0,45);
-		glTexCoord2d(2,2); glVertex3d(7,0,45);
-		glTexCoord2d(2,5); glVertex3d(7,hauteur_etage,45);
-		glTexCoord2d(5,5); glVertex3d(60,hauteur_etage,45);
-
-		glEnd() ;
-
-		//mur de droite
-		glBindTexture(GL_TEXTURE_2D, coco3);		
-		glBegin(GL_QUADS);
-
-		glTexCoord2d(5,2); glVertex3d(-60,0,45);
-		glTexCoord2d(2,2); glVertex3d(-7,0,45);
-		glTexCoord2d(2,5); glVertex3d(-7,hauteur_etage,45);
-		glTexCoord2d(5,5); glVertex3d(-60,hauteur_etage,45);
-
-		glEnd() ;
-
-		//mur vertical gauche
-		glBindTexture(GL_TEXTURE_2D, 0);		
-		glBegin(GL_QUADS);
-
-		glTexCoord2d(5,2); glVertex3d(7,0,45);
-		glTexCoord2d(2,2); glVertex3d(7,0,60);
-		glTexCoord2d(2,5); glVertex3d(7,hauteur_etage,60);
-		glTexCoord2d(5,5); glVertex3d(7,hauteur_etage,45);
-
-		glEnd() ;
-
-		//mur vertical droit
-		glBindTexture(GL_TEXTURE_2D, 0);		
-		glBegin(GL_QUADS);
-
-		glTexCoord2d(5,2); glVertex3d(-7,0,45);
-		glTexCoord2d(2,2); glVertex3d(-7,0,60);
-		glTexCoord2d(2,5); glVertex3d(-7,hauteur_etage,60);
-		glTexCoord2d(5,5); glVertex3d(-7,hauteur_etage,45);
-
-		glEnd() ;
-
-		//porte ascenseur
-		glBindTexture(GL_TEXTURE_2D, ascenseur);		
-		glBegin(GL_QUADS);
-
-		glTexCoord2d(1,0); glVertex3d(-7,0,45);
-		glTexCoord2d(0,0); glVertex3d(7,0,45);
-		glTexCoord2d(0,1); glVertex3d(7,hauteur_etage,45);
-		glTexCoord2d(1,1); glVertex3d(-7,hauteur_etage,45);
-
-		glEnd() ;
 		///////////////////////////////////////////
 
 		// Affichage (en double buffering)
