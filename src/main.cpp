@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
 	int sol = loadTexture("textures/carrelage1.jpg");
 	int mur1 = loadTexture("textures/mur1.jpg");
 	int ascenseur = loadTexture("textures/test.jpg");
+	int sol2 = loadTexture("textures/sol_cave.jpg");
+	int mur2 = loadTexture("textures/wall.jpg");
 	int plafond = loadTexture("textures/plafond1.jpg");
 	int pilier = loadTexture("textures/pilier1.jpg");
 
@@ -99,20 +101,18 @@ int main(int argc, char *argv[])
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		
-		// On dessine ici ce qu'on veut
-		
-		// glTranslated(x,1,z);
-		gluLookAt(5,hauteur_vue,-7,15,0,15,0,1,0);
+		gluLookAt(10,hauteur_vue,10,50,0,60,0,1,0);
 		glRotated(angle,0,1,0);
+		glTranslated(x,1,z);
+	
 			
-		GLUquadricObj *
-		quad1 = gluNewQuadric();
+		GLUquadricObj *quad1 = gluNewQuadric();
 
-		// Caisse * c = new Caisse(10,0,10,2);
-		// c->draw(quad1,coco4);
-
-		Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1);
+		Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1,0);
 		rez_de_chaussee->draw(ascenseur);
+
+		Etage *cave = new Etage(longueur_etage,-1,largeur_etage,plafond,sol2,mur2,-20);
+		cave->draw(mur2);
 
 		//piliers
 		Barril * p1 = new Barril(-20,0,-40);
@@ -132,14 +132,47 @@ int main(int argc, char *argv[])
 		Barril * p8 = new Barril(20,0,20);
 		p8->draw(quad1,pilier);		
 
+	 int i = 0;
+	 int a = 60;
+	 int b = 0;
+	 int c = 50;
 
-		///////////////////////////////////////////
+	while (b > -20)
+	{
+				glBegin(GL_QUADS);		
+				glColor3ub(168,163,165);
+
+				glVertex3d(a,b,c);
+				glVertex3d(a,b,c+10);
+				glVertex3d(a,b-1,c+10);
+				glVertex3d(a,b-1,c);
+				
+				glEnd() ;
+
+				glBegin(GL_QUADS);		
+				glColor3ub(255,0,0);
+
+				glVertex3d(a,b-1,c);
+				glVertex3d(a,b-1,c+10);
+				glVertex3d(a-2,b-1,c+10);
+				glVertex3d(a-2,b-1,c);
+
+				glEnd() ;
+				i++;
+				b = b - 1;
+				a = a - 2;
+	}
+
+
+
 
 		// Affichage (en double buffering)
 		glFlush();
 		SDL_GL_SwapBuffers();
 
 	}
+
+
 	// Fin du programme
 	SDL_Quit();
 	return 0;

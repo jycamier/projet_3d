@@ -11,6 +11,7 @@ class Etage {
 
         int longueur_etage;
         int hauteur_etage;
+        int base;
         int largeur_etage;
         int texture_plafond;
         int texture_murs;
@@ -20,7 +21,7 @@ class Etage {
     public :
         Etage () ; // Non implémenté donc inutilisable
         Etage (const Etage &); // Constructeur de copie, non implémenté donc interdit
-        Etage (int, int, int, int, int, int);
+        Etage (int, int, int, int, int, int, int);
         void draw(int);
         ~Etage(); // Destructeur
 };

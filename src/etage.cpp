@@ -2,7 +2,7 @@
 #include <GL/glu.h>
 #include "etage.h"
 
-Etage::Etage(int x, int y, int z, int plafond, int sol, int murs)
+Etage::Etage(int x, int y, int z, int plafond, int sol, int murs, int base_etage)
 {
 	this->longueur_etage = x;
 	this->hauteur_etage = y;
@@ -10,25 +10,26 @@ Etage::Etage(int x, int y, int z, int plafond, int sol, int murs)
 	this->texture_plafond = plafond;
 	this->texture_murs = murs;
 	this->texture_sol = sol;
+	this->base = base_etage;
 
 }
 
 void Etage::draw(int texture_ascenseur)
 {
-	//plate-forme
-	glBindTexture(GL_TEXTURE_2D, texture_sol);
+		//plate-forme
+		glBindTexture(GL_TEXTURE_2D, texture_sol);
 
-	glBegin(GL_QUADS);		
-	glColor3ub(168,163,165);
+		glBegin(GL_QUADS);		
+		glColor3ub(168,163,165);
 
-	glTexCoord2d(20,10); glVertex3d(-longueur_etage,0,-largeur_etage);
-	glTexCoord2d(10,10); glVertex3d(-longueur_etage,0,largeur_etage);
-	glTexCoord2d(10,20); glVertex3d(longueur_etage,0,largeur_etage);
-	glTexCoord2d(20,20); glVertex3d(longueur_etage,0,-largeur_etage);
-		
-	glEnd() ;
+		glTexCoord2d(20,10); glVertex3d(-longueur_etage,base,-largeur_etage);
+		glTexCoord2d(10,10); glVertex3d(-longueur_etage,base,largeur_etage);
+		glTexCoord2d(10,20); glVertex3d(longueur_etage,base,largeur_etage);
+		glTexCoord2d(20,20); glVertex3d(longueur_etage,base,-largeur_etage);
+			
+		glEnd() ;
 
-	//plafond
+		//plafond
 		glBindTexture(GL_TEXTURE_2D, texture_plafond);
 
 		glBegin(GL_QUADS);		
@@ -46,8 +47,8 @@ void Etage::draw(int texture_ascenseur)
 		glBegin(GL_QUADS);
 		glColor3ub(223,223,223);
 
-		glTexCoord2d(5,2); glVertex3d(-longueur_etage,0,-largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(-longueur_etage,0,largeur_etage);
+		glTexCoord2d(5,2); glVertex3d(-longueur_etage,base,-largeur_etage);
+		glTexCoord2d(2,2); glVertex3d(-longueur_etage,base,largeur_etage);
 		glTexCoord2d(2,5); glVertex3d(-longueur_etage,hauteur_etage,largeur_etage);
 		glTexCoord2d(5,5); glVertex3d(-longueur_etage,hauteur_etage,-largeur_etage);
 		
@@ -57,8 +58,8 @@ void Etage::draw(int texture_ascenseur)
 		glBindTexture(GL_TEXTURE_2D, texture_murs);		
 		glBegin(GL_QUADS);
 
-		glTexCoord2d(5,2); glVertex3d(longueur_etage,0,-largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(longueur_etage,0,largeur_etage);
+		glTexCoord2d(5,2); glVertex3d(longueur_etage,base,-largeur_etage);
+		glTexCoord2d(2,2); glVertex3d(longueur_etage,base,largeur_etage);
 		glTexCoord2d(2,5); glVertex3d(longueur_etage,hauteur_etage,largeur_etage);
 		glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,-largeur_etage);
 
@@ -69,8 +70,8 @@ void Etage::draw(int texture_ascenseur)
 		glBindTexture(GL_TEXTURE_2D, texture_murs);		
 		glBegin(GL_QUADS);
 
-		glTexCoord2d(5,2); glVertex3d(longueur_etage,0,-largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(-longueur_etage,0,-largeur_etage);
+		glTexCoord2d(5,2); glVertex3d(longueur_etage,base,-largeur_etage);
+		glTexCoord2d(2,2); glVertex3d(-longueur_etage,base,-largeur_etage);
 		glTexCoord2d(2,5); glVertex3d(-longueur_etage,hauteur_etage,-largeur_etage);
 		glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,-largeur_etage);
 		
@@ -80,8 +81,8 @@ void Etage::draw(int texture_ascenseur)
 		glBindTexture(GL_TEXTURE_2D, texture_murs);		
 		glBegin(GL_QUADS);
 
-		glTexCoord2d(5,2); glVertex3d(longueur_etage,0,largeur_etage);
-		glTexCoord2d(2,2); glVertex3d(-longueur_etage,0,largeur_etage);
+		glTexCoord2d(5,2); glVertex3d(longueur_etage,base,largeur_etage);
+		glTexCoord2d(2,2); glVertex3d(-longueur_etage,base,largeur_etage);
 		glTexCoord2d(2,5); glVertex3d(-longueur_etage,hauteur_etage,largeur_etage);
 		glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,largeur_etage);
 		
@@ -90,15 +91,26 @@ void Etage::draw(int texture_ascenseur)
 		// escalier ascenseur
 		/////////////////////////////////////////////////////////
 		
-		//mur de gauche
+		// mur de gauche
 		glBindTexture(GL_TEXTURE_2D, texture_murs);		
 		glBegin(GL_QUADS);
 		glColor3ub(223,223,223);
 
-		glTexCoord2d(5,2); glVertex3d(60,0,45);
-		glTexCoord2d(2,2); glVertex3d(7,0,45);
-		glTexCoord2d(2,5); glVertex3d(7,hauteur_etage,45);
+		glTexCoord2d(5,2); glVertex3d(60,base,45);
+		glTexCoord2d(2,2); glVertex3d(50,base,45);
+		glTexCoord2d(2,5); glVertex3d(50,hauteur_etage,45);
 		glTexCoord2d(5,5); glVertex3d(60,hauteur_etage,45);
+
+		glEnd() ;
+
+		glBindTexture(GL_TEXTURE_2D, texture_murs);		
+		glBegin(GL_QUADS);
+		glColor3ub(223,223,223);
+
+		glTexCoord2d(5,2); glVertex3d(40,base,45);
+		glTexCoord2d(2,2); glVertex3d(7,base,45);
+		glTexCoord2d(2,5); glVertex3d(7,hauteur_etage,45);
+		glTexCoord2d(5,5); glVertex3d(40,hauteur_etage,45);
 
 		glEnd() ;
 
@@ -106,10 +118,20 @@ void Etage::draw(int texture_ascenseur)
 		glBindTexture(GL_TEXTURE_2D, texture_murs);		
 		glBegin(GL_QUADS);
 
-		glTexCoord2d(5,2); glVertex3d(-60,0,45);
-		glTexCoord2d(2,2); glVertex3d(-7,0,45);
-		glTexCoord2d(2,5); glVertex3d(-7,hauteur_etage,45);
+		glTexCoord2d(5,2); glVertex3d(-60,base,45);
+		glTexCoord2d(2,2); glVertex3d(-50,base,45);
+		glTexCoord2d(2,5); glVertex3d(-50,hauteur_etage,45);
 		glTexCoord2d(5,5); glVertex3d(-60,hauteur_etage,45);
+
+		glEnd() ;
+
+		glBindTexture(GL_TEXTURE_2D, texture_murs);		
+		glBegin(GL_QUADS);
+
+		glTexCoord2d(5,2); glVertex3d(-40,base,45);
+		glTexCoord2d(2,2); glVertex3d(-7,base,45);
+		glTexCoord2d(2,5); glVertex3d(-7,hauteur_etage,45);
+		glTexCoord2d(5,5); glVertex3d(-40,hauteur_etage,45);
 
 		glEnd() ;
 
@@ -117,8 +139,8 @@ void Etage::draw(int texture_ascenseur)
 		glBindTexture(GL_TEXTURE_2D, texture_murs);		
 		glBegin(GL_QUADS);
 
-		glTexCoord2d(5,2); glVertex3d(7,0,45);
-		glTexCoord2d(2,2); glVertex3d(7,0,60);
+		glTexCoord2d(5,2); glVertex3d(7,base,45);
+		glTexCoord2d(2,2); glVertex3d(7,base,60);
 		glTexCoord2d(2,5); glVertex3d(7,hauteur_etage,60);
 		glTexCoord2d(5,5); glVertex3d(7,hauteur_etage,45);
 
@@ -128,8 +150,8 @@ void Etage::draw(int texture_ascenseur)
 		glBindTexture(GL_TEXTURE_2D, texture_murs);		
 		glBegin(GL_QUADS);
 
-		glTexCoord2d(5,2); glVertex3d(-7,0,45);
-		glTexCoord2d(2,2); glVertex3d(-7,0,60);
+		glTexCoord2d(5,2); glVertex3d(-7,base,45);
+		glTexCoord2d(2,2); glVertex3d(-7,base,60);
 		glTexCoord2d(2,5); glVertex3d(-7,hauteur_etage,60);
 		glTexCoord2d(5,5); glVertex3d(-7,hauteur_etage,45);
 
@@ -139,8 +161,8 @@ void Etage::draw(int texture_ascenseur)
 		glBindTexture(GL_TEXTURE_2D, texture_ascenseur);		
 		glBegin(GL_QUADS);
 
-		glTexCoord2d(1,0); glVertex3d(-7,0,45);
-		glTexCoord2d(0,0); glVertex3d(7,0,45);
+		glTexCoord2d(1,0); glVertex3d(-7,base,45);
+		glTexCoord2d(0,0); glVertex3d(7,base,45);
 		glTexCoord2d(0,1); glVertex3d(7,hauteur_etage,45);
 		glTexCoord2d(1,1); glVertex3d(-7,hauteur_etage,45);
 
