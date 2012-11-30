@@ -25,9 +25,9 @@ void Etage::draw(int texture_ascenseur)
 	glTexCoord2d(20,10); glVertex3d(-longueur_etage,base,-largeur_etage);
 	glTexCoord2d(10,10); glVertex3d(-longueur_etage,base,largeur_etage);
 	glTexCoord2d(10,20); glVertex3d(longueur_etage,base,largeur_etage);
-	glTexCoord2d(20,20); glVertex3d(longueur_etage,base,-largeur_etage);
-		
+	glTexCoord2d(20,20); glVertex3d(longueur_etage,base,-largeur_etage);	
 	glEnd() ;
+
 
 	//plafond
 	glBindTexture(GL_TEXTURE_2D, texture_plafond);
