@@ -15,8 +15,7 @@ class Etage {
         int largeur_etage;
         int texture_plafond;
         int texture_murs;
-        int texture_sol;
-       
+        int texture_sol;       
 
     public :
         Etage () ; // Non implémenté donc inutilisable
