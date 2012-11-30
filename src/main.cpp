@@ -18,40 +18,50 @@ int main(int argc, char *argv[])
 {
 // Initialisation de SDL
 	SDL_Init(SDL_INIT_VIDEO);
+
 // Création de la surface d'affichage qui est en OpenGL
-// (changez le titre si besoin)
+
 	SDL_WM_SetCaption("Un bel entrepot",NULL);
 	SDL_Surface* ecran = SDL_SetVideoMode(LARGEUR, HAUTEUR, 32, SDL_OPENGL);
+
 // Initialisation de l'affichage OpenGL
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity( );
 	gluPerspective (70, (double)LARGEUR/HAUTEUR, 1, 100);
 	SDL_Flip(ecran);
-	// Boucle d'évènements
+
 	bool continuer = true;
 	SDL_Event event;
 	SDL_EnableKeyRepeat(10,10); // Activation de la répétition de touches
 	int hauteur_vue = 10;
 
-	Uint32 last_time = SDL_GetTicks(); // heure actuelle, derniere mise à jour
-	Uint32 current_time;
+	//variables pour le calcul des images par secondes
+	Uint32 last_time = SDL_GetTicks(); // derniere mise à jour
+	Uint32 current_time;//heure actuelle,
 
 	glEnable(GL_TEXTURE_2D);
+
+	//chargement des textures
 	int sol = loadTexture("textures/carrelage1.jpg");
+	int coco2 = loadTexture("textures/barril1.jpg");
 	int mur1 = loadTexture("textures/mur1.jpg");
+	int coco4 = loadTexture("textures/crate2.jpg");
 	int ascenseur = loadTexture("textures/test.jpg");
 	int plafond = loadTexture("textures/plafond1.jpg");
 	int pilier = loadTexture("textures/pilier1.jpg");
 
+	//variables de déplacement de la caméra
 	int angle = 35;
 	int pas = 1;
-
-	int longueur_etage = 80;
-	int largeur_etage = 80;
+	double x = 0;
+	double z = 0;
+	
+	// paramètre de l'étage
+	int longueur_etage = 60;
+	int largeur_etage = 60;
 	int hauteur_etage = 20;
 
-	double x;
-	double z;
+	//création d'un étage
 	Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1,0);
 	Etage *cave = new Etage(longueur_etage,-1,largeur_etage,plafond,sol2,mur2,-20);
 	Barril * p1 = new Barril(-20,0,-40);
@@ -83,25 +93,26 @@ int main(int argc, char *argv[])
 						angle--;
 						break;
 					case SDLK_UP:
-						// x = x + pas * sin((angle * 2 * M_PI)/180) ;
-						// z = z + pas * cos ((angle * 2 * M_PI)/180);
-						hauteur_vue++;
+						x = x - pas * sin((angle * 2 * M_PI)/360) ;
+						z = z + pas * cos ((angle * 2 * M_PI)/360);
+						// hauteur_vue++;
 						break;
 					case SDLK_DOWN:
-						// x = x - pas * sin((angle * 2 * M_PI)/180) ;
-						// z = z - pas * cos ((angle * 2 * M_PI)/180);
-						hauteur_vue--;
+						x = x + pas * sin((angle * 2 * M_PI)/360) ;
+						z = z - pas * cos ((angle * 2 * M_PI)/360);
+						// hauteur_vue--;
 						break;
 					}
-		}
-
-			current_time = SDL_GetTicks();
-			while (current_time - last_time < (1000/FRAMES_PER_SECOND)) {
-				// On se met en pause le temps voulu
-				SDL_Delay(1000/FRAMES_PER_SECOND - (current_time - last_time));
-				current_time = SDL_GetTicks();
 			}
-			last_time = SDL_GetTicks();
+
+		//gestion images par secondes
+		current_time = SDL_GetTicks();
+		while (current_time - last_time < (1000/FRAMES_PER_SECOND)) {
+			// On se met en pause le temps voulu
+			SDL_Delay(1000/FRAMES_PER_SECOND - (current_time - last_time));
+			current_time = SDL_GetTicks();
+		}
+		last_time = SDL_GetTicks();
 
 		glEnable(GL_DEPTH_TEST);
 		glClearColor(0.6, 0.6, 0.6, 1);
@@ -110,13 +121,20 @@ int main(int argc, char *argv[])
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		
-		// On dessine ici ce qu'on veut
-		
-		// glTranslated(x,1,z);
-		gluLookAt(5,hauteur_vue,-7,15,0,15,0,1,0);
 		glRotated(angle,0,1,0);
+		gluLookAt(x,1,z,x,1,z+1,0,1,0);
 
-		glTranslated(x,1,z);
+		glBegin(GL_LINES);
+		glColor3ub(255,0,0);
+		glVertex3d(10,0,0);
+		glVertex3d(10,0,20);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glColor3ub(0,255,0);
+		glVertex3d(0,0,0);
+		glVertex3d(10,0,0);
+		glEnd();
 	
 		rez_de_chaussee->draw(ascenseur);
 		cave->draw(mur2);
@@ -163,8 +181,6 @@ int main(int argc, char *argv[])
 			a = a - 2;
 		}
 
-
-		///////////////////////////////////////////
 		// Affichage (en double buffering)
 		glFlush();
 		SDL_GL_SwapBuffers();
