@@ -85,26 +85,26 @@ int main(int argc, char *argv[])
 				case SDL_QUIT: // fin
 				continuer = false;
 				break;
-				case SDL_KEYDOWN:
-					switch( event.key.keysym.sym)
-					{
-					case SDLK_RIGHT:
-						angle++;
-						break;
-					case SDLK_LEFT:
-						angle--;
-						break;
-					case SDLK_UP:
-						x = x - pas * sin((angle * 2 * M_PI)/360) ;
-						z = z + pas * cos ((angle * 2 * M_PI)/360);
-						// hauteur_vue++;
-						break;
-					case SDLK_DOWN:
-						x = x + pas * sin((angle * 2 * M_PI)/360) ;
-						z = z - pas * cos ((angle * 2 * M_PI)/360);
-						// hauteur_vue--;
-						break;
-					}
+			}
+
+			// Gestion du clavier
+			// Récupération du keystates
+			Uint8 *keystates = SDL_GetKeyState( NULL );
+			// Actions liées
+			if (keystates[SDLK_RIGHT]) {angle++;;}
+		
+			if (keystates[SDLK_LEFT]) {angle--;}
+		
+			if (keystates[SDLK_UP]) 
+			{
+				x = x - pas * sin((angle * 2 * M_PI)/360) ;
+				z = z + pas * cos ((angle * 2 * M_PI)/360);
+			}
+		
+			if (keystates[SDLK_DOWN]) 
+			{
+				x = x + pas * sin((angle * 2 * M_PI)/360) ;
+				z = z - pas * cos ((angle * 2 * M_PI)/360);
 			}
 
 		//gestion images par secondes
@@ -114,6 +114,9 @@ int main(int argc, char *argv[])
 			SDL_Delay(1000/FRAMES_PER_SECOND - (current_time - last_time));
 			current_time = SDL_GetTicks();
 		}
+
+
+
 		last_time = SDL_GetTicks();
 
 		glEnable(GL_DEPTH_TEST);
