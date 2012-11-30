@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
 	int coco2 = loadTexture("textures/barril1.jpg");
 	int mur1 = loadTexture("textures/mur1.jpg");
 	int coco4 = loadTexture("textures/crate2.jpg");
+	int sol2 = loadTexture("textures/sol_cave.jpg");
+	int mur2 = loadTexture("textures/wall.jpg");
 	int ascenseur = loadTexture("textures/test.jpg");
 	int plafond = loadTexture("textures/plafond1.jpg");
 	int pilier = loadTexture("textures/pilier1.jpg");
