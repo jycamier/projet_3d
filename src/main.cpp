@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 // Initialisation de l'affichage OpenGL
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity( );
-	gluPerspective (70, (double)LARGEUR/HAUTEUR, 1, 100);
+	gluPerspective (70, (double)LARGEUR/HAUTEUR, 1, 120);
 	SDL_Flip(ecran);
 
 	bool continuer = true;
@@ -59,8 +59,8 @@ int main(int argc, char *argv[])
 	double z = 0;
 	
 	// paramètre de l'étage
-	int longueur_etage = 60;
-	int largeur_etage = 60;
+	int longueur_etage = 80;
+	int largeur_etage = 80;
 	int hauteur_etage = 20;
 
 	//création d'un étage
@@ -78,34 +78,32 @@ int main(int argc, char *argv[])
 
 	while (continuer)
 	{
-			SDL_PollEvent(&event);
+		SDL_PollEvent(&event);
 		// Selon le type d'evt, on choisi quoi faire
-			switch(event.type)
-			{
-				case SDL_QUIT: // fin
-				continuer = false;
-				break;
-			}
+		switch(event.type)
+		{
+			case SDL_QUIT: // fin
+			continuer = false;
+			break;
+		}
 
-			// Gestion du clavier
-			// Récupération du keystates
-			Uint8 *keystates = SDL_GetKeyState( NULL );
-			// Actions liées
-			if (keystates[SDLK_RIGHT]) {angle++;;}
-		
-			if (keystates[SDLK_LEFT]) {angle--;}
-		
-			if (keystates[SDLK_UP]) 
-			{
-				x = x - pas * sin((angle * 2 * M_PI)/360) ;
-				z = z + pas * cos ((angle * 2 * M_PI)/360);
-			}
-		
-			if (keystates[SDLK_DOWN]) 
-			{
-				x = x + pas * sin((angle * 2 * M_PI)/360) ;
-				z = z - pas * cos ((angle * 2 * M_PI)/360);
-			}
+		// Gestion du clavier
+		// Récupération du keystates
+		Uint8 *keystates = SDL_GetKeyState( NULL );
+
+		// Actions liées
+		if (keystates[SDLK_RIGHT]) {angle = angle + 2;}
+		if (keystates[SDLK_LEFT]) {angle = angle - 2;}
+		if (keystates[SDLK_UP]) 
+		{
+			x = x - pas * sin((angle * 2 * M_PI)/360) ;
+			z = z + pas * cos ((angle * 2 * M_PI)/360);
+		}
+		if (keystates[SDLK_DOWN]) 
+		{
+			x = x + pas * sin((angle * 2 * M_PI)/360) ;
+			z = z - pas * cos ((angle * 2 * M_PI)/360);
+		}
 
 		//gestion images par secondes
 		current_time = SDL_GetTicks();
@@ -114,8 +112,6 @@ int main(int argc, char *argv[])
 			SDL_Delay(1000/FRAMES_PER_SECOND - (current_time - last_time));
 			current_time = SDL_GetTicks();
 		}
-
-
 
 		last_time = SDL_GetTicks();
 
@@ -127,19 +123,30 @@ int main(int argc, char *argv[])
 		glLoadIdentity();
 		
 		glRotated(angle,0,1,0);
-		gluLookAt(x,1,z,x,1,z+1,0,1,0);
+		gluLookAt(x,2,z,x,2,z+1,0,1,0);
 
-		glBegin(GL_LINES);
-		glColor3ub(255,0,0);
-		glVertex3d(10,0,0);
-		glVertex3d(10,0,20);
+		//repère
+		///////////////////////////////////////////////////////////////
+		//axe des z en jaune
+		glBegin(GL_QUADS);
+		glColor3ub(255,255,0);
+		glVertex3d(10,0.5,0);
+		glVertex3d(12,0.5,0);
+		glVertex3d(12,0.5,20);
+		glVertex3d(10,0.5,20);
+		
 		glEnd();
 
-		glBegin(GL_LINES);
-		glColor3ub(0,255,0);
-		glVertex3d(0,0,0);
-		glVertex3d(10,0,0);
+		//axe des x en violet
+		glBegin(GL_QUADS);
+		glColor3ub(255,0,255);
+		glVertex3d(0,0.5,0);
+		glVertex3d(10,0.5,0);
+		glVertex3d(10,0.5,2);
+		glVertex3d(0,0.5,2);
 		glEnd();
+		///////////////////////////////////////////////////////////////
+
 	
 		rez_de_chaussee->draw(ascenseur);
 		cave->draw(mur2);
@@ -161,36 +168,33 @@ int main(int argc, char *argv[])
 
 		while (b > -20)
 		{
-					glBegin(GL_QUADS);		
-					glColor3ub(168,163,165);
+			glBegin(GL_QUADS);		
+			glColor3ub(168,163,165);
 
-					glVertex3d(a,b,c);
-					glVertex3d(a,b,c+10);
-					glVertex3d(a,b-1,c+10);
-					glVertex3d(a,b-1,c);
+			glVertex3d(a,b,c);
+			glVertex3d(a,b,c+10);
+			glVertex3d(a,b-1,c+10);
+			glVertex3d(a,b-1,c);
 					
-					glEnd() ;
+			glEnd() ;
 
-					glBegin(GL_QUADS);		
-					glColor3ub(255,0,0);
+			glBegin(GL_QUADS);		
+			glColor3ub(255,0,0);
 
-					glVertex3d(a,b-1,c);
-					glVertex3d(a,b-1,c+10);
-					glVertex3d(a-2,b-1,c+10);
-					glVertex3d(a-2,b-1,c);
+			glVertex3d(a,b-1,c);
+			glVertex3d(a,b-1,c+10);
+			glVertex3d(a-2,b-1,c+10);
+			glVertex3d(a-2,b-1,c);
 
-					glEnd() ;
-					i++;
-					b = b - 1;
-					a = a - 2;
+			glEnd() ;
+			i++;
+			b = b - 1;
+			a = a - 2;
 		}
 
-
-
-
-			// Affichage (en double buffering)
-			glFlush();
-			SDL_GL_SwapBuffers();
+		// Affichage (en double buffering)
+		glFlush();
+		SDL_GL_SwapBuffers();
 
 	}
 
