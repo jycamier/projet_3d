@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 // Initialisation de l'affichage OpenGL
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity( );
-	gluPerspective (70, (double)LARGEUR/HAUTEUR, 1, 120);
+	gluPerspective (70, (double)LARGEUR/HAUTEUR, 1, 200);
 	SDL_Flip(ecran);
 
 	bool continuer = true;
@@ -43,9 +43,7 @@ int main(int argc, char *argv[])
 
 	//chargement des textures
 	int sol = loadTexture("textures/carrelage1.jpg");
-	int coco2 = loadTexture("textures/barril1.jpg");
 	int mur1 = loadTexture("textures/mur1.jpg");
-	int coco4 = loadTexture("textures/crate2.jpg");
 	int ascenseur = loadTexture("textures/test.jpg");
 	int sol2 = loadTexture("textures/sol_cave.jpg");
 	int mur2 = loadTexture("textures/wall.jpg");
@@ -61,7 +59,7 @@ int main(int argc, char *argv[])
 	// paramètre de l'étage
 	int longueur_etage = 80;
 	int largeur_etage = 80;
-	int hauteur_etage = 20;
+	int hauteur_etage = 15;
 
 	//création d'un étage
 	Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1,0);
@@ -92,8 +90,8 @@ int main(int argc, char *argv[])
 		Uint8 *keystates = SDL_GetKeyState( NULL );
 
 		// Actions liées
-		if (keystates[SDLK_RIGHT]) {angle = angle + 2;}
-		if (keystates[SDLK_LEFT]) {angle = angle - 2;}
+		if (keystates[SDLK_RIGHT]) {angle = angle + 3;}
+		if (keystates[SDLK_LEFT]) {angle = angle - 3;}
 		if (keystates[SDLK_UP]) 
 		{
 			x = x - pas * sin((angle * 2 * M_PI)/360) ;
@@ -162,9 +160,40 @@ int main(int argc, char *argv[])
 		p8->draw(quad1,pilier);		
 
 		int i = 0;
-		int a = 60;
+		int a = 70;
 		int b = 0;
-		int c = 50;
+		int c = 70;
+
+		glBindTexture(GL_TEXTURE_2D, sol);
+		glBegin(GL_QUADS);		
+		glColor3ub(223,223,223);
+
+		glVertex3d(80,0,80);
+		glVertex3d(70,0,80);
+		glVertex3d(70,0,55);
+		glVertex3d(80,0,55);
+					
+		glEnd() ;
+
+		glBegin(GL_QUADS);		
+		glColor3ub(223,223,223);
+
+		glVertex3d(70,0,70);
+		glVertex3d(27,0,70);
+		glVertex3d(27,0,55);
+		glVertex3d(70,0,55);
+					
+		glEnd() ;
+
+		glBegin(GL_QUADS);		
+		glColor3ub(223,223,223);
+
+		glVertex3d(37,0,80);
+		glVertex3d(27,0,80);
+		glVertex3d(27,0,70);
+		glVertex3d(37,0,70);
+					
+		glEnd() ;
 
 		while (b > -20)
 		{
@@ -190,6 +219,38 @@ int main(int argc, char *argv[])
 			i++;
 			b = b - 1;
 			a = a - 2;
+		}
+		
+		i = 0;
+		a =37;
+		b = 0;
+		c = 80;
+
+		while (b < 20)
+		{
+			glBegin(GL_QUADS);		
+			glColor3ub(168,163,165);
+
+			glVertex3d(a,b,c);
+			glVertex3d(a,b,c-10);
+			glVertex3d(a,b+1,c-10);
+			glVertex3d(a,b+1,c);
+					
+			glEnd() ;
+
+			glBegin(GL_QUADS);		
+			glColor3ub(255,0,0);
+
+			glVertex3d(a,b+1,c);
+			glVertex3d(a,b+1,c-10);
+			glVertex3d(a+2,b+1,c-10);
+			glVertex3d(a+2,b+1,c);
+
+			glEnd() ;
+			i++;
+
+			b = b + 1;
+			a = a + 2;
 		}
 
 		// Affichage (en double buffering)
