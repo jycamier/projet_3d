@@ -22,12 +22,12 @@ public:
 	Personnage(double x, double y, double z, int angle);
 	virtual ~Personnage();
 
-	void Avancer();
-	void Reculer();
-	void TournerGauche();
-	void TournerDroite();
+	void avancer();
+	void reculer();
+	void tournerGauche();
+	void tournerDroite();
 
-	void UpdateCamera();
+	void updateCamera();
 
 	int getAngle() const {
 		return angle;

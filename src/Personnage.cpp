@@ -24,22 +24,22 @@ Personnage::~Personnage() {
 	// TODO Auto-generated destructor stub
 }
 
-void Personnage::Avancer() {
+void Personnage::avancer() {
 	x = x - pas * sin((angle * 2 * M_PI) / 360);
 	z = z + pas * cos((angle * 2 * M_PI) / 360);
 }
-void Personnage::Reculer() {
+void Personnage::reculer() {
 	x = x + pas * sin((angle * 2 * M_PI) / 360);
 	z = z - pas * cos((angle * 2 * M_PI) / 360);
 }
-void Personnage::TournerGauche() {
+void Personnage::tournerGauche() {
 	angle = angle - 3;
 }
-void Personnage::TournerDroite() {
+void Personnage::tournerDroite() {
 	angle = angle + 3;
 }
 
-void Personnage::UpdateCamera() {
+void Personnage::updateCamera() {
 	glRotated(angle, 0, 1, 0);
 	gluLookAt(x, y + 2, z, x, y + 2, z + 1, 0, 1, 0);
 }

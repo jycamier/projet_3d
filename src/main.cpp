@@ -95,16 +95,16 @@ int main(int argc, char *argv[]) {
 
 		// Actions liées
 		if (keystates[SDLK_RIGHT]) {
-			personnage_jeu->TournerDroite();
+			personnage_jeu->tournerDroite();
 		}
 		if (keystates[SDLK_LEFT]) {
-			personnage_jeu->TournerGauche();
+			personnage_jeu->tournerGauche();
 		}
 		if (keystates[SDLK_UP]) {
-			personnage_jeu->Avancer();
+			personnage_jeu->avancer();
 		}
 		if (keystates[SDLK_DOWN]) {
-			personnage_jeu->Reculer();
+			personnage_jeu->reculer();
 		}
 
 		//gestion images par secondes
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
 		glLoadIdentity();
 
 		//Mise à jour de la camera du personnage
-		personnage_jeu->UpdateCamera();
+		personnage_jeu->updateCamera();
 
 		//repère
 		///////////////////////////////////////////////////////////////
