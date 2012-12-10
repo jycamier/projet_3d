@@ -6,7 +6,7 @@
 #include "barril.h"
 #include "caisse.h"
 #include "etage.h"
-
+#include "elements_decor/fountain.h"
 
 // Taille de la fenêtre
 #define LARGEUR 800
@@ -40,6 +40,14 @@ int main(int argc, char *argv[])
 	Uint32 current_time;//heure actuelle,
 
 	glEnable(GL_TEXTURE_2D);
+
+	// TESTS ELEMENTS
+
+	Fountain *fountain = new Fountain(1.0, 1.0, 1.0);
+	fountain->draw();
+
+	// END
+
 
 	//chargement des textures
 	int sol = loadTexture("textures/carrelage1.jpg");
