@@ -43,8 +43,8 @@ int main(int argc, char *argv[])
 
 	// TESTS ELEMENTS
 
-	Fountain *fountain = new Fountain(10.0, 1.0, 10.0);
-	fountain->draw();
+	Fountain *fountain = new Fountain(10.0, 3.0, 10.0);
+	
 
 	// END
 
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 			SDL_Delay(1000/FRAMES_PER_SECOND - (current_time - last_time));
 			current_time = SDL_GetTicks();
 		}
-
+		
 		last_time = SDL_GetTicks();
 
 		glEnable(GL_DEPTH_TEST);
@@ -204,6 +204,10 @@ int main(int argc, char *argv[])
 		glVertex3d(37,0,70);
 					
 		glEnd() ;
+		
+		
+		fountain->draw();
+		
 
 		while (b > -20)
 		{
