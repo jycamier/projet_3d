@@ -17,6 +17,9 @@
 *.tex~
 *.tex.backup
 
+#compilation
+bin/*
+
 #Eclipse file
 .cproject
 .project
