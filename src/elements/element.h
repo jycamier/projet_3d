@@ -1,8 +1,8 @@
+#include "../utils/point.h"
+
 class Element {
-    private:
-        double x;
-        double y;
-        double z;
+    protected:
+        Point *position;
     public:
         Element();
         Element(double, double, double);

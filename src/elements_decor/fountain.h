@@ -1,6 +1,8 @@
 #include "../elements/element_decor.h"
 
-class Fountain : ElementDecor {
+class Fountain : public ElementDecor {
+	private:
+		int width;
 	public:
 		Fountain(double, double, double);
 		~Fountain();

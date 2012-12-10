@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
 	// TESTS ELEMENTS
 
-	Fountain *fountain = new Fountain(1.0, 1.0, 1.0);
+	Fountain *fountain = new Fountain(10.0, 1.0, 10.0);
 	fountain->draw();
 
 	// END

@@ -5,7 +5,5 @@ Element::Element(double x, double y, double z) {
 }
 
 void Element::setPosition(double x, double y, double z) {
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	this->position = new Point(x,y,z);
 }
