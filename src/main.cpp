@@ -2,11 +2,14 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <math.h>
+#include <vector>
 #include "sdlglutils.h"
 #include "barril.h"
 #include "caisse.h"
 #include "etage.h"
 #include "elements_decor/fountain.h"
+#include "elements_decor/Mur.h"
+
 
 // Taille de la fenêtre
 #define LARGEUR 800
@@ -42,12 +45,42 @@ int main(int argc, char *argv[])
 	glEnable(GL_TEXTURE_2D);
 
 	// TESTS ELEMENTS
-
+	//test fontaine
 	Fountain *fountain = new Fountain(10.0, 3.0, 10.0);
-	
+
+	//test murs
+	vector<Point> points;
+	vector<Point> points2;
+	vector<Point> points3;
+	vector<Point> points4;
+	vector<Point> points5;
+	vector<Point> points6;
+
+	points.push_back(Point (60,0,0));
+	points.push_back(Point (60,0,-20));
+	Mur *murTest = new Mur(80,0,0,points);
+
+	points2.push_back(Point (60,0,-45));
+	points2.push_back(Point (60,0,-25));
+	Mur *murTest2 = new Mur(80,0,-45,points2);
+
+	points3.push_back(Point (0,0,-60));
+	points3.push_back(Point (20,0,-60));
+	Mur *murTest3 = new Mur(0,0,-80,points3);
+
+	points4.push_back(Point (45,0,-60));
+	points4.push_back(Point (25,0,-60));
+	Mur *murTest4 = new Mur(45,0,-80,points4);
+
+	points5.push_back(Point (-60,0,0));
+	points5.push_back(Point (-60,0,20));
+	Mur *murTest5 = new Mur(-80,0,0,points5);
+
+	points6.push_back(Point (-60,0,45));
+	points6.push_back(Point (-60,0,25));
+	Mur *murTest6 = new Mur(-80,0,45,points6);
 
 	// END
-
 
 	//chargement des textures
 	int sol = loadTexture("textures/carrelage1.jpg");
@@ -81,6 +114,7 @@ int main(int argc, char *argv[])
 	Barril * p7 = new Barril(-20,0,20);
 	Barril * p8 = new Barril(20,0,20);
 	GLUquadricObj *quad1 = gluNewQuadric();
+
 
 	while (continuer)
 	{
@@ -207,6 +241,12 @@ int main(int argc, char *argv[])
 		
 		
 		fountain->draw();
+		murTest->draw();
+		murTest2->draw();
+		murTest3->draw();
+		murTest4->draw();
+		murTest5->draw();
+		murTest6->draw();
 		
 
 		while (b > -20)

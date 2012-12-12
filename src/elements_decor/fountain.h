@@ -1,3 +1,5 @@
+#ifndef FOUNTAIN_H_INCLUDED
+#define FOUNTAIN_H_INCLUDED
 #include "../elements/element_decor.h"
 #include "../elements_inventory/water_cup.h"
 
@@ -10,3 +12,6 @@ class Fountain : public ElementDecor {
 		void draw();
 		~Fountain();
 };
+
+
+#endif //FOUNTAIN_H_INCLUDED

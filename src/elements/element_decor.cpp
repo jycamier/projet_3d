@@ -7,3 +7,7 @@ ElementDecor::ElementDecor(double x, double y, double z) : Element() {
 void ElementDecor::setPosition(double x, double y, double z) {
 	this->position = new Point(x,y,z);
 }
+
+ElementDecor::~ElementDecor() {
+
+}
