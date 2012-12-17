@@ -2,11 +2,15 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <math.h>
+#include <vector>
 #include "sdlglutils.h"
 #include "barril.h"
 #include "caisse.h"
 #include "etage.h"
 #include "Personnage.h"
+#include "elements_decor/fountain.h"
+#include "elements_decor/Mur.h"
+
 
 // Taille de la fenêtre
 #define LARGEUR 800
@@ -38,6 +42,44 @@ int main(int argc, char *argv[]) {
 	Uint32 current_time; //heure actuelle,
 
 	glEnable (GL_TEXTURE_2D);
+
+	// TESTS ELEMENTS
+	//test fontaine
+	Fountain *fountain = new Fountain(10.0, 3.0, 10.0);
+
+	//test murs
+	vector<Point> points;
+	vector<Point> points2;
+	vector<Point> points3;
+	vector<Point> points4;
+	vector<Point> points5;
+	vector<Point> points6;
+
+	points.push_back(Point (60,0,0));
+	points.push_back(Point (60,0,-20));
+	Mur *murTest = new Mur(80,0,0,points);
+
+	points2.push_back(Point (60,0,-45));
+	points2.push_back(Point (60,0,-25));
+	Mur *murTest2 = new Mur(80,0,-45,points2);
+
+	points3.push_back(Point (0,0,-60));
+	points3.push_back(Point (20,0,-60));
+	Mur *murTest3 = new Mur(0,0,-80,points3);
+
+	points4.push_back(Point (45,0,-60));
+	points4.push_back(Point (25,0,-60));
+	Mur *murTest4 = new Mur(45,0,-80,points4);
+
+	points5.push_back(Point (-60,0,0));
+	points5.push_back(Point (-60,0,20));
+	Mur *murTest5 = new Mur(-80,0,0,points5);
+
+	points6.push_back(Point (-60,0,45));
+	points6.push_back(Point (-60,0,25));
+	Mur *murTest6 = new Mur(-80,0,45,points6);
+
+	// END
 
 	//chargement des textures
 	int sol = loadTexture("textures/carrelage1.jpg");
@@ -130,7 +172,7 @@ int main(int argc, char *argv[]) {
 			SDL_Delay(1000 / FRAMES_PER_SECOND - (current_time - last_time));
 			current_time = SDL_GetTicks();
 		}
-
+		
 		last_time = SDL_GetTicks();
 
 		glEnable (GL_DEPTH_TEST);
@@ -184,56 +226,67 @@ int main(int argc, char *argv[]) {
 		int c = 70;
 
 		glBindTexture(GL_TEXTURE_2D, sol);
-		glBegin(GL_QUADS);
-		glColor3ub(223, 223, 223);
+		glBegin(GL_QUADS);		
+		glColor3ub(223,223,223);
 
-		glVertex3d(80, 0, 80);
-		glVertex3d(70, 0, 80);
-		glVertex3d(70, 0, 55);
-		glVertex3d(80, 0, 55);
+		glVertex3d(80,0,80);
+		glVertex3d(70,0,80);
+		glVertex3d(70,0,55);
+		glVertex3d(80,0,55);
+					
+		glEnd() ;
 
-		glEnd();
+		glBegin(GL_QUADS);		
+		glColor3ub(223,223,223);
 
-		glBegin(GL_QUADS);
-		glColor3ub(223, 223, 223);
+		glVertex3d(70,0,70);
+		glVertex3d(27,0,70);
+		glVertex3d(27,0,55);
+		glVertex3d(70,0,55);
+					
+		glEnd() ;
 
-		glVertex3d(70, 0, 70);
-		glVertex3d(27, 0, 70);
-		glVertex3d(27, 0, 55);
-		glVertex3d(70, 0, 55);
+		glBegin(GL_QUADS);		
+		glColor3ub(223,223,223);
 
-		glEnd();
+		glVertex3d(37,0,80);
+		glVertex3d(27,0,80);
+		glVertex3d(27,0,70);
+		glVertex3d(37,0,70);
+					
+		glEnd() ;
+		
+		
+		fountain->draw();
+		murTest->draw();
+		murTest2->draw();
+		murTest3->draw();
+		murTest4->draw();
+		murTest5->draw();
+		murTest6->draw();
+		
 
-		glBegin(GL_QUADS);
-		glColor3ub(223, 223, 223);
+		while (b > -20)
+		{
+			glBegin(GL_QUADS);		
+			glColor3ub(168,163,165);
 
-		glVertex3d(37, 0, 80);
-		glVertex3d(27, 0, 80);
-		glVertex3d(27, 0, 70);
-		glVertex3d(37, 0, 70);
+			glVertex3d(a,b,c);
+			glVertex3d(a,b,c+10);
+			glVertex3d(a,b-1,c+10);
+			glVertex3d(a,b-1,c);
+					
+			glEnd() ;
 
-		glEnd();
+			glBegin(GL_QUADS);		
+			glColor3ub(255,0,0);
 
-		while (b > -20) {
-			glBegin(GL_QUADS);
-			glColor3ub(168, 163, 165);
+			glVertex3d(a,b-1,c);
+			glVertex3d(a,b-1,c+10);
+			glVertex3d(a-2,b-1,c+10);
+			glVertex3d(a-2,b-1,c);
 
-			glVertex3d(a, b, c);
-			glVertex3d(a, b, c + 10);
-			glVertex3d(a, b - 1, c + 10);
-			glVertex3d(a, b - 1, c);
-
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glColor3ub(255, 0, 0);
-
-			glVertex3d(a, b - 1, c);
-			glVertex3d(a, b - 1, c + 10);
-			glVertex3d(a - 2, b - 1, c + 10);
-			glVertex3d(a - 2, b - 1, c);
-
-			glEnd();
+			glEnd() ;
 			i++;
 			b = b - 1;
 			a = a - 2;
