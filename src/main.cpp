@@ -65,6 +65,9 @@ int main(int argc, char *argv[]) {
 	//création d'un étage
 	Etage* rez_de_chaussee = new Etage(longueur_etage, hauteur_etage,
 			largeur_etage, plafond, sol, mur1, 0);
+
+	rez_de_chaussee->AjouterCaisse(10, 0, 10, 5);
+
 	Etage* cave = new Etage(longueur_etage, -1, largeur_etage, plafond, sol2,
 			mur2, -20);
 	Barril* p1 = new Barril(-20, 0, -40);
@@ -89,6 +92,17 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 
+		/**
+		 * TEST Collisions
+		 */
+		i = 0;
+		col = false;
+		while (col == false && i < rez_de_chaussee->getLesCaisses().size()) {
+			col = rez_de_chaussee->getLesCaisses().at(i)->Collision(personnage_jeu->getX(), personnage_jeu->getY(),
+					personnage_jeu->getZ()+1);
+			i++;
+		}
+
 		// Gestion du clavier
 		// Récupération du keystates
 		Uint8 *keystates = SDL_GetKeyState(NULL);
@@ -101,7 +115,9 @@ int main(int argc, char *argv[]) {
 			personnage_jeu->tournerGauche();
 		}
 		if (keystates[SDLK_UP]) {
-			personnage_jeu->avancer();
+			if(!col){
+				personnage_jeu->avancer();
+			}
 		}
 		if (keystates[SDLK_DOWN]) {
 			personnage_jeu->reculer();

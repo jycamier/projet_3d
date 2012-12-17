@@ -4,6 +4,10 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <vector>
+#include "caisse.h"
+
+using namespace std;
 
 class Etage {
 
@@ -15,7 +19,8 @@ class Etage {
         int base;
         int texture_plafond;
         int texture_murs;
-        int texture_sol;       
+        int texture_sol;
+        vector<Caisse*> lesCaisses;
 
     public :
         Etage () ; // Non implémenté donc inutilisable
@@ -23,6 +28,16 @@ class Etage {
         Etage (int, int, int, int, int, int, int);
         void draw(int);
         ~Etage(); // Destructeur
+
+        /**
+         * méthode de test pour Collision
+         * >>> ajoute une caisse au coordonnée (x, z)
+         */
+        void AjouterCaisse(double x, double y, double z, double height);
+
+		vector<Caisse*> getLesCaisses() const {
+			return lesCaisses;
+		}
 };
 
 #endif // ETAGE_H_INCLUDED

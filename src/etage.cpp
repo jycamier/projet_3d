@@ -1,6 +1,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "etage.h"
+#include <vector>
+using namespace std;
+
 
 Etage::Etage(int x, int y, int z, int plafond, int sol, int murs, int base_etage)
 {
@@ -174,4 +177,18 @@ void Etage::draw(int texture_ascenseur)
 
 
 	glEnd() ;
+
+	/**
+	 * Partie TEST : Draw les caisses
+	 */
+	GLUquadricObj *quad1 = gluNewQuadric();
+	for(int i = 0; i< this->lesCaisses.size(); i++){
+		this->lesCaisses.at(i)->draw(quad1);
+	}
+
+}
+
+
+void Etage::AjouterCaisse(double x, double y, double z, double height){
+	this->lesCaisses.push_back(new Caisse(x, y, z, height));
 }
