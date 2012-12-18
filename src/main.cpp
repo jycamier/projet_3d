@@ -50,35 +50,12 @@ int main(int argc, char *argv[])
 
 	//test murs
 	vector<Point> points;
-	vector<Point> points2;
-	vector<Point> points3;
-	vector<Point> points4;
-	vector<Point> points5;
-	vector<Point> points6;
 
-	points.push_back(Point (60,0,0));
+	points.push_back(Point (70,0,-20));
 	points.push_back(Point (60,0,-20));
-	Mur *murTest = new Mur(80,0,0,points);
+	points.push_back(Point (60,0,-40));
+	Mur *murTest = new Mur(70,0,0,points);
 
-	points2.push_back(Point (60,0,-45));
-	points2.push_back(Point (60,0,-25));
-	Mur *murTest2 = new Mur(80,0,-45,points2);
-
-	points3.push_back(Point (0,0,-60));
-	points3.push_back(Point (20,0,-60));
-	Mur *murTest3 = new Mur(0,0,-80,points3);
-
-	points4.push_back(Point (45,0,-60));
-	points4.push_back(Point (25,0,-60));
-	Mur *murTest4 = new Mur(45,0,-80,points4);
-
-	points5.push_back(Point (-60,0,0));
-	points5.push_back(Point (-60,0,20));
-	Mur *murTest5 = new Mur(-80,0,0,points5);
-
-	points6.push_back(Point (-60,0,45));
-	points6.push_back(Point (-60,0,25));
-	Mur *murTest6 = new Mur(-80,0,45,points6);
 
 	// END
 
@@ -202,12 +179,6 @@ int main(int argc, char *argv[])
 		p7->draw(quad1,pilier);
 		p8->draw(quad1,pilier);		
 
-
-		int i = 0;
-		int a = 70;
-		int b = 0;
-		int c = 70;
-
 		glBindTexture(GL_TEXTURE_2D, sol);
 		glBegin(GL_QUADS);		
 		glColor3ub(223,223,223);
@@ -241,71 +212,7 @@ int main(int argc, char *argv[])
 		
 		
 		fountain->draw();
-		murTest->draw();
-		murTest2->draw();
-		murTest3->draw();
-		murTest4->draw();
-		murTest5->draw();
-		murTest6->draw();
-		
-
-		while (b > -20)
-		{
-			glBegin(GL_QUADS);		
-			glColor3ub(168,163,165);
-
-			glVertex3d(a,b,c);
-			glVertex3d(a,b,c+10);
-			glVertex3d(a,b-1,c+10);
-			glVertex3d(a,b-1,c);
-					
-			glEnd() ;
-
-			glBegin(GL_QUADS);		
-			glColor3ub(255,0,0);
-
-			glVertex3d(a,b-1,c);
-			glVertex3d(a,b-1,c+10);
-			glVertex3d(a-2,b-1,c+10);
-			glVertex3d(a-2,b-1,c);
-
-			glEnd() ;
-			i++;
-			b = b - 1;
-			a = a - 2;
-		}
-		
-		i = 0;
-		a =37;
-		b = 0;
-		c = 80;
-
-		while (b < 20)
-		{
-			glBegin(GL_QUADS);		
-			glColor3ub(168,163,165);
-
-			glVertex3d(a,b,c);
-			glVertex3d(a,b,c-10);
-			glVertex3d(a,b+1,c-10);
-			glVertex3d(a,b+1,c);
-					
-			glEnd() ;
-
-			glBegin(GL_QUADS);		
-			glColor3ub(255,0,0);
-
-			glVertex3d(a,b+1,c);
-			glVertex3d(a,b+1,c-10);
-			glVertex3d(a+2,b+1,c-10);
-			glVertex3d(a+2,b+1,c);
-
-			glEnd() ;
-			i++;
-
-			b = b + 1;
-			a = a + 2;
-		}
+		murTest->draw();		
 
 		// Affichage (en double buffering)
 		glFlush();

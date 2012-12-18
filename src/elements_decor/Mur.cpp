@@ -10,7 +10,7 @@ using namespace std;
 Mur::Mur(double x, double y, double z, vector<Point> coords) : ElementDecor(x, y, z){
 
 	int i = 0;
-	this->epaisseur = 1;
+	this->epaisseur = 0.5;
 	this->hauteur = 20;
 	this->coordinates.push_back(Point(x,y,z));
 
@@ -25,7 +25,14 @@ Mur::Mur(double x, double y, double z, vector<Point> coords) : ElementDecor(x, y
 void Mur::draw(){
 
 	int i = 0;
-	int epaisseur_mur;
+	double x1;
+	double y1;
+	double z1;
+	double x2;
+	double y2;
+	double z2;
+
+	double epaisseur_mur;
 
 	while (i < this->coordinates.size())
 	{
@@ -34,101 +41,132 @@ void Mur::draw(){
 		if (i < this->coordinates.size()-1)
 		{
 
-			glBegin(GL_QUADS);
-			glColor3ub(0,255,0);
+		x1 = this->coordinates[i].x;
+		y1 = this->coordinates[i].y;
+		z1 = this->coordinates[i].z;
 
-			glVertex3d(this->coordinates[i].x,this->coordinates[i].y,this->coordinates[i].z);
-			glVertex3d(this->coordinates[i+1].x ,this->coordinates[i].y,this->coordinates[i+1].z);
-			glVertex3d(this->coordinates[i+1].x ,this->coordinates[i].y + this->hauteur,this->coordinates[i+1].z);
-			glVertex3d(this->coordinates[i].x ,this->coordinates[i].y + this->hauteur,this->coordinates[i].z);
-						
-			glEnd();
+		x2 = this->coordinates[i+1].x;
+		y2 = this->coordinates[i+1].y;
+		z2 = this->coordinates[i+1].z;
 
-
+			
 			if (this->isHorizontal(this->coordinates[i],this->coordinates[i+1]))
 			{
 
-				if (i+2 < this->coordinates.size())
+				if (i == 0)
 				{
-					if (this->isVertical(this->coordinates[i+1],this->coordinates[i+2]))
+					this->drawHorizontalClosing(this->coordinates[i]);
+				}
+				else
+				{
+					if (this->coordinates[i-1].z < z1)
 					{
+						z1 = z1 - epaisseur_mur;
+					}
+					else
+					{
+						z1 = z1 + epaisseur_mur;
+					}
 
-						if (this->coordinates[i+1].z >= this->coordinates[i+2].z)
-						{
-								epaisseur_mur = this->epaisseur * (-1);
-						}
+					if (x2 < x1)
+					{
+						x1 = x1 + epaisseur_mur;
+					}
+					else
+					{
+						x1 = x1 - epaisseur_mur;	
 					}
 				}
-				else if (i+1 < this->coordinates.size())
-				{
-					if (this->isVertical(this->coordinates[i],this->coordinates[i-1]))
-					{
-						if (this->isHorizontal(this->coordinates[i-1],this->coordinates[i-2]))
-						{
-							if (this->coordinates[i-1].z < this->coordinates[i].x)
-							{
-									epaisseur_mur = this->epaisseur * (-1);
-							}
-						}
-					}
-				}
-
 
 				glBegin(GL_QUADS);
-				glColor3ub(0,0,255);
+				glColor3ub(0,255,0);
 
-				glVertex3d(this->coordinates[i].x,this->coordinates[i].y,this->coordinates[i].z + epaisseur_mur);
-				glVertex3d(this->coordinates[i+1].x,this->coordinates[i].y,this->coordinates[i+1].z + epaisseur_mur);
-				glVertex3d(this->coordinates[i+1].x,this->coordinates[i].y + this->hauteur,this->coordinates[i+1].z + epaisseur_mur);
-				glVertex3d(this->coordinates[i].x,this->coordinates[i].y + this->hauteur,this->coordinates[i].z + epaisseur_mur);
-				
+				glVertex3d(x1,y1,z1 + epaisseur_mur);
+				glVertex3d(x2,y1,z2 + epaisseur_mur);
+				glVertex3d(x2,y1 + this->hauteur,z2 + epaisseur_mur);
+				glVertex3d(x1,y1 + this->hauteur,z1 + epaisseur_mur);
+					
 				glEnd();
+
+				glBegin(GL_QUADS);
+				glColor3ub(0,255,0);
+
+				glVertex3d(x1,y1,z1 - epaisseur_mur);
+				glVertex3d(x2,y1,z2 - epaisseur_mur);
+				glVertex3d(x2,y1 + this->hauteur,z2 - epaisseur_mur);
+				glVertex3d(x1,y1 + this->hauteur,z1 - epaisseur_mur);
+					
+				glEnd();
+
 
 			}
 			else if (this->isVertical(this->coordinates[i],this->coordinates[i+1]))
 			{
-
-				if (i+2 < this->coordinates.size())
-					{
-					if (this->isHorizontal(this->coordinates[i+1],this->coordinates[i+2]))
-						{
-
-						if (this->coordinates[i+1].x >= this->coordinates[i+2].x)
-							{
-								epaisseur_mur = this->epaisseur * (-1);
-							}
-						}
-					}
-				else if (i+1 < this->coordinates.size())
+				if (i == 0)
 				{
-
-					if (this->isHorizontal(this->coordinates[i],this->coordinates[i-1]))
+					this->drawVerticalClosing(this->coordinates[i]);
+				}
+				else
+				{
+					if (this->coordinates[i-1].x < x1)
 					{
-
-						if (this->isVertical(this->coordinates[i-1],this->coordinates[i-2]))
-						{
-							if (this->coordinates[i-1].x < this->coordinates[i].x)
-							{
-									epaisseur_mur = this->epaisseur * (-1);
-							}
-						}
+						x1 = x1 - epaisseur_mur;
 					}
+					else
+					{
+						x1 = x1 + epaisseur_mur;
+					}
+
+
+					if (z2 < z1)
+					{
+						z1 = z1 + epaisseur_mur;
+					}
+					else
+					{
+						z1 = z1 - epaisseur_mur;	
+					}
+
 				}
 
 				glBegin(GL_QUADS);
-				glColor3ub(255,0,255);
+				glColor3ub(0,0,255);
 
-				glVertex3d(this->coordinates[i].x + epaisseur_mur,this->coordinates[i].y,this->coordinates[i].z);
-				glVertex3d(this->coordinates[i+1].x + epaisseur_mur,this->coordinates[i].y,this->coordinates[i+1].z);
-				glVertex3d(this->coordinates[i+1].x + epaisseur_mur,this->coordinates[i].y + this->hauteur,this->coordinates[i+1].z);
-				glVertex3d(this->coordinates[i].x + epaisseur_mur,this->coordinates[i].y + this->hauteur,this->coordinates[i].z);
-				
+				glVertex3d(x1 + epaisseur_mur,y1,z1);
+				glVertex3d(x2 + epaisseur_mur,y1,z2);
+				glVertex3d(x2 + epaisseur_mur,y1 + this->hauteur,z2);
+				glVertex3d(x1 + epaisseur_mur,y1 + this->hauteur,z1);
+						
 				glEnd();
-			}
 
+				glBegin(GL_QUADS);
+				glColor3ub(0,0,255);
+
+				glVertex3d(x1 - epaisseur_mur,y1,z1);
+				glVertex3d(x2 - epaisseur_mur,y1,z2);
+				glVertex3d(x2 - epaisseur_mur,y1 + this->hauteur,z2);
+				glVertex3d(x1 - epaisseur_mur,y1 + this->hauteur,z1);
+						
+				glEnd();
+				
+			}
 		}
+		else
+		{
+			if (this->isVertical(this->coordinates[i],this->coordinates[i-1]))
+			{
+				this->drawVerticalClosing(this->coordinates[i]);
+			}
+			else
+			{
+				this->drawHorizontalClosing(this->coordinates[i]);
+			}
+		}
+		
 		i++;
+		
 	}
+
 
 }
 
@@ -148,4 +186,30 @@ bool Mur::isVertical(Point p1, Point p2)
 		return true;
 	}
 	return false;
+}
+
+void Mur::drawVerticalClosing(Point p)
+{
+	glBegin(GL_QUADS);
+	glColor3ub(0,255,0);
+
+	glVertex3d(p.x - this->epaisseur,p.y,p.z );
+	glVertex3d(p.x + this->epaisseur,p.y,p.z );
+	glVertex3d(p.x + this->epaisseur,p.y + this->hauteur,p.z);
+	glVertex3d(p.x - this->epaisseur,p.y + this->hauteur,p.z);
+						
+	glEnd();
+}
+
+void Mur::drawHorizontalClosing(Point p)
+{
+	glBegin(GL_QUADS);
+	glColor3ub(0,255,0);
+
+	glVertex3d(p.x,p.y,p.z - this->epaisseur);
+	glVertex3d(p.x,p.y,p.z + this->epaisseur);
+	glVertex3d(p.x,p.y + this->hauteur,p.z + this->epaisseur);
+	glVertex3d(p.x,p.y + this->hauteur,p.z - this->epaisseur);
+						
+	glEnd();
 }
