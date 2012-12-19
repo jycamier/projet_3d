@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	points.push_back(Point (70,0,-20));
 	points.push_back(Point (60,0,-20));
 	points.push_back(Point (60,0,-40));
-	Mur *murTest = new Mur(70,0,0,points);
+	Mur *murTest = new Mur(70,0,0,points, 10);
 
 
 	// END

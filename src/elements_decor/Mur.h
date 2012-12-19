@@ -14,7 +14,7 @@ class Mur : public ElementDecor {
 		void drawHorizontalClosing(Point);
 	public:
 		Mur();
-		Mur(double,double,double,vector <Point>);
+		Mur(double,double,double,vector <Point>, double);
 		bool isHorizontal(Point , Point);
 		bool isVertical(Point, Point);
 		void draw();

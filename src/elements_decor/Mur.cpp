@@ -7,11 +7,11 @@
 using namespace std;
 
 
-Mur::Mur(double x, double y, double z, vector<Point> coords) : ElementDecor(x, y, z){
+Mur::Mur(double x, double y, double z, vector<Point> coords, double height) : ElementDecor(x, y, z){
 
 	int i = 0;
 	this->epaisseur = 0.5;
-	this->hauteur = 20;
+	this->hauteur = height;
 	this->coordinates.push_back(Point(x,y,z));
 
 	while (i < coords.size())
@@ -25,9 +25,13 @@ Mur::Mur(double x, double y, double z, vector<Point> coords) : ElementDecor(x, y
 void Mur::draw(){
 
 	int i = 0;
+
+	//coordonnées du point à l'indice i
 	double x1;
 	double y1;
 	double z1;
+
+	//coordonnées du point à l'indice i+1
 	double x2;
 	double y2;
 	double z2;
@@ -188,6 +192,7 @@ bool Mur::isVertical(Point p1, Point p2)
 	return false;
 }
 
+//dessine la fermeture située entre 2 épaisseurs
 void Mur::drawVerticalClosing(Point p)
 {
 	glBegin(GL_QUADS);
@@ -201,6 +206,7 @@ void Mur::drawVerticalClosing(Point p)
 	glEnd();
 }
 
+//dessine la fermeture située entre 2 épaisseurs
 void Mur::drawHorizontalClosing(Point p)
 {
 	glBegin(GL_QUADS);
