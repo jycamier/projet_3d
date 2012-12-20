@@ -2,15 +2,9 @@
 #include <GL/glu.h>
 #include "Pilier.h"
 
-Pilier::Pilier(double x, double y, double z)
+Pilier::Pilier(double x, double y, double z) : ElementDecor(x, y, z)
 {
-
-	this->x = x;
-	this->y = y;
-	this->z = z;
 	quadrique = gluNewQuadric();
-
-
 }
 
 
@@ -24,7 +18,7 @@ void Pilier::draw(int id_texture)
 		gluQuadricDrawStyle(quadrique, GLU_FILL);
 		
 		glPushMatrix();
-		glTranslated(this->x,this->y,this->z); // choix de l’emplacement cylindre
+		glTranslated(position->x,position->y,position->z); // choix de l’emplacement cylindre
 		glRotatef( -90, 1, 0, 0 );
 		gluCylinder(quadrique,2,2,20,20,20);
 		glPopMatrix();
@@ -35,7 +29,7 @@ void Pilier::draw(int id_texture)
 		glColor3ub(168,163,165);		
 
 		glPushMatrix();
-		glTranslated(this->x,this->y,this->z); // choix de l’emplacement futur du disque
+		glTranslated(position->x,position->y,position->z); // choix de l’emplacement futur du disque
 		glRotatef( 90, 1, 0, 0 );
 		gluDisk(quadrique,0, 1, 20, 20);
 		gluQuadricDrawStyle(quadrique, GLU_FILL);

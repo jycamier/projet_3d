@@ -4,12 +4,10 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include "../elements/element_decor.h"
 
-class Pilier {
+class Pilier : public ElementDecor {
     private :
-        double x;
-        double y;
-        double z;
         GLUquadricObj *quadrique;
 
     public :
