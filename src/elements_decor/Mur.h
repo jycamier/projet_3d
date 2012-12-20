@@ -7,12 +7,14 @@ using namespace std;
 
 class Mur : public ElementDecor {
 	private:
-		vector<Point> coordinates;
 		double epaisseur;
 		int hauteur;
 		void drawVerticalClosing(Point);
 		void drawHorizontalClosing(Point);
 	public:
+
+		vector<Point> coordinates;
+
 		Mur();
 		Mur(double,double,double,vector <Point>, double);
 		bool isHorizontal(Point , Point);

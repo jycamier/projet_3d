@@ -22,6 +22,8 @@ Mur::Mur(double x, double y, double z, vector<Point> coords, double height) : El
 
 }
 
+
+
 void Mur::draw(){
 
 	int i = 0;

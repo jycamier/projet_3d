@@ -4,9 +4,9 @@
 #include <math.h>
 #include <vector>
 #include "sdlglutils.h"
-#include "barril.h"
 #include "caisse.h"
 #include "etage.h"
+#include "elements_decor/Pilier.h"
 #include "elements_decor/fountain.h"
 #include "elements_decor/Mur.h"
 
@@ -82,16 +82,14 @@ int main(int argc, char *argv[])
 	//création d'un étage
 	Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1,0);
 	Etage *cave = new Etage(longueur_etage,-1,largeur_etage,plafond,sol2,mur2,-20);
-	Barril * p1 = new Barril(-20,0,-40);
-	Barril * p2 = new Barril(20,0,-40);
-	Barril * p3 = new Barril(-20,0,-20);
-	Barril * p4 = new Barril(20,0,-20);
-	Barril * p5 = new Barril(-20,0,0);
-	Barril * p6 = new Barril(20,0,0);
-	Barril * p7 = new Barril(-20,0,20);
-	Barril * p8 = new Barril(20,0,20);
-	GLUquadricObj *quad1 = gluNewQuadric();
-
+	Pilier * p1 = new Pilier(-20,0,-40);
+	Pilier * p2 = new Pilier(20,0,-40);
+	Pilier * p3 = new Pilier(-20,0,-20);
+	Pilier * p4 = new Pilier(20,0,-20);
+	Pilier * p5 = new Pilier(-20,0,0);
+	Pilier * p6 = new Pilier(20,0,0);
+	Pilier * p7 = new Pilier(-20,0,20);
+	Pilier * p8 = new Pilier(20,0,20);
 
 	while (continuer)
 	{
@@ -170,14 +168,14 @@ int main(int argc, char *argv[])
 	
 
 		//piliers
-		p1->draw(quad1,pilier);
-		p2->draw(quad1,pilier);
-		p3->draw(quad1,pilier);
-		p4->draw(quad1,pilier);
-		p5->draw(quad1,pilier);
-		p6->draw(quad1,pilier);		
-		p7->draw(quad1,pilier);
-		p8->draw(quad1,pilier);		
+		p1->draw(pilier);
+		p2->draw(pilier);
+		p3->draw(pilier);
+		p4->draw(pilier);
+		p5->draw(pilier);
+		p6->draw(pilier);		
+		p7->draw(pilier);
+		p8->draw(pilier);		
 
 		glBindTexture(GL_TEXTURE_2D, sol);
 		glBegin(GL_QUADS);		
