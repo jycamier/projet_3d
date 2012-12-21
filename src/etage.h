@@ -7,6 +7,8 @@
 #include <vector>
 #include "elements/element_decor.h"
 
+using namespace std;
+
 class Etage {
 
     private :
@@ -16,7 +18,7 @@ class Etage {
         double largeur_etage;
         double base;
 
-        vector<ElementDecor> decor; 
+        vector<ElementDecor*> decor; 
 
         int texture_plafond;
         int texture_murs;
@@ -28,8 +30,8 @@ class Etage {
         Etage (double, double, double, int, int, int, double);
 
         void draw(int);
-        void addElementDecor(ElementDecor);
-        void removeElementDecor(ElementDecor);
+        void addElementDecor(ElementDecor*);
+        void removeElementDecor(ElementDecor*);
         void clearElementsDecor();
 
         ~Etage(); // Destructeur

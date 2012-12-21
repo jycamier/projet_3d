@@ -83,14 +83,26 @@ int main(int argc, char *argv[])
 	//création d'un étage
 	Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1,0);
 	Etage *cave = new Etage(longueur_etage,-1,largeur_etage,plafond,sol2,mur2,-20);
-	Pilier * p1 = new Pilier(-20,0,-40);
-	Pilier * p2 = new Pilier(20,0,-40);
-	Pilier * p3 = new Pilier(-20,0,-20);
-	Pilier * p4 = new Pilier(20,0,-20);
-	Pilier * p5 = new Pilier(-20,0,0);
-	Pilier * p6 = new Pilier(20,0,0);
-	Pilier * p7 = new Pilier(-20,0,20);
-	Pilier * p8 = new Pilier(20,0,20);
+	Pilier * p1 = new Pilier(-20,0,-40,pilier);
+	Pilier * p2 = new Pilier(20,0,-40,pilier);
+	Pilier * p3 = new Pilier(-20,0,-20,pilier);
+	Pilier * p4 = new Pilier(20,0,-20,pilier);
+	Pilier * p5 = new Pilier(-20,0,0,pilier);
+	Pilier * p6 = new Pilier(20,0,0,pilier);
+	Pilier * p7 = new Pilier(-20,0,20,pilier);
+	Pilier * p8 = new Pilier(20,0,20,pilier);
+
+	rez_de_chaussee->addElementDecor(p1);
+	rez_de_chaussee->addElementDecor(p2);
+	rez_de_chaussee->addElementDecor(p3);
+	rez_de_chaussee->addElementDecor(p4);
+	rez_de_chaussee->addElementDecor(p5);
+	rez_de_chaussee->addElementDecor(p6);
+	rez_de_chaussee->addElementDecor(p7);
+	rez_de_chaussee->addElementDecor(p8);
+	rez_de_chaussee->addElementDecor(fountain);
+	rez_de_chaussee->addElementDecor(murTest);
+
 
 	while (continuer)
 	{
@@ -167,17 +179,6 @@ int main(int argc, char *argv[])
 		rez_de_chaussee->draw(ascenseur);
 		cave->draw(mur2);
 	
-
-		//piliers
-		p1->draw(pilier);
-		p2->draw(pilier);
-		p3->draw(pilier);
-		p4->draw(pilier);
-		p5->draw(pilier);
-		p6->draw(pilier);		
-		p7->draw(pilier);
-		p8->draw(pilier);		
-
 		glBindTexture(GL_TEXTURE_2D, sol);
 		glBegin(GL_QUADS);		
 		glColor3ub(223,223,223);
@@ -209,9 +210,6 @@ int main(int argc, char *argv[])
 					
 		glEnd() ;
 		
-		
-		fountain->draw();
-		murTest->draw();		
 
 		// Affichage (en double buffering)
 		glFlush();

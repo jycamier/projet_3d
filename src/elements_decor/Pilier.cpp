@@ -2,17 +2,19 @@
 #include <GL/glu.h>
 #include "Pilier.h"
 
-Pilier::Pilier(double x, double y, double z) : ElementDecor(x, y, z)
+Pilier::Pilier(double x, double y, double z, int text) : ElementDecor(x, y, z)
 {
 	quadrique = gluNewQuadric();
+	this->texture = text;
+
 }
 
 
-void Pilier::draw(int id_texture)
+void Pilier::draw()
 {
 		
 		gluQuadricTexture(quadrique,GL_TRUE);
-		glBindTexture(GL_TEXTURE_2D, id_texture);
+		glBindTexture(GL_TEXTURE_2D, this->texture);
 		glColor3ub(168,163,165);		
 
 		gluQuadricDrawStyle(quadrique, GLU_FILL);
@@ -25,7 +27,7 @@ void Pilier::draw(int id_texture)
 
 
 		gluQuadricTexture(quadrique,GL_TRUE);
-		glBindTexture(GL_TEXTURE_2D, id_texture);
+		glBindTexture(GL_TEXTURE_2D, this->texture);
 		glColor3ub(168,163,165);		
 
 		glPushMatrix();

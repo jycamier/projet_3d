@@ -8,6 +8,7 @@ class ElementDecor : public Element {
     public:
         ElementDecor(double, double, double);
         void setPosition(double, double, double);
+        virtual void draw();
         ~ElementDecor();
 };
 

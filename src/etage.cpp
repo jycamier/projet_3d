@@ -4,6 +4,8 @@
 #include "sdlglutils.h"
 #include "elements/element_decor.h"
 #include "etage.h"
+#include "elements_decor/Mur.h"
+
 
 Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, double base_etage)
 {
@@ -17,13 +19,26 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 
 }
 
-void Etage::addElementDecor(ElementDecor element)
+void Etage::addElementDecor(ElementDecor* element)
 {
 	this->decor.push_back(element);
 }
 
+void Etage::removeElementDecor(ElementDecor* element)
+{
+	// this->decor.erase(element);
+}
+
 void Etage::draw(int texture_ascenseur)
 {
+
+	int i = 0;
+	while (i < this->decor.size())
+	{
+		this->decor[i]->draw();
+		// printf("%s\n", this->decor[i]);
+		i++;
+	}
 
 	int longueur_porte_ascenseur = (longueur_etage-10);
 
