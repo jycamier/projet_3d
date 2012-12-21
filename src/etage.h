@@ -4,15 +4,22 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <vector>
+#include "elements/element_decor.h"
+
+using namespace std;
 
 class Etage {
 
     private :
 
-        int longueur_etage;
-        int hauteur_etage;
-        int largeur_etage;
-        int base;
+        double longueur_etage;
+        double hauteur_etage;
+        double largeur_etage;
+        double base;
+
+        vector<ElementDecor*> decor; 
+
         int texture_plafond;
         int texture_murs;
         int texture_sol;       
@@ -20,8 +27,13 @@ class Etage {
     public :
         Etage () ; // Non implémenté donc inutilisable
         Etage (const Etage &); // Constructeur de copie, non implémenté donc interdit
-        Etage (int, int, int, int, int, int, int);
+        Etage (double, double, double, int, int, int, double);
+
         void draw(int);
+        void addElementDecor(ElementDecor*);
+        void removeElementDecor(ElementDecor*);
+        void clearElementsDecor();
+
         ~Etage(); // Destructeur
 };
 

@@ -9,13 +9,14 @@
 class Pilier : public ElementDecor {
     private :
         GLUquadricObj *quadrique;
+        int texture;
 
     public :
         Pilier () ; // Non implémenté donc inutilisable
         Pilier (const Pilier &); // Constructeur de copie, non implémenté donc interdit
-        Pilier (double, double, double);
+        Pilier (double, double, double, int);
         ~Pilier(); // Destructeur
-        void draw(int);
+        void draw();
 
 };
 

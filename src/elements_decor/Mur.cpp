@@ -4,14 +4,16 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+
 using namespace std;
 
 
-Mur::Mur(double x, double y, double z, vector<Point> coords, double height) : ElementDecor(x, y, z){
+Mur::Mur(double x, double y, double z, vector<Point> coords, double height, int text) : ElementDecor(x, y, z){
 
 	int i = 0;
 	this->epaisseur = 0.5;
 	this->hauteur = height;
+	this->texture = text;
 	this->coordinates.push_back(Point(x,y,z));
 
 	while (i < coords.size())
@@ -19,10 +21,7 @@ Mur::Mur(double x, double y, double z, vector<Point> coords, double height) : El
 		this->coordinates.push_back(coords[i]);
 		i++;
 	}
-
 }
-
-
 
 void Mur::draw(){
 
@@ -83,24 +82,23 @@ void Mur::draw(){
 						x1 = x1 - epaisseur_mur;	
 					}
 				}
-
+				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin(GL_QUADS);
-				glColor3ub(0,255,0);
 
-				glVertex3d(x1,y1,z1 + epaisseur_mur);
-				glVertex3d(x2,y1,z2 + epaisseur_mur);
-				glVertex3d(x2,y1 + this->hauteur,z2 + epaisseur_mur);
-				glVertex3d(x1,y1 + this->hauteur,z1 + epaisseur_mur);
+				glTexCoord2d(5,2);glVertex3d(x1,y1,z1 + epaisseur_mur);
+				glTexCoord2d(2,2);glVertex3d(x2,y1,z2 + epaisseur_mur);
+				glTexCoord2d(2,5);glVertex3d(x2,y1 + this->hauteur,z2 + epaisseur_mur);
+				glTexCoord2d(5,5);glVertex3d(x1,y1 + this->hauteur,z1 + epaisseur_mur);
 					
 				glEnd();
 
+				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin(GL_QUADS);
-				glColor3ub(0,255,0);
 
-				glVertex3d(x1,y1,z1 - epaisseur_mur);
-				glVertex3d(x2,y1,z2 - epaisseur_mur);
-				glVertex3d(x2,y1 + this->hauteur,z2 - epaisseur_mur);
-				glVertex3d(x1,y1 + this->hauteur,z1 - epaisseur_mur);
+				glTexCoord2d(5,2);glVertex3d(x1,y1,z1 - epaisseur_mur);
+				glTexCoord2d(2,2);glVertex3d(x2,y1,z2 - epaisseur_mur);
+				glTexCoord2d(2,5);glVertex3d(x2,y1 + this->hauteur,z2 - epaisseur_mur);
+				glTexCoord2d(5,5);glVertex3d(x1,y1 + this->hauteur,z1 - epaisseur_mur);
 					
 				glEnd();
 
@@ -134,24 +132,23 @@ void Mur::draw(){
 					}
 
 				}
-
+				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin(GL_QUADS);
-				glColor3ub(0,0,255);
 
-				glVertex3d(x1 + epaisseur_mur,y1,z1);
-				glVertex3d(x2 + epaisseur_mur,y1,z2);
-				glVertex3d(x2 + epaisseur_mur,y1 + this->hauteur,z2);
-				glVertex3d(x1 + epaisseur_mur,y1 + this->hauteur,z1);
+				glTexCoord2d(5,2);glVertex3d(x1 + epaisseur_mur,y1,z1);
+				glTexCoord2d(2,2);glVertex3d(x2 + epaisseur_mur,y1,z2);
+				glTexCoord2d(2,5);glVertex3d(x2 + epaisseur_mur,y1 + this->hauteur,z2);
+				glTexCoord2d(5,5);glVertex3d(x1 + epaisseur_mur,y1 + this->hauteur,z1);
 						
 				glEnd();
 
+				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin(GL_QUADS);
-				glColor3ub(0,0,255);
 
-				glVertex3d(x1 - epaisseur_mur,y1,z1);
-				glVertex3d(x2 - epaisseur_mur,y1,z2);
-				glVertex3d(x2 - epaisseur_mur,y1 + this->hauteur,z2);
-				glVertex3d(x1 - epaisseur_mur,y1 + this->hauteur,z1);
+				glTexCoord2d(5,2);glVertex3d(x1 - epaisseur_mur,y1,z1);
+				glTexCoord2d(2,2);glVertex3d(x2 - epaisseur_mur,y1,z2);
+				glTexCoord2d(2,5);glVertex3d(x2 - epaisseur_mur,y1 + this->hauteur,z2);
+				glTexCoord2d(5,5);glVertex3d(x1 - epaisseur_mur,y1 + this->hauteur,z1);
 						
 				glEnd();
 				
@@ -197,13 +194,13 @@ bool Mur::isVertical(Point p1, Point p2)
 //dessine la fermeture située entre 2 épaisseurs
 void Mur::drawVerticalClosing(Point p)
 {
+	glBindTexture(GL_TEXTURE_2D, this->texture);
 	glBegin(GL_QUADS);
-	glColor3ub(0,255,0);
 
-	glVertex3d(p.x - this->epaisseur,p.y,p.z );
-	glVertex3d(p.x + this->epaisseur,p.y,p.z );
-	glVertex3d(p.x + this->epaisseur,p.y + this->hauteur,p.z);
-	glVertex3d(p.x - this->epaisseur,p.y + this->hauteur,p.z);
+	glTexCoord2d(5,2);glVertex3d(p.x - this->epaisseur,p.y,p.z );
+	glTexCoord2d(2,2);glVertex3d(p.x + this->epaisseur,p.y,p.z );
+	glTexCoord2d(2,5);glVertex3d(p.x + this->epaisseur,p.y + this->hauteur,p.z);
+	glTexCoord2d(5,5);glVertex3d(p.x - this->epaisseur,p.y + this->hauteur,p.z);
 						
 	glEnd();
 }
@@ -211,13 +208,13 @@ void Mur::drawVerticalClosing(Point p)
 //dessine la fermeture située entre 2 épaisseurs
 void Mur::drawHorizontalClosing(Point p)
 {
+	glBindTexture(GL_TEXTURE_2D, this->texture);
 	glBegin(GL_QUADS);
-	glColor3ub(0,255,0);
 
-	glVertex3d(p.x,p.y,p.z - this->epaisseur);
-	glVertex3d(p.x,p.y,p.z + this->epaisseur);
-	glVertex3d(p.x,p.y + this->hauteur,p.z + this->epaisseur);
-	glVertex3d(p.x,p.y + this->hauteur,p.z - this->epaisseur);
+	glTexCoord2d(5,2);glVertex3d(p.x,p.y,p.z - this->epaisseur);
+	glTexCoord2d(2,2);glVertex3d(p.x,p.y,p.z + this->epaisseur);
+	glTexCoord2d(2,5);glVertex3d(p.x,p.y + this->hauteur,p.z + this->epaisseur);
+	glTexCoord2d(5,5);glVertex3d(p.x,p.y + this->hauteur,p.z - this->epaisseur);
 						
 	glEnd();
 }

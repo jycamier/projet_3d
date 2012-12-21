@@ -8,15 +8,18 @@ using namespace std;
 class Mur : public ElementDecor {
 	private:
 		double epaisseur;
-		int hauteur;
+		double hauteur;
+		int texture;
+
 		void drawVerticalClosing(Point);
 		void drawHorizontalClosing(Point);
+
 	public:
 
 		vector<Point> coordinates;
 
 		Mur();
-		Mur(double,double,double,vector <Point>, double);
+		Mur(double,double,double,vector <Point>, double, int);
 		bool isHorizontal(Point , Point);
 		bool isVertical(Point, Point);
 		void draw();
