@@ -44,6 +44,16 @@ int main(int argc, char *argv[])
 
 	glEnable(GL_TEXTURE_2D);
 
+	
+	//chargement des textures
+	int sol = loadTexture("textures/carrelage1.jpg");
+	int mur1 = loadTexture("textures/mur1.jpg");
+	int ascenseur = loadTexture("textures/test.jpg");
+	int sol2 = loadTexture("textures/sol_cave.jpg");
+	int mur2 = loadTexture("textures/wall.jpg");
+	int plafond = loadTexture("textures/plafond1.jpg");
+	int pilier = loadTexture("textures/pilier1.jpg");
+
 	// TESTS ELEMENTS
 	//test fontaine
 	Fountain *fountain = new Fountain(10.0, 3.0, 10.0);
@@ -54,19 +64,10 @@ int main(int argc, char *argv[])
 	points.push_back(Point (70,0,-20));
 	points.push_back(Point (60,0,-20));
 	points.push_back(Point (60,0,-40));
-	Mur *murTest = new Mur(70,0,0,points, 10);
+	Mur *murTest = new Mur(70,0,0,points, 10,mur2);
 
 
 	// END
-
-	//chargement des textures
-	int sol = loadTexture("textures/carrelage1.jpg");
-	int mur1 = loadTexture("textures/mur1.jpg");
-	int ascenseur = loadTexture("textures/test.jpg");
-	int sol2 = loadTexture("textures/sol_cave.jpg");
-	int mur2 = loadTexture("textures/wall.jpg");
-	int plafond = loadTexture("textures/plafond1.jpg");
-	int pilier = loadTexture("textures/pilier1.jpg");
 
 	//variables de déplacement de la caméra
 	int angle = 35;
