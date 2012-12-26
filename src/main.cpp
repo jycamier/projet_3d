@@ -9,6 +9,7 @@
 #include "elements_decor/Pilier.h"
 #include "elements_decor/fountain.h"
 #include "elements_decor/Mur.h"
+#include "factory/Etage_Factory.h"
 
 
 // Taille de la fenêtre
@@ -46,13 +47,11 @@ int main(int argc, char *argv[])
 
 	
 	//chargement des textures
-	int sol = loadTexture("textures/carrelage1.jpg");
-	int mur1 = loadTexture("textures/mur1.jpg");
 	int ascenseur = loadTexture("textures/test.jpg");
-	int sol2 = loadTexture("textures/sol_cave.jpg");
 	int mur2 = loadTexture("textures/wall.jpg");
-	int plafond = loadTexture("textures/plafond1.jpg");
 	int pilier = loadTexture("textures/pilier1.jpg");
+	int sol = loadTexture("textures/carrelage1.jpg");
+
 
 	// TESTS ELEMENTS
 	//test fontaine
@@ -80,9 +79,10 @@ int main(int argc, char *argv[])
 	int largeur_etage = 80;
 	int hauteur_etage = 15;
 
-	//création d'un étage
-	Etage *rez_de_chaussee = new Etage(longueur_etage,hauteur_etage,largeur_etage,plafond,sol,mur1,0);
-	Etage *cave = new Etage(longueur_etage,-1,largeur_etage,plafond,sol2,mur2,-20);
+	EtageFactory factory;
+
+	Etage* rez_de_chaussee = factory.createEtage(); 
+
 	Pilier * p1 = new Pilier(-20,0,-40,pilier);
 	Pilier * p2 = new Pilier(20,0,-40,pilier);
 	Pilier * p3 = new Pilier(-20,0,-20,pilier);
@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
 	
 		rez_de_chaussee->draw(ascenseur);
-		cave->draw(mur2);
+		// cave->draw(mur2);
 	
 		glBindTexture(GL_TEXTURE_2D, sol);
 		glBegin(GL_QUADS);		
