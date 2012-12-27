@@ -4,12 +4,14 @@
 #include <math.h>
 #include <vector>
 #include "sdlglutils.h"
-#include "barril.h"
 #include "caisse.h"
 #include "etage.h"
 #include "Personnage.h"
+#include "elements_decor/Pilier.h"
 #include "elements_decor/fountain.h"
 #include "elements_decor/Mur.h"
+#include "factory/Etage_Factory.h"
+#include "elements_decor/Escalier.h"
 
 
 // Taille de la fenêtre
@@ -43,52 +45,36 @@ int main(int argc, char *argv[]) {
 
 	glEnable (GL_TEXTURE_2D);
 
+	
+	//chargement des textures
+	int ascenseur = loadTexture("textures/test.jpg");
+	int mur2 = loadTexture("textures/wall.jpg");
+	int pilier = loadTexture("textures/pilier1.jpg");
+	int sol = loadTexture("textures/carrelage1.jpg");
+
+
 	// TESTS ELEMENTS
 	//test fontaine
 	Fountain *fountain = new Fountain(10.0, 3.0, 10.0);
 
+	Escalier *escalierDescendant = new Escalier(70,0,80,70,-20,0);
+	Escalier *escalierMontant = new Escalier(37,0,80,70,20,0);
+
 	//test murs
 	vector<Point> points;
-	vector<Point> points2;
-	vector<Point> points3;
-	vector<Point> points4;
-	vector<Point> points5;
-	vector<Point> points6;
 
-	points.push_back(Point (60,0,0));
-	points.push_back(Point (60,0,-20));
-	Mur *murTest = new Mur(80,0,0,points);
+	points.push_back(Point (70,0,30));
+	points.push_back(Point (70,0,10));
+	points.push_back(Point (80,0,10));
+	Mur *guichet1 = new Mur(80,0,30,points, 3,mur2);
+	points.clear();
 
-	points2.push_back(Point (60,0,-45));
-	points2.push_back(Point (60,0,-25));
-	Mur *murTest2 = new Mur(80,0,-45,points2);
-
-	points3.push_back(Point (0,0,-60));
-	points3.push_back(Point (20,0,-60));
-	Mur *murTest3 = new Mur(0,0,-80,points3);
-
-	points4.push_back(Point (45,0,-60));
-	points4.push_back(Point (25,0,-60));
-	Mur *murTest4 = new Mur(45,0,-80,points4);
-
-	points5.push_back(Point (-60,0,0));
-	points5.push_back(Point (-60,0,20));
-	Mur *murTest5 = new Mur(-80,0,0,points5);
-
-	points6.push_back(Point (-60,0,45));
-	points6.push_back(Point (-60,0,25));
-	Mur *murTest6 = new Mur(-80,0,45,points6);
-
+	points.push_back(Point (70,0,0));
+	points.push_back(Point (70,0,-20));
+	points.push_back(Point (80,0,-20));
+	Mur *guichet2 = new Mur(80,0,0,points, 3,mur2);
+	points.clear();
 	// END
-
-	//chargement des textures
-	int sol = loadTexture("textures/carrelage1.jpg");
-	int mur1 = loadTexture("textures/mur1.jpg");
-	int ascenseur = loadTexture("textures/test.jpg");
-	int sol2 = loadTexture("textures/sol_cave.jpg");
-	int mur2 = loadTexture("textures/wall.jpg");
-	int plafond = loadTexture("textures/plafond1.jpg");
-	int pilier = loadTexture("textures/pilier1.jpg");
 
 	//variables de déplacement de la caméra
 	int angle = 35;
@@ -104,23 +90,33 @@ int main(int argc, char *argv[]) {
 	int largeur_etage = 80;
 	int hauteur_etage = 15;
 
-	//création d'un étage
-	Etage* rez_de_chaussee = new Etage(longueur_etage, hauteur_etage,
-			largeur_etage, plafond, sol, mur1, 0);
+	EtageFactory factory;
 
-	rez_de_chaussee->AjouterCaisse(10, 0, 10, 5);
+	Etage* rez_de_chaussee = factory.createEtage(); 
 
-	Etage* cave = new Etage(longueur_etage, -1, largeur_etage, plafond, sol2,
-			mur2, -20);
-	Barril* p1 = new Barril(-20, 0, -40);
-	Barril* p2 = new Barril(20, 0, -40);
-	Barril* p3 = new Barril(-20, 0, -20);
-	Barril* p4 = new Barril(20, 0, -20);
-	Barril* p5 = new Barril(-20, 0, 0);
-	Barril* p6 = new Barril(20, 0, 0);
-	Barril* p7 = new Barril(-20, 0, 20);
-	Barril* p8 = new Barril(20, 0, 20);
-	GLUquadricObj *quad1 = gluNewQuadric();
+	Pilier * p1 = new Pilier(-20,0,-40,pilier);
+	Pilier * p2 = new Pilier(20,0,-40,pilier);
+	Pilier * p3 = new Pilier(-20,0,-20,pilier);
+	Pilier * p4 = new Pilier(20,0,-20,pilier);
+	Pilier * p5 = new Pilier(-20,0,0,pilier);
+	Pilier * p6 = new Pilier(20,0,0,pilier);
+	Pilier * p7 = new Pilier(-20,0,20,pilier);
+	Pilier * p8 = new Pilier(20,0,20,pilier);
+
+	rez_de_chaussee->addElementDecor(p1);
+	rez_de_chaussee->addElementDecor(p2);
+	rez_de_chaussee->addElementDecor(p3);
+	rez_de_chaussee->addElementDecor(p4);
+	rez_de_chaussee->addElementDecor(p5);
+	rez_de_chaussee->addElementDecor(p6);
+	rez_de_chaussee->addElementDecor(p7);
+	rez_de_chaussee->addElementDecor(p8);
+	rez_de_chaussee->addElementDecor(fountain);
+	rez_de_chaussee->addElementDecor(guichet1);
+	rez_de_chaussee->addElementDecor(guichet2);
+	rez_de_chaussee->addElementDecor(escalierDescendant);
+	rez_de_chaussee->addElementDecor(escalierMontant);
+
 
 	int i = 0;
 	bool col = false;
@@ -208,6 +204,7 @@ int main(int argc, char *argv[]) {
 		///////////////////////////////////////////////////////////////
 
 		rez_de_chaussee->draw(ascenseur);
+
 		cave->draw(mur2);
 
 		//piliers
@@ -322,6 +319,7 @@ int main(int argc, char *argv[]) {
 			b = b + 1;
 			a = a + 2;
 		}
+
 
 		// Affichage (en double buffering)
 		glFlush();

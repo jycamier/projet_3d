@@ -1,11 +1,14 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <vector> 
+#include "sdlglutils.h"
+#include "elements/element_decor.h"
 #include "etage.h"
-#include <vector>
+#include "elements_decor/Mur.h"
+
 using namespace std;
 
-
-Etage::Etage(int x, int y, int z, int plafond, int sol, int murs, int base_etage)
+Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, double base_etage)
 {
 	this->longueur_etage = x;
 	this->hauteur_etage = y;
@@ -17,7 +20,17 @@ Etage::Etage(int x, int y, int z, int plafond, int sol, int murs, int base_etage
 
 }
 
-void Etage::draw(int texture_ascenseur)
+void Etage::addElementDecor(ElementDecor* element)
+{
+	this->decor.push_back(element);
+}
+
+void Etage::removeElementDecor(ElementDecor* element)
+{
+	// this->decor.erase(element);
+}
+
+void Etage::drawSurface()
 {
 	//plate-forme
 	glBindTexture(GL_TEXTURE_2D, texture_sol);
@@ -89,94 +102,135 @@ void Etage::draw(int texture_ascenseur)
 	glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,largeur_etage);
 		
 	glEnd() ;
+}
+
+
+void Etage::drawElementsDecor()
+{
+	int i = 0;
+	while (i < this->decor.size())
+	{
+		this->decor[i]->draw();
+		i++;
+	}
+}
+
+void Etage::draw(int texture_ascenseur)
+{
+	int longueur_porte_ascenseur = (longueur_etage-10);
+	this->drawSurface();
+	this->drawElementsDecor();
 
 	// portes et ascenseur
 	/////////////////////////////////////////////////////////
-	// mur de gauche
-	glBindTexture(GL_TEXTURE_2D, texture_murs);		
-	glBegin(GL_QUADS);
-	glColor3ub(223,223,223);
+	// mur à gauche de l'ascenseur
+	vector<Point> points;
 
-	glTexCoord2d(5,2); glVertex3d(longueur_etage,base,longueur_etage-25);
-	glTexCoord2d(2,2); glVertex3d(longueur_etage-10,base,longueur_etage-25);
-	glTexCoord2d(2,5); glVertex3d(longueur_etage-10,hauteur_etage,longueur_etage-25);
-	glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,longueur_etage-25);
-
-	glEnd() ;
+	points.push_back(Point (longueur_etage-10,base,longueur_etage-25));
+	Mur* mur_gauche1 = new Mur(longueur_etage,base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
+	mur_gauche1->draw();
+	points.clear();
 
 
-	glBindTexture(GL_TEXTURE_2D, texture_murs);		
-	glBegin(GL_QUADS);
-	glColor3ub(223,223,223);
+	points.push_back(Point (longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25));
+	points.push_back(Point (longueur_etage-longueur_porte_ascenseur,base,longueur_etage));
+	Mur* mur_gauche2 = new Mur(longueur_etage-20,base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
+	mur_gauche2->draw();
+	points.clear();
+
+	//mur à droite de l'ascenseur
+	points.push_back(Point (-(longueur_etage-10),base,longueur_etage-25));
+	Mur* mur_droite1 = new Mur(-longueur_etage,base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
+	mur_droite1->draw();
+	points.clear();
 
 
-	glTexCoord2d(5,2); glVertex3d(longueur_etage-20,base,longueur_etage-25);
-	glTexCoord2d(2,2); glVertex3d(longueur_etage-53,base,longueur_etage-25);
-	glTexCoord2d(2,5); glVertex3d(longueur_etage-53,hauteur_etage,longueur_etage-25);
-	glTexCoord2d(5,5); glVertex3d(longueur_etage-20,hauteur_etage,longueur_etage-25);
+	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage-25));
+	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage));
+	Mur* mur_droite2 = new Mur(-(longueur_etage-20),base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
+	mur_droite2->draw();
+	points.clear();
 
-
-	glEnd() ;
-
-	//mur de droite
-	glBindTexture(GL_TEXTURE_2D, texture_murs);		
-	glBegin(GL_QUADS);
-
-	glTexCoord2d(5,2); glVertex3d(-longueur_etage,base,longueur_etage-25);
-	glTexCoord2d(2,2); glVertex3d(-(longueur_etage-10),base,longueur_etage-25);
-	glTexCoord2d(2,5); glVertex3d(-(longueur_etage-10),hauteur_etage,longueur_etage-25);
-	glTexCoord2d(5,5); glVertex3d(-longueur_etage,hauteur_etage,longueur_etage-25);
-
-	glEnd() ;
-
-	glBindTexture(GL_TEXTURE_2D, texture_murs);		
-	glBegin(GL_QUADS);
-
-	glTexCoord2d(5,2); glVertex3d(-(longueur_etage-20),base,longueur_etage-25);
-	glTexCoord2d(2,2); glVertex3d(-(longueur_etage-53),base,longueur_etage-25);
-	glTexCoord2d(2,5); glVertex3d(-(longueur_etage-53),hauteur_etage,longueur_etage-25);
-	glTexCoord2d(5,5); glVertex3d(-(longueur_etage-20),hauteur_etage,longueur_etage-25);
-
-
-	glEnd() ;
-
-	//mur vertical gauche
-	glBindTexture(GL_TEXTURE_2D, texture_murs);		
-	glBegin(GL_QUADS);
-
-
-	glTexCoord2d(5,2); glVertex3d(longueur_etage-53,base,longueur_etage-25);
-	glTexCoord2d(2,2); glVertex3d(longueur_etage-53,base,longueur_etage);
-	glTexCoord2d(2,5); glVertex3d(longueur_etage-53,hauteur_etage,longueur_etage);
-	glTexCoord2d(5,5); glVertex3d(longueur_etage-53,hauteur_etage,longueur_etage-25);
-
-
-	glEnd() ;
-
-	//mur vertical droit
-	glBindTexture(GL_TEXTURE_2D, texture_murs);		
-	glBegin(GL_QUADS);
-
-
-	glTexCoord2d(5,2); glVertex3d(-(longueur_etage-53),base,longueur_etage-25);
-	glTexCoord2d(2,2); glVertex3d(-(longueur_etage-53),base,longueur_etage);
-	glTexCoord2d(2,5); glVertex3d(-(longueur_etage-53),hauteur_etage,longueur_etage);
-	glTexCoord2d(5,5); glVertex3d(-(longueur_etage-53),hauteur_etage,longueur_etage-25);
-
-
-	glEnd() ;
 
 	//porte ascenseur
 	glBindTexture(GL_TEXTURE_2D, texture_ascenseur);		
 	glBegin(GL_QUADS);
 
-	glTexCoord2d(1,0); glVertex3d(-(longueur_etage-53),base,longueur_etage-25);
-	glTexCoord2d(0,0); glVertex3d(longueur_etage-53,base,longueur_etage-25);
-	glTexCoord2d(0,1); glVertex3d(longueur_etage-53,hauteur_etage,longueur_etage-25);
-	glTexCoord2d(1,1); glVertex3d(-(longueur_etage-53),hauteur_etage,longueur_etage-25);
-
+	glTexCoord2d(1,0); glVertex3d(-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage-25);
+	glTexCoord2d(0,0); glVertex3d(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25);
+	glTexCoord2d(0,1); glVertex3d(longueur_etage-longueur_porte_ascenseur,hauteur_etage,longueur_etage-25);
+	glTexCoord2d(1,1); glVertex3d(-(longueur_etage-longueur_porte_ascenseur),hauteur_etage,longueur_etage-25);
 
 	glEnd() ;
+
+	//////////////////////////////////////////////////////////////////////////
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(longueur_etage,0,largeur_etage);
+	glVertex3d(longueur_etage-10,0,largeur_etage);
+	glVertex3d(longueur_etage-10,0,largeur_etage-25);
+	glVertex3d(longueur_etage,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(longueur_etage-10,0,largeur_etage-10);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage-25);
+	glVertex3d(longueur_etage-10,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(longueur_etage-43,0,largeur_etage);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(longueur_etage-43,0,largeur_etage-10);
+					
+	glEnd() ;
+
+	//***********************************************************//
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(-longueur_etage,0,largeur_etage);
+	glVertex3d(-longueur_etage+10,0,largeur_etage);
+	glVertex3d(-longueur_etage+10,0,largeur_etage-25);
+	glVertex3d(-longueur_etage,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(-longueur_etage+10,0,largeur_etage-10);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage-25);
+	glVertex3d(-longueur_etage+10,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(-longueur_etage+43,0,largeur_etage);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(-longueur_etage+43,0,largeur_etage-10);
+					
+	glEnd() ;
+
 
 	/**
 	 * Partie TEST : Draw les caisses

@@ -7,12 +7,19 @@ using namespace std;
 
 class Mur : public ElementDecor {
 	private:
-		vector<Point> coordinates;
-		int epaisseur;
-		int hauteur;
+		double epaisseur;
+		double hauteur;
+		int texture;
+
+		void drawVerticalClosing(Point);
+		void drawHorizontalClosing(Point);
+
 	public:
+
+		vector<Point> coordinates;
+
 		Mur();
-		Mur(double,double,double,vector <Point>);
+		Mur(double,double,double,vector <Point>, double, int);
 		bool isHorizontal(Point , Point);
 		bool isVertical(Point, Point);
 		void draw();
