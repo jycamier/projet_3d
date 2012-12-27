@@ -5,6 +5,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "../etage.h"
+#include <iostream> 
+
+using namespace std;
 
 class EtageFactory
 {
@@ -13,9 +16,8 @@ class EtageFactory
 	public :
 
 		EtageFactory();
-		Etage* createEtage();
+		Etage* createEtage(int);
 		~EtageFactory();
-
 
 };
 

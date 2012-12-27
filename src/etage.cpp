@@ -114,7 +114,7 @@ void Etage::drawElementsDecor()
 	}
 }
 
-void Etage::draw(int texture_ascenseur)
+void Etage::draw()
 {
 	int longueur_porte_ascenseur = (longueur_etage-10);
 	this->drawSurface();
@@ -149,18 +149,6 @@ void Etage::draw(int texture_ascenseur)
 	Mur* mur_droite2 = new Mur(-(longueur_etage-20),base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
 	mur_droite2->draw();
 	points.clear();
-
-
-	//porte ascenseur
-	glBindTexture(GL_TEXTURE_2D, texture_ascenseur);		
-	glBegin(GL_QUADS);
-
-	glTexCoord2d(1,0); glVertex3d(-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage-25);
-	glTexCoord2d(0,0); glVertex3d(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25);
-	glTexCoord2d(0,1); glVertex3d(longueur_etage-longueur_porte_ascenseur,hauteur_etage,longueur_etage-25);
-	glTexCoord2d(1,1); glVertex3d(-(longueur_etage-longueur_porte_ascenseur),hauteur_etage,longueur_etage-25);
-
-	glEnd() ;
 
 	//////////////////////////////////////////////////////////////////////////
 	glBegin(GL_QUADS);		

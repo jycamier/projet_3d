@@ -29,7 +29,7 @@ class Etage {
         Etage (const Etage &); // Constructeur de copie, non implémenté donc interdit
         Etage (double, double, double, int, int, int, double);
 
-        void draw(int);
+        void draw();
         void drawSurface();
         void drawElementsDecor();
         void addElementDecor(ElementDecor*);
