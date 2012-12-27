@@ -29,19 +29,8 @@ void Etage::removeElementDecor(ElementDecor* element)
 	// this->decor.erase(element);
 }
 
-void Etage::draw(int texture_ascenseur)
+void Etage::drawSurface()
 {
-
-	int i = 0;
-	while (i < this->decor.size())
-	{
-		this->decor[i]->draw();
-		// printf("%s\n", this->decor[i]);
-		i++;
-	}
-
-	int longueur_porte_ascenseur = (longueur_etage-10);
-
 	//plate-forme
 	glBindTexture(GL_TEXTURE_2D, texture_sol);
 
@@ -112,10 +101,28 @@ void Etage::draw(int texture_ascenseur)
 	glTexCoord2d(5,5); glVertex3d(longueur_etage,hauteur_etage,largeur_etage);
 		
 	glEnd() ;
+}
+
+
+void Etage::drawElementsDecor()
+{
+	int i = 0;
+	while (i < this->decor.size())
+	{
+		this->decor[i]->draw();
+		i++;
+	}
+}
+
+void Etage::draw(int texture_ascenseur)
+{
+	int longueur_porte_ascenseur = (longueur_etage-10);
+	this->drawSurface();
+	this->drawElementsDecor();
 
 	// portes et ascenseur
 	/////////////////////////////////////////////////////////
-	// mur de gauche
+	// mur à gauche de l'ascenseur
 	vector<Point> points;
 
 	points.push_back(Point (longueur_etage-10,base,longueur_etage-25));
@@ -130,7 +137,7 @@ void Etage::draw(int texture_ascenseur)
 	mur_gauche2->draw();
 	points.clear();
 
-	//mur de droite
+	//mur à droite de l'ascenseur
 	points.push_back(Point (-(longueur_etage-10),base,longueur_etage-25));
 	Mur* mur_droite1 = new Mur(-longueur_etage,base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
 	mur_droite1->draw();
@@ -153,6 +160,74 @@ void Etage::draw(int texture_ascenseur)
 	glTexCoord2d(0,1); glVertex3d(longueur_etage-longueur_porte_ascenseur,hauteur_etage,longueur_etage-25);
 	glTexCoord2d(1,1); glVertex3d(-(longueur_etage-longueur_porte_ascenseur),hauteur_etage,longueur_etage-25);
 
+	glEnd() ;
+
+	//////////////////////////////////////////////////////////////////////////
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(longueur_etage,0,largeur_etage);
+	glVertex3d(longueur_etage-10,0,largeur_etage);
+	glVertex3d(longueur_etage-10,0,largeur_etage-25);
+	glVertex3d(longueur_etage,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(longueur_etage-10,0,largeur_etage-10);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage-25);
+	glVertex3d(longueur_etage-10,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(longueur_etage-43,0,largeur_etage);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage);
+	glVertex3d(longueur_etage-longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(longueur_etage-43,0,largeur_etage-10);
+					
+	glEnd() ;
+
+	//***********************************************************//
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(-longueur_etage,0,largeur_etage);
+	glVertex3d(-longueur_etage+10,0,largeur_etage);
+	glVertex3d(-longueur_etage+10,0,largeur_etage-25);
+	glVertex3d(-longueur_etage,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(-longueur_etage+10,0,largeur_etage-10);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage-25);
+	glVertex3d(-longueur_etage+10,0,largeur_etage-25);
+					
+	glEnd() ;
+
+	glBegin(GL_QUADS);		
+	// glColor3ub(223,223,223);
+	glColor3ub(0,0,255);
+
+	glVertex3d(-longueur_etage+43,0,largeur_etage);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage);
+	glVertex3d(-longueur_etage+longueur_porte_ascenseur,0,largeur_etage-10);
+	glVertex3d(-longueur_etage+43,0,largeur_etage-10);
+					
 	glEnd() ;
 	//////////////////////////////////////////////////////////////////////////
 }

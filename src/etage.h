@@ -30,6 +30,8 @@ class Etage {
         Etage (double, double, double, int, int, int, double);
 
         void draw(int);
+        void drawSurface();
+        void drawElementsDecor();
         void addElementDecor(ElementDecor*);
         void removeElementDecor(ElementDecor*);
         void clearElementsDecor();
