@@ -23,6 +23,14 @@ Etage* EtageFactory::createEtage(int etage)
 	{
 		case -1 : 
 		{
+			texture_plafond = loadTexture("textures/plafond1.jpg");
+			texture_sol = loadTexture("textures/floor.jpg");
+			texture_murs = loadTexture("textures/wall.jpg");
+
+			//creation de l'étage
+			Etage* cave = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
+
+			return cave;
 
 		}
 		break;
@@ -53,6 +61,7 @@ Etage* EtageFactory::createEtage(int etage)
 			points.push_back(Point (80,0,-20));
 			Mur *guichet2 = new Mur(80,0,0,points, 3,texture_guichet);
 			points.clear();
+
 			
 			//ajout des élement de décor dans l'étage
 			rez_de_chaussee->addElementDecor(new Pilier(20,0,-40,texture_pilier));

@@ -59,8 +59,7 @@ int main(int argc, char *argv[])
 
 	EtageFactory factory;
 
-	Etage* rez_de_chaussee = factory.createEtage(0); 
-
+	Etage* rez_de_chaussee = factory.createEtage(-1); 
 
 	while (continuer)
 	{
