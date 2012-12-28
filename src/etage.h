@@ -5,48 +5,65 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <vector>
+#include "caisse.h"
 #include "elements_decor/Mur.h"
 #include "elements/element_decor.h"
 #include "elements_interactif/elements_interactif_decor/Elevator.h"
-
 
 using namespace std;
 
 class Etage {
 
-    private :
+protected:
 
-        double longueur_etage;
-        double hauteur_etage;
-        double largeur_etage;
-        double base;
-        Elevator* elevator;
+	double longueur_etage;
+	double hauteur_etage;
+	double largeur_etage;
+	double base;
+	Elevator* elevator;
 
-        vector<ElementDecor*> decor; 
+	vector<ElementDecor*> decor;
 
-        int texture_plafond;
-        int texture_murs;
-        int texture_sol;       
+	int texture_plafond;
+	int texture_murs;
+	int texture_sol;
+	vector<Caisse*> lesCaisses;
 
-    public :
+public:
 
-        vector<Mur*> elevatorDoors;
+	vector<Mur*> elevatorDoors;
 
-        Etage () ; // Non implémenté donc inutilisable
-        Etage (const Etage &); // Constructeur de copie, non implémenté donc interdit
-        Etage (double, double, double, int, int, int, double);
+	Etage(); // Non implémenté donc inutilisable
+	Etage(const Etage &); // Constructeur de copie, non implémenté donc interdit
+	Etage(double, double, double, int, int, int, double);
 
-        void draw();
-        void drawSurface();
-        void drawElementsDecor();
-        void drawElevatorDoor();
-        void openElevatorDoors();
-        void closeElevatorDoors();
-        void addElementDecor(ElementDecor*);
-        void removeElementDecor(ElementDecor*);
-        void clearElementsDecor();
+	void draw();
+	void drawSurface();
+	void drawElementsDecor();
+	void drawElevatorDoor();
+	void openElevatorDoors();
+	void closeElevatorDoors();
+	void addElementDecor(ElementDecor*);
+	void removeElementDecor(ElementDecor*);
+	void clearElementsDecor();
+	/**
+	 * méthode de test pour Collision
+	 * >>> ajoute une caisse au coordonnée (x, z)
+	 */
+	void AjouterCaisse(double x, double y, double z, double height);
 
-        ~Etage(); // Destructeur
+	vector<Caisse*> getLesCaisses() const {
+		return lesCaisses;
+	}
+
+	double getLargeurEtage() const {
+		return largeur_etage;
+	}
+
+	double getLongueurEtage() const {
+		return longueur_etage;
+	}
+
 };
 
 #endif // ETAGE_H_INCLUDED

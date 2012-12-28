@@ -7,6 +7,7 @@
 #include "elements_decor/Mur.h"
 #include "elements_interactif/elements_interactif_decor/Elevator.h"
 
+using namespace std;
 
 Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, double base_etage)
 {
@@ -247,5 +248,19 @@ void Etage::draw()
 	glVertex3d(-longueur_etage+43,0,largeur_etage-10);
 					
 	glEnd() ;
-	//////////////////////////////////////////////////////////////////////////
+
+
+	/**
+	 * Partie TEST : Draw les caisses
+	 */
+	GLUquadricObj *quad1 = gluNewQuadric();
+	for(int i = 0; i< this->lesCaisses.size(); i++){
+		this->lesCaisses.at(i)->draw(quad1);
+	}
+
+}
+
+
+void Etage::AjouterCaisse(double x, double y, double z, double height){
+	this->lesCaisses.push_back(new Caisse(x, y, z, height));
 }
