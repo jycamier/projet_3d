@@ -26,7 +26,7 @@ Mur::Mur(double x, double y, double z, vector<Point> coords, double height, int 
 void Mur::draw(){
 
 	int i = 0;
-	glColor3ub(168,163,165);
+	// glColor3ub(168,163,165);
 	//coordonnées du point à l'indice i
 	double x1;
 	double y1;

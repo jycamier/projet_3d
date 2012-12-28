@@ -85,6 +85,44 @@ Etage* EtageFactory::createEtage(int etage)
 
 		case 1 :
 		{
+			//chargement des textures
+			texture_plafond = loadTexture("textures/plafond1.jpg");
+			texture_sol = loadTexture("textures/moquette.jpg");
+			texture_murs = loadTexture("textures/mur1.jpg");
+			int texture_murs_bureau = loadTexture("textures/mur1.jpg");
+
+			//creation de l'étage
+			Etage* etage1 = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
+			
+			//utilisé pour définir les coordonnées des murs ci-après
+			vector<Point> points;
+
+			points.push_back(Point (10,0,40));
+			points.push_back(Point (10,0,0));
+			Mur *mur1Salle1 = new Mur(80,0,40,points, 15,texture_murs_bureau);
+			points.clear();
+
+			points.push_back(Point (10,0,-30));
+			points.push_back(Point (80,0,-30));
+			Mur *mur2Salle1 = new Mur(10,0,-7,points, 15,texture_murs_bureau);
+			points.clear();
+
+			points.push_back(Point (-10,0,40));
+			points.push_back(Point (-10,0,0));
+			Mur *mur1Salle2 = new Mur(-80,0,40,points, 15,texture_murs_bureau);
+			points.clear();
+
+			points.push_back(Point (-10,0,-30));
+			points.push_back(Point (-80,0,-30));
+			Mur *mur2Salle2 = new Mur(-10,0,-7,points, 15,texture_murs_bureau);
+			points.clear();
+
+			etage1->addElementDecor(mur1Salle1);
+			etage1->addElementDecor(mur1Salle2);
+			etage1->addElementDecor(mur2Salle1);
+			etage1->addElementDecor(mur2Salle2);
+
+			return etage1;
 
 		} 
 		break;

@@ -5,6 +5,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <vector>
+#include "elements_decor/Mur.h"
 #include "elements/element_decor.h"
 
 using namespace std;
@@ -25,6 +26,9 @@ class Etage {
         int texture_sol;       
 
     public :
+
+        vector<Mur*> elevatorDoors;
+
         Etage () ; // Non implémenté donc inutilisable
         Etage (const Etage &); // Constructeur de copie, non implémenté donc interdit
         Etage (double, double, double, int, int, int, double);
@@ -32,6 +36,9 @@ class Etage {
         void draw();
         void drawSurface();
         void drawElementsDecor();
+        void drawElevatorDoor();
+        void openElevatorDoors();
+        void closeElevatorDoors();
         void addElementDecor(ElementDecor*);
         void removeElementDecor(ElementDecor*);
         void clearElementsDecor();

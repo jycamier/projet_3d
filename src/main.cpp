@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
 	EtageFactory factory;
 
-	Etage* rez_de_chaussee = factory.createEtage(-1); 
+	Etage* rez_de_chaussee = factory.createEtage(1); 
 
 	while (continuer)
 	{
@@ -77,6 +77,15 @@ int main(int argc, char *argv[])
 		Uint8 *keystates = SDL_GetKeyState( NULL );
 
 		// Actions liées
+		if (keystates[SDLK_a]) 
+		{
+			rez_de_chaussee->openElevatorDoors();
+		}
+		if (keystates[SDLK_e]) 
+		{
+			rez_de_chaussee->closeElevatorDoors();
+		}
+
 		if (keystates[SDLK_RIGHT]) {angle = angle + 3;}
 		if (keystates[SDLK_LEFT]) {angle = angle - 3;}
 		if (keystates[SDLK_UP]) 
