@@ -1,7 +1,7 @@
 #ifndef FOUNTAIN_H_INCLUDED
 #define FOUNTAIN_H_INCLUDED
 #include "../elements/element_decor.h"
-#include "../elements_inventory/water_cup.h"
+#include "../elements_interactif/elements_inventory/water_cup.h"
 
 class Fountain : public ElementDecor {
 	private:

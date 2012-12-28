@@ -4,14 +4,16 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+
 using namespace std;
 
 Fountain::Fountain(double x, double y, double z) : ElementDecor(x, y, z){
 	width = y;
 }
 
-WaterCup* Fountain::provideWater() {
-	return new WaterCup();
+WaterCup* Fountain::provideWater() 
+{	
+	return new WaterCup(this->position->x,this->position->y,this->position->z);
 }
 
 
