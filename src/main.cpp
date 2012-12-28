@@ -7,7 +7,6 @@
 #include "sdlglutils.h"
 #include "caisse.h"
 #include "etage.h"
-#include "Personnage.h"
 #include "elements_decor/Pilier.h"
 #include "elements_decor/fountain.h"
 #include "elements_decor/Mur.h"
@@ -65,7 +64,6 @@ int main(int argc, char *argv[]) {
 	int pilier = loadTexture("textures/pilier1.jpg");
 	int sol = loadTexture("textures/carrelage1.jpg");
 
-	camera = new FreeFlyCamera(Vector3D(0, 4, 0));
 
 	// TESTS ELEMENTS
 	//test fontaine
@@ -90,22 +88,12 @@ int main(int argc, char *argv[]) {
 	points.clear();
 	// END
 
-	//variables de déplacement de la caméra
-	int angle = 35;
-	int pas = 1;
-	double x = 0;
-	double z = 0;
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
-	//Personnage* personnage_jeu = new Personnage(0, 0, 0, 35);
+	camera = new FreeFlyCamera(Vector3D(0, 4, 0));
 
-	// paramètre de l'étage
-	int longueur_etage = 80;
-	int largeur_etage = 80;
-	int hauteur_etage = 15;
 
 	EtageFactory factory;
-
 	Etage* rez_de_chaussee = factory.createEtage();
 
 	/**
@@ -173,39 +161,6 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-		// Gestion du clavier
-		// Récupération du keystates
-		/*Uint8 *keystates = SDL_GetKeyState(NULL);
-
-		 // Actions liées
-		 if (keystates[SDLK_RIGHT]) {
-		 personnage_jeu->tournerDroite();
-		 }
-		 if (keystates[SDLK_LEFT]) {
-		 personnage_jeu->tournerGauche();
-		 }
-		 if (keystates[SDLK_UP]) {
-		 if (!col) {
-		 personnage_jeu->avancer();
-		 }
-		 }
-		 if (keystates[SDLK_DOWN]) {
-		 personnage_jeu->reculer();
-		 }
-		 if (keystates[SDLK_DOWN]) {
-		 personnage_jeu->reculer();
-		 }*/
-
-		/**
-		 * TEST Collisions
-		 */
-		i = 0;
-		col = false;
-		while (col == false && i < rez_de_chaussee->getLesCaisses().size()) {
-			col = rez_de_chaussee->getLesCaisses().at(i)->Collision(
-					camera->getTarget().X,camera->getTarget().Y,camera->getTarget().Z);
-			i++;
-		}
 
 		//gestion images par secondes
 		current_time = SDL_GetTicks();
@@ -219,7 +174,8 @@ int main(int argc, char *argv[]) {
 
 		last_time = SDL_GetTicks();
 
-		camera->animate(elapsed_time); //et on fait bouger la caméra
+		//Update de la position dela camera
+		camera->animate(elapsed_time);
 
 		glEnable (GL_DEPTH_TEST);
 		glClearColor(0.6, 0.6, 0.6, 1);
@@ -228,10 +184,8 @@ int main(int argc, char *argv[]) {
 		glMatrixMode (GL_MODELVIEW);
 		glLoadIdentity();
 
-		camera->look(); //remplace un appel manuel à gluLookAt
-
-		//Mise à jour de la camera du personnage
-		//personnage_jeu->updateCamera();
+		//remplace un appel manuel à gluLookAt
+		camera->look();
 
 		//repère
 		///////////////////////////////////////////////////////////////
@@ -264,7 +218,6 @@ int main(int argc, char *argv[]) {
 		SDL_GL_SwapBuffers();
 
 	}
-	// Fin du programme
-	SDL_Quit();
+
 	return 0;
 }
