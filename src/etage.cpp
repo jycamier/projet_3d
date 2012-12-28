@@ -156,26 +156,13 @@ void Etage::drawElevatorDoor()
 
 void Etage::openElevatorDoors()
 {
-	if ((this->elevatorDoors[0]->coordinates[0].x) <= 20)
-	{
-		this->elevatorDoors[0]->coordinates[0].x = this->elevatorDoors[0]->coordinates[0].x + 1;
-		this->elevatorDoors[0]->coordinates[1].x = this->elevatorDoors[0]->coordinates[1].x + 1;
-		this->elevatorDoors[1]->coordinates[0].x = this->elevatorDoors[1]->coordinates[0].x - 1;
-		this->elevatorDoors[1]->coordinates[1].x = this->elevatorDoors[1]->coordinates[1].x - 1;
-	}
-
+	this->elevator->close();
 }
 
 void Etage::closeElevatorDoors()
 {
-	if ((this->elevatorDoors[0]->coordinates[0].x) >= 12)
-	{
-		this->elevatorDoors[0]->coordinates[0].x = this->elevatorDoors[0]->coordinates[0].x - 1;
-		this->elevatorDoors[0]->coordinates[1].x = this->elevatorDoors[0]->coordinates[1].x - 1;
-		this->elevatorDoors[1]->coordinates[0].x = this->elevatorDoors[1]->coordinates[0].x + 1;
-		this->elevatorDoors[1]->coordinates[1].x = this->elevatorDoors[1]->coordinates[1].x + 1;
-	}
 
+	this->elevator->open();
 }
 
 void Etage::draw()

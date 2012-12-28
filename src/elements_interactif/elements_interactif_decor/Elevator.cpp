@@ -34,7 +34,7 @@ void Elevator::createElevatorDoors()
 	points.clear();
 
 	points.push_back(Point(this->position->x,this->position->y,this->position->z+1));
-	this->doors.push_back(new Mur(this->position->x -lenght,this->position->y,this->position->z+1,points,this->height,0));
+	this->doors.push_back(new Mur(this->position->x -lenght/2,this->position->y,this->position->z+1,points,this->height,0));
 	points.clear();
 }
 
@@ -50,12 +50,37 @@ void Elevator::draw()
 	i=0;
 
 	glColor3ub(0,0,255);
-	while (i < this->doors.size())
-	{
-		this->doors[i]->draw();	
-		i++;
-	}
-	
+	// while (i < this->doors.size())
+	// {
+	// 	this->doors[i]->draw();	
+	// 	i++;
+	// }
 
-
+	this->doors[1]->draw();
 }
+	
+void Elevator::open()
+{
+	// if ((this->doors[0]->coordinates[0].x) > this->lenght/2)
+	// {
+		// this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x + 1;
+		// this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x + 1;
+		this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x - 1;
+		this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x - 1;
+	// }
+}
+
+
+void Elevator::close()
+{
+	 // if ((this->doors[0]->coordinates[0].x) <= this->lenght/2)
+	 // {
+		// this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x - 1;
+		// this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x - 1;
+		this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x + 1;
+		this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x + 1;
+	 // }	
+}
+
+
+

@@ -21,6 +21,8 @@ class Elevator : public ElementInteractifDecor {
 		~Elevator();
 		void createElevatorShaft();
 		void createElevatorDoors();
+		void open();
+		void close();
 		void draw();
 };
 
