@@ -5,6 +5,7 @@
 #include "elements/element_decor.h"
 #include "etage.h"
 #include "elements_decor/Mur.h"
+#include "elements_interactif/elements_interactif_decor/Elevator.h"
 
 
 Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, double base_etage)
@@ -18,6 +19,8 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 	this->base = base_etage;
 
 	int longueur_porte_ascenseur = (longueur_etage-10);
+	this->elevator = new Elevator(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25,20,25,15);
+
 	// mur à gauche de l'ascenseur
 	vector<Point> points;
 
@@ -39,15 +42,6 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage-25));
 	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage));
 	this->addElementDecor(new Mur(-(longueur_etage-20),base,longueur_etage-25,points,this->hauteur_etage,texture_murs));
-	points.clear();
-
-	//portes de l'ascenseur
-	points.push_back(Point (0,base,longueur_etage-24.5));
-	this->elevatorDoors.push_back(new Mur(10,base,longueur_etage-24.5,points,this->hauteur_etage,texture_murs));
-	points.clear();
-
-	points.push_back(Point (-10,base,longueur_etage-24.5));
-	this->elevatorDoors.push_back(new Mur(0,base,longueur_etage-24.5,points,this->hauteur_etage,texture_murs));
 	points.clear();
 
 
@@ -190,7 +184,10 @@ void Etage::draw()
 	this->drawSurface();
 	this->drawElementsDecor();
 	glColor3ub(255,0,0);
-	this->drawElevatorDoor();
+	this->elevator->draw();
+	// this->drawElevatorDoor();
+
+
 	
 	// portes
 	/////////////////////////////////////////////////////////

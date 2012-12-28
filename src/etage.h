@@ -7,6 +7,8 @@
 #include <vector>
 #include "elements_decor/Mur.h"
 #include "elements/element_decor.h"
+#include "elements_interactif/elements_interactif_decor/Elevator.h"
+
 
 using namespace std;
 
@@ -18,6 +20,7 @@ class Etage {
         double hauteur_etage;
         double largeur_etage;
         double base;
+        Elevator* elevator;
 
         vector<ElementDecor*> decor; 
 

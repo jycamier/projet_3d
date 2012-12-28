@@ -23,6 +23,11 @@ Mur::Mur(double x, double y, double z, vector<Point> coords, double height, int 
 	}
 }
 
+Mur::~Mur()
+{
+	
+}
+
 void Mur::draw(){
 
 	int i = 0;

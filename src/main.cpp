@@ -122,23 +122,23 @@ int main(int argc, char *argv[])
 		//repère
 		///////////////////////////////////////////////////////////////
 		//axe des z en jaune
-		glBegin(GL_QUADS);
+
+		glBegin(GL_LINES);
 		glColor3ub(255,255,0);
-		glVertex3d(10,0.5,0);
-		glVertex3d(12,0.5,0);
-		glVertex3d(12,0.5,20);
-		glVertex3d(10,0.5,20);
+		glVertex3d(0,0.5,0);
+		glVertex3d(80,0.5,0);
 		
 		glEnd();
 
-		//axe des x en violet
-		glBegin(GL_QUADS);
+		glBegin(GL_LINES);
 		glColor3ub(255,0,255);
 		glVertex3d(0,0.5,0);
-		glVertex3d(10,0.5,0);
-		glVertex3d(10,0.5,2);
-		glVertex3d(0,0.5,2);
+		glVertex3d(0,0.5,80);
+
 		glEnd();
+
+		//axe des x en violet
+
 		///////////////////////////////////////////////////////////////
 
 	

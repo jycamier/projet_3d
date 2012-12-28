@@ -3,8 +3,7 @@
 
 #include "../../elements/element_inventory.h"
 
-// class WaterCup : public ElementInventory {
-class WaterCup {
+class WaterCup : public ElementInventory {
 	public:
 		WaterCup();
 		WaterCup(double,double,double);

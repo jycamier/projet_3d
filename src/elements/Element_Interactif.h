@@ -4,8 +4,11 @@
 #include "element.h"
 class ElementInteractif : public Element {
     protected:
-        Point *position;
+        
+      	Point *position;
+
     public:
+
         ElementInteractif(double, double, double);
         void setPosition(double, double, double);
         virtual void draw();
