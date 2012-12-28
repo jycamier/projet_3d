@@ -6,7 +6,9 @@
 #include <GL/glu.h>
 #include <vector>
 #include "caisse.h"
+#include "elements_decor/Mur.h"
 #include "elements/element_decor.h"
+#include "elements_interactif/elements_interactif_decor/Elevator.h"
 
 using namespace std;
 
@@ -18,6 +20,7 @@ protected:
 	double hauteur_etage;
 	double largeur_etage;
 	double base;
+	Elevator* elevator;
 
 	vector<ElementDecor*> decor;
 
@@ -27,19 +30,22 @@ protected:
 	vector<Caisse*> lesCaisses;
 
 public:
+
+	vector<Mur*> elevatorDoors;
+
 	Etage(); // Non implémenté donc inutilisable
 	Etage(const Etage &); // Constructeur de copie, non implémenté donc interdit
 	Etage(double, double, double, int, int, int, double);
 
-	void draw(int);
+	void draw();
 	void drawSurface();
 	void drawElementsDecor();
+	void drawElevatorDoor();
+	void openElevatorDoors();
+	void closeElevatorDoors();
 	void addElementDecor(ElementDecor*);
 	void removeElementDecor(ElementDecor*);
 	void clearElementsDecor();
-
-	~Etage(); // Destructeur
-
 	/**
 	 * méthode de test pour Collision
 	 * >>> ajoute une caisse au coordonnée (x, z)

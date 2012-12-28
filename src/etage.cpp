@@ -5,6 +5,7 @@
 #include "elements/element_decor.h"
 #include "etage.h"
 #include "elements_decor/Mur.h"
+#include "elements_interactif/elements_interactif_decor/Elevator.h"
 
 using namespace std;
 
@@ -17,6 +18,33 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 	this->texture_murs = murs;
 	this->texture_sol = sol;
 	this->base = base_etage;
+
+	int longueur_porte_ascenseur = (longueur_etage-10);
+	this->elevator = new Elevator(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25,20,25,15);
+
+	// mur à gauche de l'ascenseur
+	vector<Point> points;
+
+	points.push_back(Point (longueur_etage-10,base,longueur_etage-25));
+	this->addElementDecor(new Mur(longueur_etage,base,longueur_etage-25,points,this->hauteur_etage,texture_murs));
+	points.clear();
+
+
+	points.push_back(Point (longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25));
+	points.push_back(Point (longueur_etage-longueur_porte_ascenseur,base,longueur_etage));
+	this->addElementDecor(new Mur(longueur_etage-20,base,longueur_etage-25,points,this->hauteur_etage,texture_murs));
+	points.clear();
+
+	//mur à droite de l'ascenseur
+	points.push_back(Point (-(longueur_etage-10),base,longueur_etage-25));
+	this->addElementDecor(new Mur(-longueur_etage,base,longueur_etage-25,points,this->hauteur_etage,texture_murs));
+	points.clear();
+
+	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage-25));
+	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage));
+	this->addElementDecor(new Mur(-(longueur_etage-20),base,longueur_etage-25,points,this->hauteur_etage,texture_murs));
+	points.clear();
+
 
 }
 
@@ -115,53 +143,56 @@ void Etage::drawElementsDecor()
 	}
 }
 
-void Etage::draw(int texture_ascenseur)
+
+void Etage::drawElevatorDoor()
+{
+	int i = 0;
+	while (i < this->elevatorDoors.size())
+	{
+		this->elevatorDoors[i]->draw();
+		i++;
+	}
+
+}
+
+void Etage::openElevatorDoors()
+{
+	if ((this->elevatorDoors[0]->coordinates[0].x) <= 20)
+	{
+		this->elevatorDoors[0]->coordinates[0].x = this->elevatorDoors[0]->coordinates[0].x + 1;
+		this->elevatorDoors[0]->coordinates[1].x = this->elevatorDoors[0]->coordinates[1].x + 1;
+		this->elevatorDoors[1]->coordinates[0].x = this->elevatorDoors[1]->coordinates[0].x - 1;
+		this->elevatorDoors[1]->coordinates[1].x = this->elevatorDoors[1]->coordinates[1].x - 1;
+	}
+
+}
+
+void Etage::closeElevatorDoors()
+{
+	if ((this->elevatorDoors[0]->coordinates[0].x) >= 12)
+	{
+		this->elevatorDoors[0]->coordinates[0].x = this->elevatorDoors[0]->coordinates[0].x - 1;
+		this->elevatorDoors[0]->coordinates[1].x = this->elevatorDoors[0]->coordinates[1].x - 1;
+		this->elevatorDoors[1]->coordinates[0].x = this->elevatorDoors[1]->coordinates[0].x + 1;
+		this->elevatorDoors[1]->coordinates[1].x = this->elevatorDoors[1]->coordinates[1].x + 1;
+	}
+
+}
+
+void Etage::draw()
 {
 	int longueur_porte_ascenseur = (longueur_etage-10);
 	this->drawSurface();
 	this->drawElementsDecor();
+	glColor3ub(255,0,0);
+	this->elevator->draw();
+	// this->drawElevatorDoor();
 
-	// portes et ascenseur
+
+	
+	// portes
 	/////////////////////////////////////////////////////////
-	// mur à gauche de l'ascenseur
-	vector<Point> points;
-
-	points.push_back(Point (longueur_etage-10,base,longueur_etage-25));
-	Mur* mur_gauche1 = new Mur(longueur_etage,base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
-	mur_gauche1->draw();
-	points.clear();
-
-
-	points.push_back(Point (longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25));
-	points.push_back(Point (longueur_etage-longueur_porte_ascenseur,base,longueur_etage));
-	Mur* mur_gauche2 = new Mur(longueur_etage-20,base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
-	mur_gauche2->draw();
-	points.clear();
-
-	//mur à droite de l'ascenseur
-	points.push_back(Point (-(longueur_etage-10),base,longueur_etage-25));
-	Mur* mur_droite1 = new Mur(-longueur_etage,base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
-	mur_droite1->draw();
-	points.clear();
-
-
-	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage-25));
-	points.push_back(Point (-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage));
-	Mur* mur_droite2 = new Mur(-(longueur_etage-20),base,longueur_etage-25,points,this->hauteur_etage,texture_murs);
-	mur_droite2->draw();
-	points.clear();
-
-
-	//porte ascenseur
-	glBindTexture(GL_TEXTURE_2D, texture_ascenseur);		
-	glBegin(GL_QUADS);
-
-	glTexCoord2d(1,0); glVertex3d(-(longueur_etage-longueur_porte_ascenseur),base,longueur_etage-25);
-	glTexCoord2d(0,0); glVertex3d(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25);
-	glTexCoord2d(0,1); glVertex3d(longueur_etage-longueur_porte_ascenseur,hauteur_etage,longueur_etage-25);
-	glTexCoord2d(1,1); glVertex3d(-(longueur_etage-longueur_porte_ascenseur),hauteur_etage,longueur_etage-25);
-
-	glEnd() ;
+	
 
 	//////////////////////////////////////////////////////////////////////////
 	glBegin(GL_QUADS);		

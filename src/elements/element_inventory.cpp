@@ -1,3 +1,6 @@
 #include "element_inventory.h"
 
-ElementInventory::ElementInventory() : Element() {}
+ElementInventory::ElementInventory(double x, double y, double z) : ElementInteractif(x,y,z) 
+{
+
+}
