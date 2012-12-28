@@ -1,7 +1,12 @@
-#include "element.h"
+#ifndef ELEMENTINVENTORY_H_INCLUDED
+#define ELEMENTINVENTORY_H_INCLUDED
 
-class ElementInventory : public Element {
+#include "Element_Interactif.h"
+
+class ElementInventory : public ElementInteractif {
     public:
-        ElementInventory();
+        ElementInventory(double,double,double);
         ~ElementInventory();
 };
+
+#endif // ELEMENTINVENTORY_H_INCLUDED
