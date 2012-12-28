@@ -22,12 +22,10 @@
 
 FreeFlyCamera * camera;
 
-void stop()
-{
-    delete camera;
-    SDL_Quit();
+void stop() {
+	delete camera;
+	SDL_Quit();
 }
-
 
 int main(int argc, char *argv[]) {
 
@@ -36,7 +34,7 @@ int main(int argc, char *argv[]) {
 
 // Création de la surface d'affichage qui est en OpenGL
 
-    atexit(stop);
+	atexit(stop);
 
 	SDL_WM_SetCaption("Un bel entrepot", NULL);
 	SDL_Surface* ecran = SDL_SetVideoMode(LARGEUR, HAUTEUR, 32, SDL_OPENGL);
@@ -67,9 +65,7 @@ int main(int argc, char *argv[]) {
 	int pilier = loadTexture("textures/pilier1.jpg");
 	int sol = loadTexture("textures/carrelage1.jpg");
 
-
-	camera = new FreeFlyCamera(Vector3D(0,4,0));
-
+	camera = new FreeFlyCamera(Vector3D(0, 4, 0));
 
 	// TESTS ELEMENTS
 	//test fontaine
@@ -112,6 +108,12 @@ int main(int argc, char *argv[]) {
 
 	Etage* rez_de_chaussee = factory.createEtage();
 
+	/**
+	 * Set de l'étage courrant dans la camera
+	 */
+
+	camera->setCurrentStare(rez_de_chaussee);
+
 	Pilier * p1 = new Pilier(-20, 0, -40, pilier);
 	Pilier * p2 = new Pilier(20, 0, -40, pilier);
 	Pilier * p3 = new Pilier(-20, 0, -20, pilier);
@@ -141,74 +143,69 @@ int main(int argc, char *argv[]) {
 	bool col = false;
 
 	while (continuer) {
-		while(SDL_PollEvent(&event))
-		        {
-		            switch(event.type)
-		            {
-		                case SDL_QUIT:
-		                exit(0);
-		                break;
-		                case SDL_KEYDOWN:
-		                switch (event.key.keysym.sym)
-		                {
-		                    case SDLK_p:
-		                    takeScreenshot("test.bmp");
-		                    break;
-		                    case SDLK_ESCAPE:
-		                    exit(0);
-		                    break;
-		                    default : //on a utilisé la touche P et la touche ECHAP, le reste (en keydown) est donné à la caméra
-		                    camera->OnKeyboard(event.key);
-		                }
-		                break;
-		                case SDL_KEYUP: //on n'utilise pas de keyup, on donne donc tout à la caméra
-		                camera->OnKeyboard(event.key);
-		                break;
-		                case SDL_MOUSEMOTION: //la souris est bougée, ça n'intéresse que la caméra
-		                camera->OnMouseMotion(event.motion);
-		                break;
-		                case SDL_MOUSEBUTTONUP:
-		                case SDL_MOUSEBUTTONDOWN: //tous les évenements boutons (up ou down) sont donnés à la caméra
-		                camera->OnMouseButton(event.button);
-		                break;
-		            }
-		        }
-
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				exit(0);
+				break;
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+				case SDLK_p:
+					takeScreenshot("test.bmp");
+					break;
+				case SDLK_ESCAPE:
+					exit(0);
+					break;
+				default: //on a utilisé la touche P et la touche ECHAP, le reste (en keydown) est donné à la caméra
+					camera->OnKeyboard(event.key);
+				}
+				break;
+			case SDL_KEYUP: //on n'utilise pas de keyup, on donne donc tout à la caméra
+				camera->OnKeyboard(event.key);
+				break;
+			case SDL_MOUSEMOTION: //la souris est bougée, ça n'intéresse que la caméra
+				camera->OnMouseMotion(event.motion);
+				break;
+			case SDL_MOUSEBUTTONUP:
+			case SDL_MOUSEBUTTONDOWN: //tous les évenements boutons (up ou down) sont donnés à la caméra
+				camera->OnMouseButton(event.button);
+				break;
+			}
+		}
 
 		// Gestion du clavier
 		// Récupération du keystates
 		/*Uint8 *keystates = SDL_GetKeyState(NULL);
 
-		// Actions liées
-		if (keystates[SDLK_RIGHT]) {
-			personnage_jeu->tournerDroite();
-		}
-		if (keystates[SDLK_LEFT]) {
-			personnage_jeu->tournerGauche();
-		}
-		if (keystates[SDLK_UP]) {
-			if (!col) {
-				personnage_jeu->avancer();
-			}
-		}
-		if (keystates[SDLK_DOWN]) {
-			personnage_jeu->reculer();
-		}
-		if (keystates[SDLK_DOWN]) {
-			personnage_jeu->reculer();
-		}*/
+		 // Actions liées
+		 if (keystates[SDLK_RIGHT]) {
+		 personnage_jeu->tournerDroite();
+		 }
+		 if (keystates[SDLK_LEFT]) {
+		 personnage_jeu->tournerGauche();
+		 }
+		 if (keystates[SDLK_UP]) {
+		 if (!col) {
+		 personnage_jeu->avancer();
+		 }
+		 }
+		 if (keystates[SDLK_DOWN]) {
+		 personnage_jeu->reculer();
+		 }
+		 if (keystates[SDLK_DOWN]) {
+		 personnage_jeu->reculer();
+		 }*/
 
 		/**
 		 * TEST Collisions
 		 */
-		/*i = 0;
+		i = 0;
 		col = false;
 		while (col == false && i < rez_de_chaussee->getLesCaisses().size()) {
 			col = rez_de_chaussee->getLesCaisses().at(i)->Collision(
-					personnage_jeu->getX(), personnage_jeu->getY(),
-					personnage_jeu->getZVue());
+					camera->getTarget().X,camera->getTarget().Y,camera->getTarget().Z);
 			i++;
-		}*/
+		}
 
 		//gestion images par secondes
 		current_time = SDL_GetTicks();
@@ -256,6 +253,8 @@ int main(int argc, char *argv[]) {
 		glVertex3d(10, 0.5, 2);
 		glVertex3d(0, 0.5, 2);
 		glEnd();
+
+
 		///////////////////////////////////////////////////////////////
 
 		rez_de_chaussee->draw(ascenseur);

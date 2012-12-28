@@ -2,6 +2,7 @@
 #define FREEFLYCAMERA_H
 
 #include "vector3d.h"
+#include "etage.h"
 #include <SDL/SDL.h>
 #include <map>
 #include <string>
@@ -33,6 +34,14 @@ public:
 		_target = target;
 	}
 
+	Etage* getCurrentStare() const {
+		return _currentStare;
+	}
+
+	void setCurrentStare(Etage* currentStare) {
+		_currentStare = currentStare;
+	}
+
 protected:
     double _speed;
     double _sensivity;
@@ -53,6 +62,8 @@ protected:
     Vector3D _left;
     double _theta;
     double _phi;
+
+    Etage* _currentStare;
 
     void VectorsFromAngles();
     //void Init();

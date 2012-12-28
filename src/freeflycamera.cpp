@@ -64,8 +64,15 @@ void FreeFlyCamera::OnKeyboard(const SDL_KeyboardEvent & event) {
 void FreeFlyCamera::animate(Uint32 timestep) {
 	double realspeed = (_keystates[_keyconf["boost"]]) ? 10 * _speed : _speed;
 	if (_keystates[_keyconf["forward"]]) {
-		_position.X += _forward.X * (realspeed * timestep);
-		_position.Z += _forward.Z * (realspeed * timestep);
+
+		//Gestion des collision sur les murs principaux
+		if(-this->_currentStare->getLongueurEtage() < _target.X-1
+		&& _target.X+1 < this->_currentStare->getLongueurEtage())
+			_position.X += _forward.X * (realspeed * timestep);
+
+		if(-this->_currentStare->getLargeurEtage() < _target.Z-1
+		&& _target.Z+1 < this->_currentStare->getLargeurEtage())
+			_position.Z += _forward.Z * (realspeed * timestep);
 	}
 	if (_keystates[_keyconf["backward"]]){
 		_position.X -= _forward.X * (realspeed * timestep);
