@@ -66,24 +66,38 @@ void FreeFlyCamera::animate(Uint32 timestep) {
 	if (_keystates[_keyconf["forward"]]) {
 
 		//Gestion des collision sur les murs principaux
-		if(-this->_currentStare->getLongueurEtage() < _target.X-1
-		&& _target.X+1 < this->_currentStare->getLongueurEtage())
+		if(-this->_currentStare->getLongueurEtage()+1 < _target.X
+		&& _target.X < this->_currentStare->getLongueurEtage()-1)
 			_position.X += _forward.X * (realspeed * timestep);
 
-		if(-this->_currentStare->getLargeurEtage() < _target.Z-1
-		&& _target.Z+1 < this->_currentStare->getLargeurEtage())
+		if(-this->_currentStare->getLargeurEtage()+1 < _target.Z
+		&& _target.Z < this->_currentStare->getLargeurEtage()-1)
 			_position.Z += _forward.Z * (realspeed * timestep);
 	}
 	if (_keystates[_keyconf["backward"]]){
-		_position.X -= _forward.X * (realspeed * timestep);
-		_position.Z -= _forward.Z * (realspeed * timestep);
+
+		//Gestion des collision sur les murs principaux
+		if(-this->_currentStare->getLongueurEtage()+1< _position.X-_forward.X
+		&& _position.X-_forward.X < this->_currentStare->getLongueurEtage()-1)
+			_position.X -= _forward.X * (realspeed * timestep);
+		if(-this->_currentStare->getLargeurEtage()+1 < _position.Z-_forward.Z
+		&& _position.Z-_forward.Z < this->_currentStare->getLargeurEtage()-1)
+			_position.Z -= _forward.Z * (realspeed * timestep);
 	}
 	if (_keystates[_keyconf["strafe_left"]]){
+		if(-this->_currentStare->getLongueurEtage()+3< _position.X+_forward.X*sin(90*M_PI/180)
+		&& _position.X+_forward.X*sin(90*M_PI/180) < this->_currentStare->getLongueurEtage()-3)
 		_position.X += _left.X * (realspeed * timestep);
+		if(-this->_currentStare->getLargeurEtage()+3 < _position.Z+_forward.Z*cos(90*M_PI/180)
+		&& _position.Z+_forward.Z*cos(90*M_PI/180) < this->_currentStare->getLargeurEtage()-3)
 		_position.Z += _left.Z * (realspeed * timestep);
 	}
 	if (_keystates[_keyconf["strafe_right"]]){
+		if(-this->_currentStare->getLongueurEtage()+3< _position.X+_forward.X*sin(-90*M_PI/180)
+		&& _position.X+_forward.X*sin(-90*M_PI/180) < this->_currentStare->getLongueurEtage()-3)
 		_position.X -= _left.X * (realspeed * timestep);
+		if(-this->_currentStare->getLargeurEtage()+3 < _position.Z+_forward.Z*cos(-90*M_PI/180)
+		&& _position.Z+_forward.Z*cos(-90*M_PI/180) < this->_currentStare->getLargeurEtage()-3)
 		_position.Z -= _left.Z * (realspeed * timestep);
 	}
 	if (_verticalMotionActive) {
