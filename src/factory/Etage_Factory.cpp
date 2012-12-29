@@ -7,6 +7,7 @@
 #include "../elements_decor/Pilier.h"
 #include "../elements_decor/fountain.h"
 #include "../elements_decor/Escalier.h"
+#include "../elements_decor/Guichet.h"
 
 EtageFactory::EtageFactory()
 {
@@ -48,33 +49,24 @@ Etage* EtageFactory::createEtage(int etage)
 			Etage* rez_de_chaussee = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
 			
 			//utilisé pour définir les coordonnées des murs ci-après
-			vector<Point> points;
 
-			points.push_back(Point (70,0,30));
-			points.push_back(Point (70,0,10));
-			points.push_back(Point (80,0,10));
-			Mur *guichet1 = new Mur(80,0,30,points, 3,texture_guichet);
-			points.clear();
-
-			points.push_back(Point (70,0,0));
-			points.push_back(Point (70,0,-20));
-			points.push_back(Point (80,0,-20));
-			Mur *guichet2 = new Mur(80,0,0,points, 3,texture_guichet);
-			points.clear();
-
+			Guichet *guichet1 = new Guichet(80,0,30,20,15,10);
+			Guichet *guichet2 = new Guichet(80,0,10,20,15,10);
+			Guichet *guichet3 = new Guichet(80,0,-10,20,15,10);
 			
 			//ajout des élement de décor dans l'étage
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,-40,texture_pilier));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,-20,texture_pilier));
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,-20,texture_pilier));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,0,texture_pilier));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,0,texture_pilier));
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,0,texture_pilier));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,20,texture_pilier));
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,20,texture_pilier));
+			rez_de_chaussee->addElementDecor(new Pilier(20,0,-40,texture_pilier,2,15));
+			rez_de_chaussee->addElementDecor(new Pilier(-20,0,-20,texture_pilier,2,15));
+			rez_de_chaussee->addElementDecor(new Pilier(20,0,-20,texture_pilier,2,15));
+			rez_de_chaussee->addElementDecor(new Pilier(-20,0,0,texture_pilier,2,15));
+			rez_de_chaussee->addElementDecor(new Pilier(-20,0,0,texture_pilier,2,15));
+			rez_de_chaussee->addElementDecor(new Pilier(20,0,0,texture_pilier,2,15));
+			rez_de_chaussee->addElementDecor(new Pilier(-20,0,20,texture_pilier,2,15));
+			rez_de_chaussee->addElementDecor(new Pilier(20,0,20,texture_pilier,2,15));
 			rez_de_chaussee->addElementDecor(new Fountain(10.0, 3.0, 10.0));
 			rez_de_chaussee->addElementDecor(guichet1);
 			rez_de_chaussee->addElementDecor(guichet2);
+			rez_de_chaussee->addElementDecor(guichet3);
 			rez_de_chaussee->addElementDecor(new Escalier(70,0,80,70,-20,0));
 			rez_de_chaussee->addElementDecor(new Escalier(37,0,80,70,20,0));
 

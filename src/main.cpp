@@ -53,10 +53,10 @@ int main(int argc, char *argv[]) {
 	glEnable (GL_TEXTURE_2D);
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
-	camera = new FreeFlyCamera(Vector3D(0, 4, 0));
+	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.createEtage(1);
+	Etage* rez_de_chaussee = factory.createEtage(0);
 
 	/**
 	 * Set de l'étage courrant dans la camera
@@ -76,6 +76,12 @@ int main(int argc, char *argv[]) {
 					break;
 				case SDLK_ESCAPE:
 					exit(0);
+					break;
+				case SDLK_a:
+					rez_de_chaussee->openElevatorDoors();
+					break;
+				case SDLK_e:
+					rez_de_chaussee->closeElevatorDoors();
 					break;
 				default: //on a utilisé la touche P et la touche ECHAP, le reste (en keydown) est donné à la caméra
 					camera->OnKeyboard(event.key);
