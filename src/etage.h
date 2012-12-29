@@ -8,6 +8,8 @@
 #include "caisse.h"
 #include "elements_decor/Mur.h"
 #include "elements/element_decor.h"
+#include "elements/element.h"
+#include "elements/Element_Interactif_Decor.h"
 #include "elements_interactif/elements_interactif_decor/Elevator.h"
 
 using namespace std;
@@ -22,7 +24,9 @@ protected:
 	double base;
 	Elevator* elevator;
 
+	// vector<ElementDecor*> decor;
 	vector<ElementDecor*> decor;
+	vector<ElementInteractifDecor*> decorInteractif;
 
 	int texture_plafond;
 	int texture_murs;
@@ -44,6 +48,7 @@ public:
 	void openElevatorDoors();
 	void closeElevatorDoors();
 	void addElementDecor(ElementDecor*);
+	void addElementDecorInteractif(ElementInteractifDecor*);
 	void removeElementDecor(ElementDecor*);
 	void clearElementsDecor();
 	/**

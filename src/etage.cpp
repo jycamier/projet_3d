@@ -53,6 +53,11 @@ void Etage::addElementDecor(ElementDecor* element)
 	this->decor.push_back(element);
 }
 
+void Etage::addElementDecorInteractif(ElementInteractifDecor* element)
+{
+	this->decorInteractif.push_back(element);	
+}
+
 void Etage::removeElementDecor(ElementDecor* element)
 {
 	// this->decor.erase(element);
@@ -141,6 +146,14 @@ void Etage::drawElementsDecor()
 		this->decor[i]->draw();
 		i++;
 	}
+
+	i = 0;
+	while (i < this->decorInteractif.size())
+	{
+		this->decorInteractif[i]->draw();
+		i++;
+	}
+
 }
 
 

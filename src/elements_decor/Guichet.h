@@ -3,6 +3,7 @@
 #include "../elements/element_decor.h"
 #include "Mur.h"
 #include "Pilier.h"
+#include "../elements_interactif/elements_interactif_decor/Pnj.h"
 #include <vector>
 
 class Guichet : public ElementDecor {
@@ -10,6 +11,8 @@ class Guichet : public ElementDecor {
 		double heigth;
 		double length;
 		double width;
+		Pnj * personnage;
+
 	public:
 
 		vector<Mur*> walls;

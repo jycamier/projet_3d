@@ -8,6 +8,7 @@
 #include "../elements_decor/fountain.h"
 #include "../elements_decor/Escalier.h"
 #include "../elements_decor/Guichet.h"
+#include "../elements_interactif/elements_interactif_decor/Pnj.h"
 
 EtageFactory::EtageFactory()
 {
@@ -69,6 +70,8 @@ Etage* EtageFactory::createEtage(int etage)
 			rez_de_chaussee->addElementDecor(guichet3);
 			rez_de_chaussee->addElementDecor(new Escalier(70,0,80,70,-20,0));
 			rez_de_chaussee->addElementDecor(new Escalier(37,0,80,70,20,0));
+
+
 
 			return rez_de_chaussee;
 		}

@@ -14,6 +14,8 @@ Guichet::Guichet(double x, double y, double z,double longueur, double largeur, d
 	this->width = largeur;
 	int espace = width + 8;
 
+	this->personnage =	new Pnj(this->position->x - this->width/2,0,this->position->z - longueur/2);
+
 	vector<Point> points;
 
 	points.push_back(Point(this->position->x - length,this->position->y,this->position->z));
@@ -76,6 +78,9 @@ void Guichet::draw()
 	
 	glEnd() ;	
 	glColor3ub(223,223,223);
+
+	this->personnage->draw();
+
 
 }
 
