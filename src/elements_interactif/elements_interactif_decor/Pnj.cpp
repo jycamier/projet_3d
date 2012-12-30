@@ -37,7 +37,6 @@ Pnj::Pnj(double x, double y, double z, char direction) : ElementInteractifDecor 
 void Pnj::draw()
 {
 
-
 	glPushMatrix();
 	gluQuadricTexture(quadriqueTete,GL_TRUE);
 	
@@ -46,7 +45,7 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueTete, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 9, this->position->z);
 	glRotatef( -90, 1, 0, 0 );
-	glRotatef( -this->orientation, 0, 0, 1 );//
+	glRotatef( -this->orientation, 0, 0, 1 );
 	gluSphere(this->quadriqueTete,2.45,25,25);
 
 	glPopMatrix();	
@@ -56,7 +55,7 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueTorse, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 3.5, this->position->z);
 	glRotatef( -90, 1, 0, 0 );
-	glRotatef( -this->orientation, 0, 0, 1 );//
+	glRotatef( -this->orientation, 0, 0, 1 );
 	gluCylinder(this->quadriqueTorse,1,1,6,25,25);
 
 	glPopMatrix();
@@ -66,7 +65,6 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueBrasDroit, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 6.5, this->position->z);
 	glRotatef( this->orientation - 90, 0, 1, 0 );
-	// glRotatef( -90, 0, 1, 0 );//
 	glRotatef( 50, 1, 0, 0 );
 	gluCylinder(this->quadriqueBrasDroit,0.5,0.5,5,25,25);
 	
@@ -77,7 +75,6 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueBrasGauche, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 6.5, this->position->z);
 	glRotatef( this->orientation + 90, 0, 1, 0 );
-	// glRotatef( 90, 0, 1, 0 );//
 	glRotatef( 50, 1, 0, 0 );
 	gluCylinder(this->quadriqueBrasDroit,0.5,0.5,5,25,25);
 	
@@ -88,7 +85,6 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueJambeGauche, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 3.5, this->position->z);
 	glRotatef( this->orientation - 90, 0, 1, 0 );
-	// glRotatef( 90, 0, 1, 0 );
 	glRotatef( 60, 1, 0, 0 );
 	gluCylinder(this->quadriqueJambeDroite,0.8,0.8,5,25,25);
 	
@@ -99,7 +95,6 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueJambeDroite, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 3.5, this->position->z);
 	glRotatef( this->orientation + 90, 0, 1, 0 );
-	// glRotatef( 90, 0, 1, 0 );
 	glRotatef( 60, 1, 0, 0 );
 	gluCylinder(this->quadriqueJambeDroite,0.8,0.8,5,25,25);
 	

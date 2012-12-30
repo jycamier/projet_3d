@@ -9,6 +9,7 @@
 #include "../elements_decor/Escalier.h"
 #include "../elements_decor/Guichet.h"
 #include "../elements_interactif/elements_interactif_decor/Pnj.h"
+#include "../elements_interactif/elements_interactif_decor/Porte.h"
 
 EtageFactory::EtageFactory()
 {
@@ -118,6 +119,10 @@ Etage* EtageFactory::createEtage(int etage)
 			etage1->addElementDecor(mur1Salle2);
 			etage1->addElementDecor(mur2Salle1);
 			etage1->addElementDecor(mur2Salle2);
+
+			etage1->addElementDecorInteractif(new Pnj(-50,0,-13,'N'));
+			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
+			etage1->addElementDecorInteractif(new Porte(-20,0,-7,'x',10,15));
 
 			return etage1;
 

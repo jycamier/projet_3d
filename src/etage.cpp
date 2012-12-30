@@ -19,6 +19,7 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 	this->texture_sol = sol;
 	this->base = base_etage;
 
+
 	int longueur_porte_ascenseur = (longueur_etage-10);
 	this->elevator = new Elevator(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25,20,25,15);
 
@@ -181,17 +182,12 @@ void Etage::closeElevatorDoors()
 
 void Etage::draw()
 {
+
 	int longueur_porte_ascenseur = (longueur_etage-10);
 	this->drawSurface();
 	this->drawElementsDecor();
 	glColor3ub(255,0,0);
 	this->elevator->draw();
-	// this->drawElevatorDoor();
-
-
-	
-	// portes
-	/////////////////////////////////////////////////////////
 	
 
 	//////////////////////////////////////////////////////////////////////////
@@ -270,7 +266,6 @@ void Etage::draw()
 	for(int i = 0; i< this->lesCaisses.size(); i++){
 		this->lesCaisses.at(i)->draw(quad1);
 	}
-
 }
 
 

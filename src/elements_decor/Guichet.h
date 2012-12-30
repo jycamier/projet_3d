@@ -12,6 +12,7 @@ class Guichet : public ElementDecor {
 		double length;
 		double width;
 		Pnj * personnage;
+		int texture_mur;
 
 	public:
 

@@ -174,8 +174,6 @@ void Mur::draw(){
 		i++;
 		
 	}
-
-
 }
 
 bool Mur::isHorizontal(Point p1, Point p2) 
