@@ -14,7 +14,7 @@ Guichet::Guichet(double x, double y, double z,double longueur, double largeur, d
 	this->width = largeur;
 	int espace = width + 8;
 
-	this->personnage =	new Pnj(this->position->x - this->width/2,0,this->position->z - longueur/2);
+	this->personnage =	new Pnj(this->position->x - this->width/2,0,this->position->z - longueur/2,'E');
 
 	vector<Point> points;
 
