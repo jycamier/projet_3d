@@ -45,7 +45,7 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueTete, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 9, this->position->z);
 	glRotatef( -90, 1, 0, 0 );
-	glRotatef( -this->orientation, 0, 0, 1 );//
+	glRotatef( -this->orientation, 0, 0, 1 );
 	gluSphere(this->quadriqueTete,2.45,25,25);
 
 	glPopMatrix();	
@@ -55,7 +55,7 @@ void Pnj::draw()
 	gluQuadricDrawStyle(quadriqueTorse, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 3.5, this->position->z);
 	glRotatef( -90, 1, 0, 0 );
-	glRotatef( -this->orientation, 0, 0, 1 );//
+	glRotatef( -this->orientation, 0, 0, 1 );
 	gluCylinder(this->quadriqueTorse,1,1,6,25,25);
 
 	glPopMatrix();

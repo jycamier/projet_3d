@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include "../sdlglutils.h"
 
 using namespace std;
 
@@ -16,27 +17,29 @@ Guichet::Guichet(double x, double y, double z,double longueur, double largeur, d
 
 	this->personnage =	new Pnj(this->position->x - this->width/2,0,this->position->z - longueur/2,'E');
 
+	this->texture_mur = loadTexture("textures/mur_bureau.jpg");
+
 	vector<Point> points;
 
 	points.push_back(Point(this->position->x - length,this->position->y,this->position->z));
 	points.push_back(Point(this->position->x - length,this->position->y,this->position->z - width/2));
-	this->walls.push_back(new Mur(this->position->x,this->position->y,this->position->z,points,this->heigth + 2,0));	
+	this->walls.push_back(new Mur(this->position->x,this->position->y,this->position->z,points,this->heigth + 2,texture_mur));	
 
 	points.clear();
 
 	points.push_back(Point(this->position->x - length,this->position->y,this->position->z - espace));
 	points.push_back(Point(this->position->x - length,this->position->y,this->position->z - (espace-width/2)));
-	this->walls.push_back(new Mur(this->position->x,this->position->y,this->position->z - espace,points,this->heigth + 2,0));
+	this->walls.push_back(new Mur(this->position->x,this->position->y,this->position->z - espace,points,this->heigth + 2,texture_mur));
 
 	points.clear();
 
 	points.push_back(Point(this->position->x - length,this->position->y-5,this->position->z - width/2));
-	this->walls.push_back(new Mur(this->position->x - length,this->position->y-5,this->position->z - (espace-width/2),points,this->heigth,0));		
+	this->walls.push_back(new Mur(this->position->x - length,this->position->y-5,this->position->z - (espace-width/2),points,this->heigth,texture_mur));		
 
 	points.clear();
 
 	points.push_back(Point(this->position->x - length,this->position->y + 10,this->position->z - width/2));
-	this->walls.push_back(new Mur(this->position->x - length,this->position->y + 10,this->position->z - (espace-width/2),points,2,0));		
+	this->walls.push_back(new Mur(this->position->x - length,this->position->y + 10,this->position->z - (espace-width/2),points,2,texture_mur));		
 
 	this->bars.push_back(new Pilier(this->position->x - length,this->position->y,(this->position->z - width/2)-1,0,0.2,10));
 	this->bars.push_back(new Pilier(this->position->x - length,this->position->y,(this->position->z - width/2)-2,0,0.2,10));
