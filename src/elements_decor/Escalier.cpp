@@ -9,6 +9,9 @@ using namespace std;
 Escalier::Escalier(double x, double y, double z, double extremiteX, double extremiteY, double extremiteZ) : ElementDecor(x, y, z){
 	this->extremite = new Point (extremiteX,extremiteY,extremiteZ);
 }
+Escalier::~Escalier(){
+
+}
 
 void Escalier::draw(){
 	
