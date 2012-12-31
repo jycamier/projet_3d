@@ -13,6 +13,8 @@ Pnj::Pnj(double x, double y, double z, char direction) : ElementInteractifDecor 
 		this->quadriqueJambeDroite = gluNewQuadric();
 
 		texture_happy = loadTexture("textures/smilet_happy.jpg");
+		texture_jambes = loadTexture("textures/texture_jean.jpg");
+		texture_torse = loadTexture("textures/texture_torse.jpg");
 
 		if (direction == 'N')
 		{
@@ -38,8 +40,8 @@ void Pnj::draw()
 {
 
 	glPushMatrix();
-	gluQuadricTexture(quadriqueTete,GL_TRUE);
 	
+	gluQuadricTexture(quadriqueTete,GL_TRUE);
 	glBindTexture(GL_TEXTURE_2D, texture_happy);
 	
 	gluQuadricDrawStyle(quadriqueTete, GLU_FILL);
@@ -52,6 +54,9 @@ void Pnj::draw()
 
 	glPushMatrix();
 	
+	gluQuadricTexture(quadriqueTorse,GL_TRUE);
+	glBindTexture(GL_TEXTURE_2D, texture_torse);
+
 	gluQuadricDrawStyle(quadriqueTorse, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 3.5, this->position->z);
 	glRotatef( -90, 1, 0, 0 );
@@ -82,15 +87,21 @@ void Pnj::draw()
 
 	glPushMatrix();
 	
+	gluQuadricTexture(quadriqueJambeGauche,GL_TRUE);
+	glBindTexture(GL_TEXTURE_2D, texture_jambes);
+
 	gluQuadricDrawStyle(quadriqueJambeGauche, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 3.5, this->position->z);
 	glRotatef( this->orientation - 90, 0, 1, 0 );
 	glRotatef( 60, 1, 0, 0 );
-	gluCylinder(this->quadriqueJambeDroite,0.8,0.8,5,25,25);
+	gluCylinder(this->quadriqueJambeGauche,0.8,0.8,5,25,25);
 	
 	glPopMatrix();
 
 	glPushMatrix();
+
+	gluQuadricTexture(quadriqueJambeDroite,GL_TRUE);
+	glBindTexture(GL_TEXTURE_2D, texture_jambes);
 
 	gluQuadricDrawStyle(quadriqueJambeDroite, GLU_FILL);
 	glTranslated(this->position->x, this->position->y + 3.5, this->position->z);

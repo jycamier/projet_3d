@@ -4,7 +4,7 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <vector>
+// #include <vector>
 #include "caisse.h"
 #include "elements_decor/Mur.h"
 #include "elements/element_decor.h"
@@ -25,8 +25,7 @@ protected:
 	Elevator* elevator;
 
 	// vector<ElementDecor*> decor;
-	vector<ElementDecor*> decor;
-	vector<ElementInteractifDecor*> decorInteractif;
+	
 
 	int texture_plafond;
 	int texture_murs;
@@ -35,6 +34,8 @@ protected:
 
 public:
 
+	vector<ElementDecor*> decor;
+	vector<ElementInteractifDecor*> decorInteractif;
 	vector<Mur*> elevatorDoors;
 
 	Etage(); // Non implémenté donc inutilisable

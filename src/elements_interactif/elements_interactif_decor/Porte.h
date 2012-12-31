@@ -24,6 +24,7 @@ class Porte : public ElementInteractifDecor {
 		Porte(double,double,double,char,double,double);
 		~Porte();
 		void draw();
+		void interaction();
 		void openDoor();
 		void closeDoor();
 };

@@ -20,6 +20,8 @@ class Pnj : public ElementInteractifDecor {
 		GLUquadricObj * quadriqueJambeDroite;
 		GLUquadricObj * quadriqueJambeGauche;
 		int texture_happy;
+		int texture_jambes;
+		int texture_torse;
 
 		double orientation;
 

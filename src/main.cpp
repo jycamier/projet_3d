@@ -50,13 +50,16 @@ int main(int argc, char *argv[]) {
 	Uint32 current_time; //heure actuelle,
 	Uint32 elapsed_time; //heure actuelle,
 
+	Uint32 next_interaction = 0; // variable enregistrant le moment du dernier tir
+	Uint32 now; // heure actuelle
+
 	glEnable (GL_TEXTURE_2D);
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.createEtage(0);
+	Etage* rez_de_chaussee = factory.createEtage(1);
 
 	/**
 	 * Set de l'étage courrant dans la camera
@@ -73,6 +76,20 @@ int main(int argc, char *argv[]) {
 				switch (event.key.keysym.sym) {
 				case SDLK_p:
 					takeScreenshot("test.bmp");
+					break;
+				case SDLK_t:
+					now = SDL_GetTicks();
+					if (next_interaction <= now) {
+						next_interaction = now + 500;
+						rez_de_chaussee->decorInteractif[2]->interaction();
+					}
+					
+					break;
+				case SDLK_y:
+					rez_de_chaussee->decorInteractif[3]->interaction();
+					break;
+				case SDLK_u:
+					rez_de_chaussee->decorInteractif[4]->interaction();
 					break;
 				case SDLK_ESCAPE:
 					exit(0);

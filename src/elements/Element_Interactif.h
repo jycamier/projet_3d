@@ -12,6 +12,7 @@ class ElementInteractif : public Element {
         ElementInteractif(double, double, double);
         void setPosition(double, double, double);
         virtual void draw();
+        virtual void interaction();
         ~ElementInteractif();
 };
 

@@ -102,7 +102,7 @@ Etage* EtageFactory::createEtage(int etage)
 
 			points.push_back(Point (10,0,-30));
 			points.push_back(Point (80,0,-30));
-			Mur *mur2Salle1 = new Mur(10,0,-7,points, 15,texture_murs_bureau);
+			Mur *mur2Salle1 = new Mur(10,0,-10,points, 15,texture_murs_bureau);
 			points.clear();
 
 			points.push_back(Point (-10,0,40));
@@ -112,7 +112,7 @@ Etage* EtageFactory::createEtage(int etage)
 
 			points.push_back(Point (-10,0,-30));
 			points.push_back(Point (-80,0,-30));
-			Mur *mur2Salle2 = new Mur(-10,0,-7,points, 15,texture_murs_bureau);
+			Mur *mur2Salle2 = new Mur(-10,0,-10,points, 15,texture_murs_bureau);
 			points.clear();
 
 			etage1->addElementDecor(mur1Salle1);
@@ -122,7 +122,9 @@ Etage* EtageFactory::createEtage(int etage)
 
 			etage1->addElementDecorInteractif(new Pnj(-50,0,-13,'N'));
 			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
-			etage1->addElementDecorInteractif(new Porte(-20,0,-7,'x',10,15));
+			etage1->addElementDecorInteractif(new Porte(10,0,0,'x',7,15));
+			etage1->addElementDecorInteractif(new Porte(-10,0,0,'X',7,15));
+			etage1->addElementDecorInteractif(new Porte(-10,0,-60,'z',7,15));
 
 			return etage1;
 

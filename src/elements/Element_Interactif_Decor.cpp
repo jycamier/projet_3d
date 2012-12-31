@@ -10,6 +10,7 @@ void ElementInteractifDecor::draw()
 	
 }
 
+
 ElementInteractifDecor::~ElementInteractifDecor()
 {
 	
