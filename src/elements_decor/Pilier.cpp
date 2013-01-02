@@ -41,4 +41,9 @@ void Pilier::draw()
 		gluDisk(quadrique,0, this->epaisseur, 20, 20);
 		gluQuadricDrawStyle(quadrique, GLU_FILL);
 		glPopMatrix();
+
+		this->createHitboxes(position->x,position->y,position->z,this->epaisseur,this->hauteur,this->epaisseur);
+
+		//permet de ne pas créer le hitbox à l'infinie
+		hitboxCreated = true;
 }
