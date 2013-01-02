@@ -1,8 +1,13 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
+#define TEST_HITBOX
+
 #include "../utils/point.h"
 #include <vector>
+#include <SDL/SDL.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 using namespace std;
 
@@ -17,6 +22,7 @@ protected:
 	vector<AABB3D> _hitboxes;
 
 	virtual void UpdateHitbox();
+	bool hitboxCreated;
 public:
 	Element();
 	virtual ~Element();
@@ -29,6 +35,17 @@ public:
 	virtual vector<AABB3D> getHitboxes() const {
 		return _hitboxes;
 	}
+
+	void createHitboxes(double x, double y, double z, double w, double h,
+			double d);
+
+	/**
+	 * méthode de TEST
+	 */
+	void drawHitboxes();
+
+
+
 };
 
 #endif

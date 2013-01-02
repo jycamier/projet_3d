@@ -10,10 +10,6 @@ class Mur : public ElementDecor {
 		double hauteur;
 		int texture;
 
-		vector<AABB3D> _hitboxes;
-
-		bool hitboxCreated;
-
 		void drawVerticalClosing(Point);
 		void drawHorizontalClosing(Point);
 
@@ -27,8 +23,6 @@ class Mur : public ElementDecor {
 		bool isVertical(Point, Point);
 		void draw();
 		~Mur();
-
-		void createHitboxes(double x, double y, double z, double w, double h, double d);
 
 		void UpdateHitbox();
 

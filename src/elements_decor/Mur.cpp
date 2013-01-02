@@ -173,6 +173,8 @@ void Mur::draw() {
 		i++;
 
 	}
+	//permet de ne pas créer le hitbox à l'infinie
+	hitboxCreated = true;
 }
 
 bool Mur::isHorizontal(Point p1, Point p2) {
@@ -236,30 +238,4 @@ void Mur::UpdateHitbox(){
 // méthode virtuel
 }
 
-void Mur::createHitboxes(double x, double y, double z, double w, double h,
-		double d) {
 
-	AABB3D hitb = { x, y, z, w, h, d };
-	this->_hitboxes.push_back(hitb);
-
-	/*
-	 * Test hitbox
-	 */
-
-	glBegin (GL_LINE_LOOP);
-	glColor3ub(0, 255, 255);
-	glVertex3d(x, y, z);
-	glVertex3d(x+w, y, z);
-	glVertex3d(x+w, y+h, z);
-	glVertex3d(x, y+h, z);
-	glEnd();
-
-	glBegin (GL_LINE_LOOP);
-	glColor3ub(0, 255, 255);
-	glVertex3d(x, y, z+d);
-	glVertex3d(x+w, y, z+d);
-	glVertex3d(x+w, y+h, z+d);
-	glVertex3d(x, y+h, z+d);
-	glEnd();
-
-}

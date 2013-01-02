@@ -10,6 +10,7 @@
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
 
+
 // Taille de la fenêtre
 #define LARGEUR 800
 #define HAUTEUR 600
@@ -125,34 +126,35 @@ int main(int argc, char *argv[]) {
 		/**
 		 * GESTION DES COLLISIONS
 		 */
-		vector<AABB3D> mur;
+		vector<AABB3D> hitb;
 		bool CollisionTab[8] = {false,false};
 
-		for (int i = 0; i < rez_de_chaussee->getDecor().size(); i++) {
-			mur = rez_de_chaussee->getDecor().at(i)->getHitboxes();
+		for (int i = 0; i < rez_de_chaussee->getElements().size(); i++) {
+			hitb = rez_de_chaussee->getElements().at(i)->getHitboxes();
 
-			for (int j = 0; j < mur.size(); j++) {
+			for (int j = 0; j < hitb.size(); j++) {
 
 				if (Collision(camera->getTarget().X, camera->getTarget().Y,
-						camera->getTarget().Z, mur.at(j))) {
+						camera->getTarget().Z, hitb.at(j))) {
 					//Avancer
-					CollisionTab[0] = CollisionX(camera->getTarget().X, mur.at(j));
-					CollisionTab[1] = CollisionZ(camera->getTarget().Z, mur.at(j));
+					CollisionTab[0] = CollisionX(camera->getTarget().X, hitb.at(j));
+					CollisionTab[1] = CollisionZ(camera->getTarget().Z, hitb.at(j));
 					//reculer
-					CollisionTab[2] = CollisionX(camera->getPosition().X-camera->getForward().X, mur.at(j));
-					CollisionTab[3] = CollisionZ(camera->getPosition().Z-camera->getForward().Z, mur.at(j));
+					CollisionTab[2] = CollisionX(camera->getPosition().X-camera->getForward().X, hitb.at(j));
+					CollisionTab[3] = CollisionZ(camera->getPosition().Z-camera->getForward().Z, hitb.at(j));
 					//aller à gauche
-					CollisionTab[4] = CollisionX(camera->getPosition().X+camera->getLeft().X, mur.at(j)) && CollisionTab[0];
-					CollisionTab[5] = CollisionZ(camera->getPosition().Z+camera->getLeft().Z, mur.at(j)) && CollisionTab[1];
+					CollisionTab[4] = CollisionX(camera->getPosition().X+camera->getLeft().X, hitb.at(j)) && CollisionTab[0];
+					CollisionTab[5] = CollisionZ(camera->getPosition().Z+camera->getLeft().Z, hitb.at(j)) && CollisionTab[1];
 					//aller à droite
-					CollisionTab[6] = CollisionX(camera->getPosition().X-camera->getLeft().X, mur.at(j))&& CollisionTab[0];
-					CollisionTab[7] = CollisionZ(camera->getPosition().Z-camera->getLeft().Z, mur.at(j))&& CollisionTab[1];
+					CollisionTab[6] = CollisionX(camera->getPosition().X-camera->getLeft().X, hitb.at(j))&& CollisionTab[0];
+					CollisionTab[7] = CollisionZ(camera->getPosition().Z-camera->getLeft().Z, hitb.at(j))&& CollisionTab[1];
 				}
 
 			}
 
 		}
 		camera->setCollisionTab(CollisionTab);
+
 
 		//gestion images par secondes
 		current_time = SDL_GetTicks();

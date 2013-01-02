@@ -52,11 +52,13 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 void Etage::addElementDecor(ElementDecor* element)
 {
 	this->decor.push_back(element);
+	this->elements.push_back(element);
 }
 
 void Etage::addElementDecorInteractif(ElementInteractifDecor* element)
 {
 	this->decorInteractif.push_back(element);	
+	this->elements.push_back(element);
 }
 
 void Etage::removeElementDecor(ElementDecor* element)

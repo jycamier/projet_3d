@@ -26,6 +26,8 @@ protected:
 	// vector<ElementDecor*> decor;
 	vector<ElementDecor*> decor;
 	vector<ElementInteractifDecor*> decorInteractif;
+	vector<Element*> elements;
+
 
 	int texture_plafond;
 	int texture_murs;
@@ -60,6 +62,14 @@ public:
 
 	vector<ElementDecor*> getDecor() const {
 		return decor;
+	}
+
+	vector<ElementInteractifDecor*> getDecorInteractif() const {
+		return decorInteractif;
+	}
+
+	vector<Element*> getElements() const {
+		return elements;
 	}
 };
 
