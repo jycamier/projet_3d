@@ -3,6 +3,8 @@
 #include "../../sdlglutils.h"
 #include <pthread.h>
 
+using namespace std;
+
 Elevator::Elevator(double x, double y, double z, double longueur, double largeur, double hauteur) : ElementInteractifDecor (x,y,z)  
 {
 	this->lenght = longueur;
@@ -10,6 +12,7 @@ Elevator::Elevator(double x, double y, double z, double longueur, double largeur
 	this->height = hauteur;
 	this->createElevatorShaft();
 	this->createElevatorDoors();
+	isClosed = true;
 }
 
 Elevator::~Elevator()
@@ -28,7 +31,6 @@ void Elevator::createElevatorShaft()
 
 void Elevator::createElevatorDoors()
 {
-
 	vector<Point> points;
 	points.push_back(Point(this->position->x - lenght/2,this->position->y,this->position->z+1));
 	this->doors.push_back(new Mur(this->position->x,this->position->y,this->position->z+1,points,this->height,0));
@@ -56,48 +58,43 @@ void Elevator::draw()
 		this->doors[i]->draw();	
 		i++;
 	}
-
-	// this->doors[1]->draw();
 }
 	
 void Elevator::open()
 {
-
-	// pthread_t* toto;
-	// pthread_create(toto, NULL, openThread, NULL);
-	// pthread_exit(NULL);
-	this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x + 1;
-	this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x + 1;
-	this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x - 1;
-	this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x - 1;
-
-}
-
-
-void* openThread(void*, Elevator* toto)
-{
-
-	// int nbrThread = this->lenght/2;
-
-	// for(int i = 0; i < nbrThread; i+=0.1){
-	// 	toto->doors[0]->coordinates[0].x = toto->doors[0]->coordinates[0].x + 1;
-	// 	toto->doors[0]->coordinates[1].x = toto->doors[0]->coordinates[1].x + 1;
-	// 	toto->doors[1]->coordinates[0].x = toto->doors[1]->coordinates[0].x - 1;
-	// 	toto->doors[1]->coordinates[1].x = toto->doors[1]->coordinates[1].x - 1;	
-	// }
+	int i = 0;
+	if (isClosed)
+	{
+		while( i < lenght/2)
+		{
+			this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x + 1;
+			this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x + 1;
+			this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x - 1;
+			this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x - 1;
+			i++;
+		}
+		isClosed = false;
+	}
 
 }
 
 
 void Elevator::close()
 {
-	 // if ((this->doors[0]->coordinates[0].x) <= this->lenght/2)
-	 // {
-		this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x - 1;
-		this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x - 1;
-		this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x + 1;
-		this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x + 1;
-	 // }	
+	int i = 0;
+	if (!isClosed)
+	{
+		 while( i < lenght/2)
+		 {
+			this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x - 1;
+			this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x - 1;
+			this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x + 1;
+			this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x + 1;
+			i++;
+		 }	
+		 isClosed = true;
+	}
+
 }
 
 

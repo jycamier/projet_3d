@@ -82,8 +82,9 @@ int main(int argc, char *argv[]) {
 					if (next_interaction <= now) {
 						next_interaction = now + 500;
 						rez_de_chaussee->decorInteractif[2]->interaction();
-					}
-					
+						rez_de_chaussee->decorInteractif[3]->interaction();
+						rez_de_chaussee->decorInteractif[4]->interaction();
+					}			
 					break;
 				case SDLK_y:
 					rez_de_chaussee->decorInteractif[3]->interaction();

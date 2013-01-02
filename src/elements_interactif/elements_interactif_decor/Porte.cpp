@@ -10,29 +10,32 @@ Porte::Porte(double x, double y, double z, char direction, double taille, double
 	vector<Point> points;
 	points.clear();
 	this->orientation = direction;
-
+	double tempTaille = this->taillePorte;
 	this->texture_porte = loadTexture("textures/crate2.jpg");
 
 	if (direction == 'x')
 	{
-		points.push_back(Point(this->position->x + this->taillePorte,this->position->y,this->position->z));
-	}
-	else if (direction == 'X')
-	{
-		points.push_back(Point(this->position->x - this->taillePorte,this->position->y,this->position->z));
+		if (this->position->x < 0)
+		{
+			tempTaille = tempTaille * (-1);
+		}
+			points.push_back(Point(this->position->x + tempTaille,this->position->y,this->position->z));
+
 	}
 	else if (direction == 'z')
 	{
-		points.push_back(Point(this->position->x,this->position->y,this->position->z + this->taillePorte));
+		if (this->position->z < 0)
+		{
+			tempTaille = tempTaille * (-1);
+		}
+
+			points.push_back(Point(this->position->x,this->position->y,this->position->z + tempTaille));
 	}
-	else
-	{
-		points.push_back(Point(this->position->x,this->position->y,this->position->z - this->taillePorte));	
-	}
+
 
 	this->door = new Mur(this->position->x,this->position->y,this->position->z,points,this->height,texture_porte);
 	points.clear();
-	this->open = false;
+	this->open = true;
 
 }
 
@@ -55,31 +58,86 @@ void Porte::interaction()
 	}
 }
 
-void Porte::openDoor()
+double Porte::calculerDistance(double val1, double val2)
 {
+	printf("%s \n", "val1 val2");
+	printf("%f \n", val1);
+	printf("%f \n", val2);
 
-	double tempX = this->door->coordinates[0].x;
-	double tempZ = this->door->coordinates[0].z;
+	double distance = 0;
 
-	if (this->orientation == 'x')
+	if (val2 >= 0 && val1 >= 0)
 	{
-		this->door->coordinates[1].x = tempX; 
-		this->door->coordinates[1].z = -tempX; 
-		// this->door->coordinates[1];
+		if (val2 > val1)
+		{
+			distance = val2 - val1;
+		}
+		else
+		{
+			distance = val1 - val2;	
+		}
 	}
-	else if (this->orientation == 'X')
+	else if ((val2 < 0 && val1 >= 0)||(val2 >= 0 && val1 < 0))
 	{
-		this->door->coordinates[1].x = this->door->coordinates[0].x; 
-		this->door->coordinates[1].z = this->door->coordinates[0].x;
-	}
-	else if (this->orientation == 'z')
-	{
-		this->door->coordinates[1].x = this->height;
-		this->door->coordinates[1].z = tempZ;
-		
+		distance = abs(val1) + abs(val2);
 	}
 	else
 	{
+		if (val2 < val1)
+		{
+			distance = abs(val2) - abs(val1);
+		}
+		else
+		{
+			distance = abs(val2) - abs(val1);	
+		}
+		
+	}
+	printf("%s ", "distance");
+	printf("%f\n", distance);
+	return distance;
+}
+
+void Porte::openDoor()
+{
+	printf("%s\n", "opening door");
+	double tempX = this->door->coordinates[0].x;
+	double tempZ = this->door->coordinates[0].z;
+	double distance = 0;
+
+	if (this->orientation == 'x')
+	{	
+
+		double ecart = this->calculerDistance(this->door->coordinates[0].z,this->door->coordinates[1].z);
+		printf("%s\n", "opening x1 x2" );
+		printf("%f\n", this->door->coordinates[0].x);
+		printf("%f\n", this->door->coordinates[1].x);
+		printf("%s\n", "opening z1 z2");
+		printf("%f\n", this->door->coordinates[0].z);
+		printf("%f\n", this->door->coordinates[1].z);
+
+		
+		this->door->coordinates[1].z = this->door->coordinates[1].z + ecart ;
+		
+
+		if (this->door->coordinates[1].x < 0)
+		{
+				this->door->coordinates[1].x = tempX - ecart;
+		}
+		else
+		{
+				this->door->coordinates[1].x = tempX + ecart;		
+		}
+
+	}
+
+	else
+	{
+
+		double ecart = this->calculerDistance(this->door->coordinates[0].z,this->door->coordinates[1].z);
+		this->door->coordinates[1].x = this->door->coordinates[1].x - ecart ;
+		this->door->coordinates[1].z = tempZ + ecart;		
+
 
 	}
 
@@ -88,15 +146,47 @@ void Porte::openDoor()
 
 void Porte::closeDoor()
 {
+	printf("%s\n", "closing door");
 	double tempX = this->door->coordinates[0].x;
-	if (this->orientation == 'x' || this->orientation == 'X')
-	{	
-		this->door->coordinates[1].x = tempX * 2; 
-		this->door->coordinates[1].z = this->door->coordinates[0].z; 
+	double tempZ = this->door->coordinates[0].z;
+
+	if (this->orientation == 'x')
+	{		
+		printf("%s\n", "closing x1 x2" );
+		printf("%f\n", this->door->coordinates[0].x);
+		printf("%f\n", this->door->coordinates[1].x);
+		printf("%s\n", "closing z1 z2");
+		printf("%f\n", this->door->coordinates[0].z);
+		printf("%f\n", this->door->coordinates[1].z);
+
+		double ecart = this->calculerDistance(this->door->coordinates[0].x,this->door->coordinates[1].x);
+
+		if (this->door->coordinates[1].x < 0)
+		{
+			this->door->coordinates[1].x = this->door->coordinates[1].x + ecart;
+		}
+		else
+		{
+			this->door->coordinates[1].x = this->door->coordinates[1].x - ecart;
+		}
+		// this->door->coordinates[1].z = -ecart;
+		this->door->coordinates[1].z = this->door->coordinates[1].z-ecart;
+
+
+		printf("%s\n", "after closing x1 x2" );
+		printf("%f\n", this->door->coordinates[0].x);
+		printf("%f\n", this->door->coordinates[1].x);
+		printf("%s\n", "after closing z1 z2");
+		printf("%f\n", this->door->coordinates[0].z);
+		printf("%f\n", this->door->coordinates[1].z);
+
 	}
 	else
 	{
- 
+		double ecart = this->calculerDistance(this->door->coordinates[0].z,this->door->coordinates[1].z);		
+		this->door->coordinates[1].z = this->door->coordinates[1].z + ecart;
+		this->door->coordinates[1].x = this->door->coordinates[1].x + ecart;	
+
 	}
 
 

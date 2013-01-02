@@ -15,6 +15,7 @@ class Elevator : public ElementInteractifDecor {
 		double height;
 		vector<Mur*> walls;
 		vector<Mur*> doors;
+		bool isClosed;
 
 	public:
 		Elevator(double,double,double,double,double,double);
