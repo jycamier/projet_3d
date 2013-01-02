@@ -22,6 +22,28 @@ void stop() {
 	SDL_Quit();
 }
 
+bool Collision(float x, float y, float z, AABB3D box) {
+	if (x >= box.x && x < box.x + box.w && y >= box.y && y < box.y + box.h
+			&& z >= box.z && z < box.z + box.d)
+		return true;
+	else
+		return false;
+}
+
+bool CollisionX(float x, AABB3D box) {
+	if (x >= box.x && x < box.x + box.w)
+		return true;
+	else
+		return false;
+}
+
+bool CollisionZ(float z, AABB3D box) {
+	if (z >= box.z && z < box.z + box.d)
+		return true;
+	else
+		return false;
+}
+
 int main(int argc, char *argv[]) {
 
 // Initialisation de SDL
@@ -99,6 +121,38 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 		}
+
+		/**
+		 * GESTION DES COLLISIONS
+		 */
+		vector<AABB3D> mur;
+		bool CollisionTab[8] = {false,false};
+
+		for (int i = 0; i < rez_de_chaussee->getDecor().size(); i++) {
+			mur = rez_de_chaussee->getDecor().at(i)->getHitboxes();
+
+			for (int j = 0; j < mur.size(); j++) {
+
+				if (Collision(camera->getTarget().X, camera->getTarget().Y,
+						camera->getTarget().Z, mur.at(j))) {
+					//Avancer
+					CollisionTab[0] = CollisionX(camera->getTarget().X, mur.at(j));
+					CollisionTab[1] = CollisionZ(camera->getTarget().Z, mur.at(j));
+					//reculer
+					CollisionTab[2] = CollisionX(camera->getPosition().X-camera->getForward().X, mur.at(j));
+					CollisionTab[3] = CollisionZ(camera->getPosition().Z-camera->getForward().Z, mur.at(j));
+					//aller à gauche
+					CollisionTab[4] = CollisionX(camera->getPosition().X+camera->getLeft().X, mur.at(j)) && CollisionTab[0];
+					CollisionTab[5] = CollisionZ(camera->getPosition().Z+camera->getLeft().Z, mur.at(j)) && CollisionTab[1];
+					//aller à droite
+					CollisionTab[6] = CollisionX(camera->getPosition().X-camera->getLeft().X, mur.at(j))&& CollisionTab[0];
+					CollisionTab[7] = CollisionZ(camera->getPosition().Z-camera->getLeft().Z, mur.at(j))&& CollisionTab[1];
+				}
+
+			}
+
+		}
+		camera->setCollisionTab(CollisionTab);
 
 		//gestion images par secondes
 		current_time = SDL_GetTicks();

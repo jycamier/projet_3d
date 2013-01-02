@@ -1,7 +1,6 @@
 #ifndef MUR_H_INCLUDED
 #define MUR_H_INCLUDED
 #include "../elements/element_decor.h"
-#include <vector>
 
 using namespace std;
 
@@ -10,6 +9,10 @@ class Mur : public ElementDecor {
 		double epaisseur;
 		double hauteur;
 		int texture;
+
+		vector<AABB3D> _hitboxes;
+
+		bool hitboxCreated;
 
 		void drawVerticalClosing(Point);
 		void drawHorizontalClosing(Point);
@@ -24,6 +27,14 @@ class Mur : public ElementDecor {
 		bool isVertical(Point, Point);
 		void draw();
 		~Mur();
+
+		void createHitboxes(double x, double y, double z, double w, double h, double d);
+
+		void UpdateHitbox();
+
+		vector<AABB3D> getHitboxes() const {
+			return _hitboxes;
+		}
 };		
 
 #endif //MUR_H_INCLUDED

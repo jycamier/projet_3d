@@ -62,42 +62,54 @@ void FreeFlyCamera::OnKeyboard(const SDL_KeyboardEvent & event) {
 }
 
 void FreeFlyCamera::animate(Uint32 timestep) {
+
+	/**
+	 * TEst
+	 */
+//	cout << "ColX : " << _collisionTab[0] << "\n" ;
+//	cout << "ColZ : " << _collisionTab[1] << "\n" ;
+
+
 	double realspeed = (_keystates[_keyconf["boost"]]) ? 10 * _speed : _speed;
 	if (_keystates[_keyconf["forward"]]) {
 
 		//Gestion des collision sur les murs principaux
 		if(-this->_currentStare->getLongueurEtage()+1 < _target.X
-		&& _target.X < this->_currentStare->getLongueurEtage()-1)
+		&& _target.X < this->_currentStare->getLongueurEtage()-1 && !_collisionTab[0])
 			_position.X += _forward.X * (realspeed * timestep);
 
 		if(-this->_currentStare->getLargeurEtage()+1 < _target.Z
-		&& _target.Z < this->_currentStare->getLargeurEtage()-1)
+		&& _target.Z < this->_currentStare->getLargeurEtage()-1 && !_collisionTab[1])
 			_position.Z += _forward.Z * (realspeed * timestep);
 	}
 	if (_keystates[_keyconf["backward"]]){
 
 		//Gestion des collision sur les murs principaux
 		if(-this->_currentStare->getLongueurEtage()+1< _position.X-_forward.X
-		&& _position.X-_forward.X < this->_currentStare->getLongueurEtage()-1)
+		&& _position.X-_forward.X < this->_currentStare->getLongueurEtage()-1 && !_collisionTab[2])
 			_position.X -= _forward.X * (realspeed * timestep);
 		if(-this->_currentStare->getLargeurEtage()+1 < _position.Z-_forward.Z
-		&& _position.Z-_forward.Z < this->_currentStare->getLargeurEtage()-1)
+		&& _position.Z-_forward.Z < this->_currentStare->getLargeurEtage()-1 && !_collisionTab[3])
 			_position.Z -= _forward.Z * (realspeed * timestep);
 	}
 	if (_keystates[_keyconf["strafe_left"]]){
+
+		//Gestion des collision sur les murs principaux
 		if(-this->_currentStare->getLongueurEtage()+3< _position.X+_forward.X*sin(90*M_PI/180)
-		&& _position.X+_forward.X*sin(90*M_PI/180) < this->_currentStare->getLongueurEtage()-3)
+		&& _position.X+_forward.X*sin(90*M_PI/180) < this->_currentStare->getLongueurEtage()-3 && !_collisionTab[4])
 		_position.X += _left.X * (realspeed * timestep);
 		if(-this->_currentStare->getLargeurEtage()+3 < _position.Z+_forward.Z*cos(90*M_PI/180)
-		&& _position.Z+_forward.Z*cos(90*M_PI/180) < this->_currentStare->getLargeurEtage()-3)
+		&& _position.Z+_forward.Z*cos(90*M_PI/180) < this->_currentStare->getLargeurEtage()-3 && !_collisionTab[5])
 		_position.Z += _left.Z * (realspeed * timestep);
 	}
 	if (_keystates[_keyconf["strafe_right"]]){
+
+		//Gestion des collision sur les murs principaux
 		if(-this->_currentStare->getLongueurEtage()+3< _position.X+_forward.X*sin(-90*M_PI/180)
-		&& _position.X+_forward.X*sin(-90*M_PI/180) < this->_currentStare->getLongueurEtage()-3)
+		&& _position.X+_forward.X*sin(-90*M_PI/180) < this->_currentStare->getLongueurEtage()-3 && !_collisionTab[6])
 		_position.X -= _left.X * (realspeed * timestep);
 		if(-this->_currentStare->getLargeurEtage()+3 < _position.Z+_forward.Z*cos(-90*M_PI/180)
-		&& _position.Z+_forward.Z*cos(-90*M_PI/180) < this->_currentStare->getLargeurEtage()-3)
+		&& _position.Z+_forward.Z*cos(-90*M_PI/180) < this->_currentStare->getLargeurEtage()-3 && !_collisionTab[7])
 		_position.Z -= _left.Z * (realspeed * timestep);
 	}
 	if (_verticalMotionActive) {
@@ -109,6 +121,8 @@ void FreeFlyCamera::animate(Uint32 timestep) {
 				_verticalMotionDirection * realspeed * timestep);
 	}
 	_target = _position + _forward;
+
+	_collisionTab = NULL;
 
 }
 

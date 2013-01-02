@@ -6,6 +6,8 @@
 #include <SDL/SDL.h>
 #include <map>
 #include <string>
+#include <iostream>
+using namespace std;
 
 class FreeFlyCamera
 {
@@ -42,9 +44,27 @@ public:
 		_currentStare = currentStare;
 	}
 
+	void setCollisionTab(bool* tab) {
+		_collisionTab = tab;
+	}
+
+	const Vector3D& getForward() const {
+		return _forward;
+	}
+
+	const Vector3D& getPosition() const {
+		return _position;
+	}
+
+	const Vector3D& getLeft() const {
+		return _left;
+	}
+
 protected:
     double _speed;
     double _sensivity;
+
+    bool* _collisionTab;
 
     //vertical motion stuffs
     Uint32 _timeBeforeStoppingVerticalMotion;

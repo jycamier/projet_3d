@@ -58,6 +58,9 @@ public:
 		return longueur_etage;
 	}
 
+	vector<ElementDecor*> getDecor() const {
+		return decor;
+	}
 };
 
 #endif // ETAGE_H_INCLUDED
