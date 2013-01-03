@@ -16,7 +16,7 @@ class Chaise : public ElementDecor {
         GLUquadricObj *quadriqueDossier;
         int textureChaise;
         double epaisseurChaise;
-        double orientation;
+        char orientation;
         
 
     public :

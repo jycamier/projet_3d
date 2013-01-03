@@ -122,7 +122,10 @@ Etage* EtageFactory::createEtage(int etage)
 			etage1->addElementDecor(mur2Salle1);
 			etage1->addElementDecor(mur2Salle2);
 			etage1->addElementDecor(new Table(50,0,20,0,10,12,5));
-			etage1->addElementDecor(new Chaise(30,0,20,0,5,4,3,'N'));
+			etage1->addElementDecor(new Chaise(52,0,19,0,5,4,3,'S'));
+			etage1->addElementDecor(new Chaise(52,0,29,0,5,4,3,'N'));
+			etage1->addElementDecor(new Chaise(49,0,26,0,5,4,3,'E'));
+			etage1->addElementDecor(new Chaise(60,0,26,0,5,4,3,'W'));
 
 			etage1->addElementDecorInteractif(new Pnj(-50,0,-13,'N'));
 			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
