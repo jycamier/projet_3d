@@ -10,6 +10,7 @@
 #include "../elements_decor/Guichet.h"
 #include "../elements_interactif/elements_interactif_decor/Pnj.h"
 #include "../elements_interactif/elements_interactif_decor/Porte.h"
+#include "../elements_interactif/elements_interactif_decor/Button.h"
 
 EtageFactory::EtageFactory()
 {
@@ -21,6 +22,7 @@ Etage* EtageFactory::createEtage(int etage)
 	int texture_plafond;
 	int texture_sol;
 	int texture_murs;
+	int texture_happy;
 
 	switch(etage)
 	{
@@ -46,6 +48,7 @@ Etage* EtageFactory::createEtage(int etage)
 			texture_plafond = loadTexture("textures/plafond1.jpg");
 			texture_sol = loadTexture("textures/carrelage1.jpg");
 			texture_murs = loadTexture("textures/mur1.jpg");
+			texture_happy = loadTexture("textures/smilet_happy.jpg");
 
 			//creation de l'étage
 			Etage* rez_de_chaussee = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
@@ -71,7 +74,6 @@ Etage* EtageFactory::createEtage(int etage)
 			rez_de_chaussee->addElementDecor(guichet3);
 			rez_de_chaussee->addElementDecor(new Escalier(70,0,80,70,-20,0));
 			rez_de_chaussee->addElementDecor(new Escalier(37,0,80,70,20,0));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(0,0,0,'N'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(10,0,-10,'S'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(35,0,-50,'E'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(40,0,-20,'O'));
@@ -123,7 +125,6 @@ Etage* EtageFactory::createEtage(int etage)
 			etage1->addElementDecorInteractif(new Pnj(-50,0,-13,'N'));
 			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
 			etage1->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
-			etage1->addElementDecorInteractif(new Porte(-10,0,0,'x',10,15));
 
 			return etage1;
 

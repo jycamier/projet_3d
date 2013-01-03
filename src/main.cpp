@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.createEtage(1);
+	Etage* rez_de_chaussee = factory.createEtage(0);
 
 	/**
 	 * Set de l'étage courrant dans la camera
@@ -83,7 +83,6 @@ int main(int argc, char *argv[]) {
 						next_interaction = now + 500;
 						// rez_de_chaussee->decorInteractif[2]->interaction();
 						// rez_de_chaussee->decorInteractif[3]->interaction();
-						rez_de_chaussee->decorInteractif[4]->interaction();
 					}			
 					break;
 				case SDLK_y:
