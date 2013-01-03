@@ -74,6 +74,14 @@ void Button::draw()
     gluCylinder(quadriqueEpaisseur,this->diametre,this->diametre,longeur_epaisseur,20,20);
         
     glPopMatrix();
+
+    //création hitbox
+    this->createHitboxes(this->position->x - 1 * sin(60 * M_PI / 180),
+            this->position->y-1, this->position->z - 1,
+            ((this->position->x + 1) - (this->position->x - 1))
+                    * sin(60 * M_PI / 180), 2, 2);
+
+    this->hitboxCreated = true;
 }
 
 

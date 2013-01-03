@@ -25,7 +25,6 @@ class Elevator : public ElementInteractifDecor {
 		void createElevatorShaft();
 		void createElevatorDoors();
 		void open();
-		void* openThread(void*);
 		void close();
 		void draw();
 };

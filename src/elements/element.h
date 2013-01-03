@@ -1,13 +1,14 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
-// #define TEST_HITBOX
+#define TEST_HITBOX
 
 #include "../utils/point.h"
 #include <vector>
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <math.h>
 
 using namespace std;
 
