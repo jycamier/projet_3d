@@ -6,6 +6,7 @@
 #include "etage.h"
 #include "elements_decor/Mur.h"
 #include "elements_interactif/elements_interactif_decor/Elevator.h"
+#include "elements_interactif/elements_interactif_decor/Button.h"
 
 using namespace std;
 
@@ -19,9 +20,14 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 	this->texture_sol = sol;
 	this->base = base_etage;
 
-
+	int texture_happy = loadTexture("textures/smilet_happy.jpg");
 	int longueur_porte_ascenseur = (longueur_etage-10);
+	double xButton = longueur_etage-longueur_porte_ascenseur+2;
+	double zButton = longueur_etage-26;
+
 	this->elevator = new Elevator(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25,20,25,15);
+	
+	this->addElementDecorInteractif(new Button(xButton,7,zButton,'z',0.6,texture_happy));
 
 	// mur à gauche de l'ascenseur
 	vector<Point> points;
