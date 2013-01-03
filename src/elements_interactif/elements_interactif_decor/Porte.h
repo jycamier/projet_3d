@@ -28,6 +28,7 @@ class Porte : public ElementInteractifDecor {
 		double calculerDistance(double,double);
 		void openDoor();
 		void closeDoor();
+		vector<AABB3D> getHitboxes()const;
 };
 
 

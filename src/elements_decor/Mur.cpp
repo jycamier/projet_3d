@@ -22,6 +22,25 @@ Mur::Mur(double x, double y, double z, vector<Point> coords, double height,
 		this->coordinates.push_back(coords[i]);
 		i++;
 	}
+	this->isUpdatable = false;
+}
+
+Mur::Mur(double x, double y, double z, vector<Point> coords, double height,
+		int text, bool isUPT) : ElementDecor(x, y, z){
+	//Mur(x, y, z, coords, height, text);
+	int i = 0;
+	this->epaisseur = 0.5;
+	this->hauteur = height;
+	this->texture = text;
+	this->coordinates.push_back(Point(x, y, z));
+	this->hitboxCreated = false;
+
+	while (i < coords.size()) {
+		this->coordinates.push_back(coords[i]);
+		i++;
+	}
+	this->isUpdatable = isUPT;
+
 }
 
 Mur::~Mur() {
@@ -104,9 +123,9 @@ void Mur::draw() {
 				glEnd();
 
 				//Création de la hitbox
-				this->createHitboxes((x1<x2)?x1:x2, y1, z1 - epaisseur_mur - 1,
-						this->calculerDistance(x1, x2), this->hauteur,
-						(epaisseur_mur + 1) * 2);
+				this->UpdateHitbox((x1 < x2) ? x1 : x2, y1,
+						z1 - epaisseur_mur - 1, this->calculerDistance(x1, x2),
+						this->hauteur, (epaisseur_mur + 1) * 2);
 
 			} else if (this->isVertical(this->coordinates[i],
 					this->coordinates[i + 1])) {
@@ -155,10 +174,9 @@ void Mur::draw() {
 				glEnd();
 
 				//Création de la hitbox
-				this->createHitboxes(x1 - epaisseur_mur - 1, y1, (z1<z2)?z1:z2,
-						(epaisseur_mur + 1) * 2, this->hauteur,
-						this->calculerDistance(z1, z2));
-
+				this->UpdateHitbox(x1 - epaisseur_mur - 1, y1,
+						(z1 < z2) ? z1 : z2, (epaisseur_mur + 1) * 2,
+						this->hauteur, this->calculerDistance(z1, z2));
 
 			}
 		} else {
@@ -234,8 +252,13 @@ void Mur::drawHorizontalClosing(Point p) {
  * La fonction sera donc ensuite appelé soit dans le constructeur, soit dans le draw : celà dépend du type d'élement
  * (Si l'élément peut bouger ou pas)
  */
-void Mur::UpdateHitbox(){
-// méthode virtuel
-}
+void Mur::UpdateHitbox(double x, double y, double z, double w, double h,
+		double d) {
+	if(hitboxCreated && isUpdatable){
+		this->_hitboxes.clear();
+		hitboxCreated = false;
+	}
 
+	this->createHitboxes(x, y, z, w, h, d);
+}
 
