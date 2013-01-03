@@ -71,7 +71,8 @@ Etage* EtageFactory::createEtage(int etage)
 			rez_de_chaussee->addElementDecor(guichet3);
 			rez_de_chaussee->addElementDecor(new Escalier(70,0,80,70,-20,0));
 			rez_de_chaussee->addElementDecor(new Escalier(37,0,80,70,20,0));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(0,0,0,'N'));
+
+			rez_de_chaussee->addElementDecorInteractif(new Pnj(50,0,0,'N'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(10,0,-10,'S'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(35,0,-50,'E'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(40,0,-20,'O'));

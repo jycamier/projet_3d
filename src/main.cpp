@@ -10,6 +10,7 @@
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
 
+
 // Taille de la fenêtre
 #define LARGEUR 800
 #define HAUTEUR 600
@@ -20,6 +21,28 @@ FreeFlyCamera * camera;
 void stop() {
 	delete camera;
 	SDL_Quit();
+}
+
+bool Collision(float x, float y, float z, AABB3D box) {
+	if (x >= box.x && x < box.x + box.w && y >= box.y && y < box.y + box.h
+			&& z >= box.z && z < box.z + box.d)
+		return true;
+	else
+		return false;
+}
+
+bool CollisionX(float x, AABB3D box) {
+	if (x >= box.x && x < box.x + box.w)
+		return true;
+	else
+		return false;
+}
+
+bool CollisionZ(float z, AABB3D box) {
+	if (z >= box.z && z < box.z + box.d)
+		return true;
+	else
+		return false;
 }
 
 int main(int argc, char *argv[]) {
@@ -81,9 +104,8 @@ int main(int argc, char *argv[]) {
 					now = SDL_GetTicks();
 					if (next_interaction <= now) {
 						next_interaction = now + 500;
-						// rez_de_chaussee->decorInteractif[2]->interaction();
-						// rez_de_chaussee->decorInteractif[3]->interaction();
-						rez_de_chaussee->decorInteractif[4]->interaction();
+						rez_de_chaussee->decorInteractif[2]->interaction();
+						rez_de_chaussee->decorInteractif[3]->interaction();
 					}			
 					break;
 				case SDLK_y:
@@ -117,6 +139,39 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 		}
+
+		/**
+		 * GESTION DES COLLISIONS
+		 */
+		vector<AABB3D> hitb;
+		bool CollisionTab[8] = {false,false};
+
+		for (int i = 0; i < rez_de_chaussee->getElements().size(); i++) {
+			hitb = rez_de_chaussee->getElements().at(i)->getHitboxes();
+
+			for (int j = 0; j < hitb.size(); j++) {
+
+				if (Collision(camera->getTarget().X, camera->getTarget().Y,
+						camera->getTarget().Z, hitb.at(j))) {
+					//Avancer
+					CollisionTab[0] = CollisionX(camera->getTarget().X, hitb.at(j));
+					CollisionTab[1] = CollisionZ(camera->getTarget().Z, hitb.at(j));
+					//reculer
+					CollisionTab[2] = CollisionX(camera->getPosition().X-camera->getForward().X, hitb.at(j));
+					CollisionTab[3] = CollisionZ(camera->getPosition().Z-camera->getForward().Z, hitb.at(j));
+					//aller à gauche
+					CollisionTab[4] = CollisionX(camera->getPosition().X+camera->getLeft().X, hitb.at(j)) && CollisionTab[0];
+					CollisionTab[5] = CollisionZ(camera->getPosition().Z+camera->getLeft().Z, hitb.at(j)) && CollisionTab[1];
+					//aller à droite
+					CollisionTab[6] = CollisionX(camera->getPosition().X-camera->getLeft().X, hitb.at(j))&& CollisionTab[0];
+					CollisionTab[7] = CollisionZ(camera->getPosition().Z-camera->getLeft().Z, hitb.at(j))&& CollisionTab[1];
+				}
+
+			}
+
+		}
+		camera->setCollisionTab(CollisionTab);
+
 
 		//gestion images par secondes
 		current_time = SDL_GetTicks();

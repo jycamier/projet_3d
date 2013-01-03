@@ -24,7 +24,14 @@ protected:
 	Elevator* elevator;
 
 	// vector<ElementDecor*> decor;
+// <<<<<<< HEAD
 	
+// =======
+// 	vector<ElementDecor*> decor;
+// 	vector<ElementInteractifDecor*> decorInteractif;
+// 	vector<Element*> elements;
+
+// >>>>>>> 7bc4cac0357f9d3fe8255cffe763a4d4891e6ed8
 
 	int texture_plafond;
 	int texture_murs;
@@ -34,7 +41,7 @@ public:
 
 	vector<ElementDecor*> decor;
 	vector<ElementInteractifDecor*> decorInteractif;
-	vector<Mur*> elevatorDoors;
+	vector<Element*> elements;
 
 	Etage(); // Non implémenté donc inutilisable
 	Etage(const Etage &); // Constructeur de copie, non implémenté donc interdit
@@ -43,7 +50,7 @@ public:
 	void draw();
 	void drawSurface();
 	void drawElementsDecor();
-	void drawElevatorDoor();
+	// void drawElevatorDoor();
 	void openElevatorDoors();
 	void closeElevatorDoors();
 	void addElementDecor(ElementDecor*);
@@ -59,6 +66,17 @@ public:
 		return longueur_etage;
 	}
 
+	vector<ElementDecor*> getDecor() const {
+		return decor;
+	}
+
+	vector<ElementInteractifDecor*> getDecorInteractif() const {
+		return decorInteractif;
+	}
+
+	vector<Element*> getElements() const {
+		return elements;
+	}
 };
 
 #endif // ETAGE_H_INCLUDED
