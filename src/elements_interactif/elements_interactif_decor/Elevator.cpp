@@ -4,8 +4,9 @@
 
 using namespace std;
 
-Elevator::Elevator(double x, double y, double z, double longueur, double largeur, double hauteur) : ElementInteractifDecor (x,y,z)  
-{
+Elevator::Elevator(double x, double y, double z, double longueur,
+		double largeur, double hauteur) :
+		ElementInteractifDecor(x, y, z) {
 	this->lenght = longueur;
 	this->width = largeur;
 	this->height = hauteur;
@@ -15,77 +16,99 @@ Elevator::Elevator(double x, double y, double z, double longueur, double largeur
 
 	// int texture_happy = loadTexture("textures/smilet_happy.jpg");
 
-	this->buttons.push_back(new Button(this->position->x-1,8,this->position->z + 9,'x',0.5,0));
-	this->buttons.push_back(new Button(this->position->x-1,8,this->position->z + 11,'x',0.5,0));
-	this->buttons.push_back(new Button(this->position->x-1,6,this->position->z + 9,'x',0.5,0));
-	this->buttons.push_back(new Button(this->position->x-1,6,this->position->z + 11,'x',0.5,0));
-	this->buttons.push_back(new Button(this->position->x-1,4,this->position->z + 9,'x',0.5,0));
-	this->buttons.push_back(new Button(this->position->x-1,4,this->position->z + 11,'x',0.5,0));
+	this->buttons.push_back(
+			new Button(this->position->x - 1, 8, this->position->z + 9, 'x',
+					0.5, 0));
+	this->buttons.push_back(
+			new Button(this->position->x - 1, 8, this->position->z + 11, 'x',
+					0.5, 0));
+	this->buttons.push_back(
+			new Button(this->position->x - 1, 6, this->position->z + 9, 'x',
+					0.5, 0));
+	this->buttons.push_back(
+			new Button(this->position->x - 1, 6, this->position->z + 11, 'x',
+					0.5, 0));
+	this->buttons.push_back(
+			new Button(this->position->x - 1, 4, this->position->z + 9, 'x',
+					0.5, 0));
+	this->buttons.push_back(
+			new Button(this->position->x - 1, 4, this->position->z + 11, 'x',
+					0.5, 0));
 }
 
-Elevator::~Elevator()
-{
+Elevator::~Elevator() {
 
 }
 
-void Elevator::createElevatorShaft()
-{
+void Elevator::createElevatorShaft() {
 	vector<Point> points;
-	points.push_back(Point(this->position->x,this->position->y,this->position->z + width));
-	points.push_back(Point(this->position->x - lenght,this->position->y,this->position->z + width));
-	points.push_back(Point(this->position->x - lenght,this->position->y,this->position->z));
-	this->walls.push_back(new Mur(this->position->x,this->position->y,this->position->z,points,this->height,0));
+	points.push_back(
+			Point(this->position->x, this->position->y,
+					this->position->z + width));
+	points.push_back(
+			Point(this->position->x - lenght, this->position->y,
+					this->position->z + width));
+	points.push_back(
+			Point(this->position->x - lenght, this->position->y,
+					this->position->z));
+	this->walls.push_back(
+			new Mur(this->position->x, this->position->y, this->position->z,
+					points, this->height, 0));
 }
 
-void Elevator::createElevatorDoors()
-{
+void Elevator::createElevatorDoors() {
 	vector<Point> points;
-	points.push_back(Point(this->position->x - lenght/2,this->position->y,this->position->z+1));
-	this->doors.push_back(new Mur(this->position->x,this->position->y,this->position->z+1,points,this->height,0));
+	points.push_back(
+			Point(this->position->x - lenght / 2, this->position->y,
+					this->position->z + 1));
+	this->doors.push_back(
+			new Mur(this->position->x, this->position->y, this->position->z + 1,
+					points, this->height, 0, true));
 	points.clear();
 
-	points.push_back(Point(this->position->x - lenght,this->position->y,this->position->z+1));
-	this->doors.push_back(new Mur(this->position->x -lenght/2,this->position->y,this->position->z+1,points,this->height,0));
+	points.push_back(
+			Point(this->position->x - lenght, this->position->y,
+					this->position->z + 1));
+	this->doors.push_back(
+			new Mur(this->position->x - lenght / 2, this->position->y,
+					this->position->z + 1, points, this->height, 0, true));
 	points.clear();
 }
 
-void Elevator::draw()
-{
+void Elevator::draw() {
 	int i = 0;
 
-	while (i < this->walls.size())
-	{
+	while (i < this->walls.size()) {
 		this->walls[i]->draw();
 		i++;
 	}
-	i=0;
+	i = 0;
 
-	glColor3ub(0,0,255);
-	while (i < this->doors.size())
-	{
-		this->doors[i]->draw();	
+	glColor3ub(0, 0, 255);
+	while (i < this->doors.size()) {
+		this->doors[i]->draw();
 		i++;
 	}
 
-	i=0;
-	while (i < this->buttons.size())
-	{
-		this->buttons[i]->draw();	
+	i = 0;
+	while (i < this->buttons.size()) {
+		this->buttons[i]->draw();
 		i++;
 	}
 }
-	
-void Elevator::open()
-{
+
+void Elevator::open() {
 	int i = 0;
-	if (isClosed)
-	{
-		while( i < lenght/2)
-		{
-			this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x + 1;
-			this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x + 1;
-			this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x - 1;
-			this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x - 1;
+	if (isClosed) {
+		while (i < lenght / 2) {
+			this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x
+					+ 1;
+			this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x
+					+ 1;
+			this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x
+					- 1;
+			this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x
+					- 1;
 			i++;
 		}
 		isClosed = false;
@@ -93,24 +116,35 @@ void Elevator::open()
 
 }
 
-
-void Elevator::close()
-{
+void Elevator::close() {
 	int i = 0;
-	if (!isClosed)
-	{
-		 while( i < lenght/2)
-		 {
-			this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x - 1;
-			this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x - 1;
-			this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x + 1;
-			this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x + 1;
+	if (!isClosed) {
+		while (i < lenght / 2) {
+			this->doors[0]->coordinates[0].x = this->doors[0]->coordinates[0].x
+					- 1;
+			this->doors[0]->coordinates[1].x = this->doors[0]->coordinates[1].x
+					- 1;
+			this->doors[1]->coordinates[0].x = this->doors[1]->coordinates[0].x
+					+ 1;
+			this->doors[1]->coordinates[1].x = this->doors[1]->coordinates[1].x
+					+ 1;
 			i++;
-		 }	
-		 isClosed = true;
+		}
+		isClosed = true;
 	}
 
 }
 
+vector<AABB3D> Elevator::getHitboxes() const {
 
+	vector<AABB3D> hitb;
+
+	for(int i = 0; i < this->doors[0]->getHitboxes().size();i++){
+		hitb.push_back(this->doors[0]->getHitboxes().at(i));
+		hitb.push_back(this->doors[1]->getHitboxes().at(i));
+	}
+
+	return hitb;
+
+}
 
