@@ -1,7 +1,6 @@
 #include "Elevator.h"
 #include "../../utils/point.h"
 #include "../../sdlglutils.h"
-#include <pthread.h>
 
 using namespace std;
 
@@ -13,6 +12,15 @@ Elevator::Elevator(double x, double y, double z, double longueur, double largeur
 	this->createElevatorShaft();
 	this->createElevatorDoors();
 	isClosed = true;
+
+	// int texture_happy = loadTexture("textures/smilet_happy.jpg");
+
+	this->buttons.push_back(new Button(this->position->x-1,8,this->position->z + 9,'x',0.5,0));
+	this->buttons.push_back(new Button(this->position->x-1,8,this->position->z + 11,'x',0.5,0));
+	this->buttons.push_back(new Button(this->position->x-1,6,this->position->z + 9,'x',0.5,0));
+	this->buttons.push_back(new Button(this->position->x-1,6,this->position->z + 11,'x',0.5,0));
+	this->buttons.push_back(new Button(this->position->x-1,4,this->position->z + 9,'x',0.5,0));
+	this->buttons.push_back(new Button(this->position->x-1,4,this->position->z + 11,'x',0.5,0));
 }
 
 Elevator::~Elevator()
@@ -56,6 +64,13 @@ void Elevator::draw()
 	while (i < this->doors.size())
 	{
 		this->doors[i]->draw();	
+		i++;
+	}
+
+	i=0;
+	while (i < this->buttons.size())
+	{
+		this->buttons[i]->draw();	
 		i++;
 	}
 }

@@ -4,6 +4,7 @@
 #include "../../elements/Element_Interactif_Decor.h"
 #include <vector>
 #include "../../elements_decor/Mur.h"
+#include "Button.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ class Elevator : public ElementInteractifDecor {
 		double height;
 		vector<Mur*> walls;
 		vector<Mur*> doors;
+		vector<Button*> buttons;
 		bool isClosed;
 
 	public:
