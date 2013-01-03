@@ -18,7 +18,6 @@ struct AABB3D {
 
 class Element {
 protected:
-	AABB3D _hitbox;
 	vector<AABB3D> _hitboxes;
 
 	virtual void UpdateHitbox();
@@ -26,9 +25,6 @@ protected:
 public:
 	Element();
 	virtual ~Element();
-	const AABB3D& getHitbox() const {
-		return _hitbox;
-	}
 
 	double calculerDistance(double a, double b);
 
@@ -36,6 +32,7 @@ public:
 		return _hitboxes;
 	}
 
+	void createHitboxes(AABB3D* hb);
 	void createHitboxes(double x, double y, double z, double w, double h,
 			double d);
 
@@ -43,8 +40,6 @@ public:
 	 * méthode de TEST
 	 */
 	void drawHitboxes();
-
-
 
 };
 

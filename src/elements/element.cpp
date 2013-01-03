@@ -58,4 +58,14 @@ void Element::createHitboxes(double x, double y, double z, double w, double h,
 
 }
 
+void Element::createHitboxes(AABB3D* hb) {
+
+	if(!hitboxCreated){
+		this->_hitboxes.push_back(*hb);
+	}
+
+	this->drawHitboxes();
+
+}
+
 
