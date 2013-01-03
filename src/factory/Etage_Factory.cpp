@@ -124,7 +124,6 @@ Etage* EtageFactory::createEtage(int etage)
 			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
 			etage1->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
 			etage1->addElementDecorInteractif(new Porte(-10,0,0,'x',10,15));
-			etage1->addElementDecorInteractif(new Porte(-30,0,-60,'z',7,15));
 
 			return etage1;
 

@@ -258,17 +258,5 @@ void Etage::draw()
 					
 	glEnd() ;
 
-
-	/**
-	 * Partie TEST : Draw les caisses
-	 */
-	GLUquadricObj *quad1 = gluNewQuadric();
-	for(int i = 0; i< this->lesCaisses.size(); i++){
-		this->lesCaisses.at(i)->draw(quad1);
-	}
 }
 
-
-void Etage::AjouterCaisse(double x, double y, double z, double height){
-	this->lesCaisses.push_back(new Caisse(x, y, z, height));
-}

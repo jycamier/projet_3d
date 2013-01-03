@@ -11,6 +11,10 @@ Fountain::Fountain(double x, double y, double z) : ElementDecor(x, y, z){
 	width = y;
 }
 
+Fountain::~Fountain(){
+
+}
+
 WaterCup* Fountain::provideWater() 
 {	
 	return new WaterCup(this->position->x,this->position->y,this->position->z);

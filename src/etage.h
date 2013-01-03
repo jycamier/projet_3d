@@ -4,8 +4,7 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-// #include <vector>
-#include "caisse.h"
+#include <vector>
 #include "elements_decor/Mur.h"
 #include "elements/element_decor.h"
 #include "elements/element.h"
@@ -30,7 +29,6 @@ protected:
 	int texture_plafond;
 	int texture_murs;
 	int texture_sol;
-	vector<Caisse*> lesCaisses;
 
 public:
 
@@ -52,15 +50,6 @@ public:
 	void addElementDecorInteractif(ElementInteractifDecor*);
 	void removeElementDecor(ElementDecor*);
 	void clearElementsDecor();
-	/**
-	 * méthode de test pour Collision
-	 * >>> ajoute une caisse au coordonnée (x, z)
-	 */
-	void AjouterCaisse(double x, double y, double z, double height);
-
-	vector<Caisse*> getLesCaisses() const {
-		return lesCaisses;
-	}
 
 	double getLargeurEtage() const {
 		return largeur_etage;

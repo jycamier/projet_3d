@@ -4,3 +4,7 @@ ElementInventory::ElementInventory(double x, double y, double z) : ElementIntera
 {
 
 }
+
+ElementInventory::~ElementInventory(){
+
+}

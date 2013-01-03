@@ -10,6 +10,9 @@ Pilier::Pilier(double x, double y, double z, int text, double ep, double haut) :
 	this->hauteur = haut;
 
 }
+Pilier::~Pilier(){
+
+}
 
 
 void Pilier::draw()
