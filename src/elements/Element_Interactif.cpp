@@ -14,7 +14,7 @@ void ElementInteractif::draw() {
 }
 
 void ElementInteractif::interaction() {
-
+//
 }
 
 ElementInteractif::~ElementInteractif() {

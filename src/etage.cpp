@@ -28,7 +28,7 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 	this->elevator = new Elevator(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25,20,25,15);
 	this->addElementDecorInteractif(elevator);
 	
-	this->addElementDecorInteractif(new Button(xButton,7,zButton,'z',0.6,texture_happy));
+	this->addElementDecorInteractif(new Button(xButton,7,zButton,'z',0.6,texture_happy,elevator));
 
 	// mur à gauche de l'ascenseur
 	vector<Point> points;

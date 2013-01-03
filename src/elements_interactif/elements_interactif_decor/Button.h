@@ -20,13 +20,24 @@ class Button : public ElementInteractifDecor {
 		GLUquadricObj * quadriqueFesse;
 		GLUquadricObj * quadriqueEpaisseur;
 		
+		//Le bouton permet de lancer des intéractions avec les élementsdu décors
+		ElementInteractifDecor * eltInteractifAssocie;
 
 	public:
 		Button(double,double,double,char,double,int);
+		Button(double,double,double,char,double,int,ElementInteractifDecor *);
 		~Button();
 		void draw();
 		void interaction();
-		
+
+//	const ElementInteractifDecor*& getEltInteractifAssocie() const {
+//		return eltInteractifAssocie;
+//	}
+//
+//	void setEltInteractifAssocie(
+//			const ElementInteractifDecor*& eltInteractifAssocie) {
+//		this->eltInteractifAssocie = eltInteractifAssocie;
+//	}
 };
 
 

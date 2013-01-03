@@ -27,6 +27,8 @@ class Elevator : public ElementInteractifDecor {
 		void open();
 		void close();
 		void draw();
+
+		void interaction();
 		vector<AABB3D> getHitboxes()const;
 };
 

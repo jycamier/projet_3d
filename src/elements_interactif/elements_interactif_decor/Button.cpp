@@ -10,6 +10,32 @@ Button::Button(double x, double y, double z, char direction, double diam, int te
     this->quadriqueFesse= gluNewQuadric();
     this->texture_button = text;
 
+    this->eltInteractifAssocie = NULL;
+
+    if (direction == 'x')
+    {
+        this->orientation = 90;
+    }
+    else
+    {
+        this->orientation = 0;
+    }
+
+    this->diametre = diam;
+    this->longeur_epaisseur = 0.5;
+
+}
+
+Button::Button(double x, double y, double z, char direction, double diam, int text,ElementInteractifDecor * eltAss) : ElementInteractifDecor(x, y, z)
+{
+
+    this->quadriqueFace= gluNewQuadric();
+    this->quadriqueEpaisseur= gluNewQuadric();
+    this->quadriqueFesse= gluNewQuadric();
+    this->texture_button = text;
+
+    this->eltInteractifAssocie = eltAss;
+
     if (direction == 'x')
     {
         this->orientation = 90;
@@ -84,8 +110,8 @@ void Button::draw()
     this->hitboxCreated = true;
 }
 
-
 void Button::interaction()
 {
-
+	if(this->eltInteractifAssocie != NULL)
+		this->eltInteractifAssocie->interaction();
 }

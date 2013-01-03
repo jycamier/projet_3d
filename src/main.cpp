@@ -9,8 +9,6 @@
 #include "factory/Etage_Factory.h"
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
-#include "elements_interactif/elements_interactif_decor/Button.h"
-
 
 
 // Taille de la fenêtre
@@ -84,7 +82,7 @@ int main(int argc, char *argv[]) {
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.createEtage(1);
+	Etage* rez_de_chaussee = factory.createEtage(0);
 
 	/**
 	 * Set de l'étage courrant dans la camera
@@ -102,28 +100,26 @@ int main(int argc, char *argv[]) {
 				case SDLK_p:
 					takeScreenshot("test.bmp");
 					break;
-				case SDLK_t:
-					now = SDL_GetTicks();
-					if (next_interaction <= now) {
-						next_interaction = now + 500;
-						rez_de_chaussee->decorInteractif[2]->interaction();
-						rez_de_chaussee->decorInteractif[3]->interaction();
-					}			
-					break;
-				case SDLK_y:
-					rez_de_chaussee->decorInteractif[3]->interaction();
-					break;
-				case SDLK_u:
-					rez_de_chaussee->decorInteractif[4]->interaction();
-					break;
 				case SDLK_ESCAPE:
 					exit(0);
 					break;
-				case SDLK_a:
-					rez_de_chaussee->openElevatorDoors();
-					break;
 				case SDLK_e:
-					rez_de_chaussee->closeElevatorDoors();
+					/**
+					 * GESTION DES INTERACTIONS
+					 */
+					now = SDL_GetTicks();
+					if (next_interaction <= now) {
+						next_interaction = now + 500;
+						for (int i = 0; i < rez_de_chaussee->getDecorInteractif().size(); i++) {
+							ElementInteractifDecor * eltInt = rez_de_chaussee->getDecorInteractif().at(i);
+							for (int j = 0; j < eltInt->getHitboxes().size(); j++) {
+								if (Collision(camera->getTarget().X, camera->getTarget().Y,
+										camera->getTarget().Z, eltInt->getHitboxes().at(j))) {
+									eltInt->interaction();
+								}
+							}
+						}
+					}
 					break;
 				default: //on a utilisé la touche P et la touche ECHAP, le reste (en keydown) est donné à la caméra
 					camera->OnKeyboard(event.key);
@@ -146,7 +142,7 @@ int main(int argc, char *argv[]) {
 		 * GESTION DES COLLISIONS
 		 */
 		vector<AABB3D> hitb;
-		bool CollisionTab[8] = {false,false};
+		bool CollisionTab[8] = {false,false,false,false,false,false,false,false};
 
 		for (int i = 0; i < rez_de_chaussee->getElements().size(); i++) {
 			hitb = rez_de_chaussee->getElements().at(i)->getHitboxes();
@@ -173,7 +169,6 @@ int main(int argc, char *argv[]) {
 
 		}
 		camera->setCollisionTab(CollisionTab);
-
 
 		//gestion images par secondes
 		current_time = SDL_GetTicks();

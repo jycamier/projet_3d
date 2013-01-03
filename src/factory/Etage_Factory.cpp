@@ -76,7 +76,6 @@ Etage* EtageFactory::createEtage(int etage)
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(10,0,-10,'S'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(35,0,-50,'E'));
 			rez_de_chaussee->addElementDecorInteractif(new Pnj(40,0,-20,'O'));
-			rez_de_chaussee->addElementDecorInteractif(new Button(-10,6,10,'z',0.5,0));
 
 			return rez_de_chaussee;
 		}

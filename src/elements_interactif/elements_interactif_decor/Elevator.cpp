@@ -139,12 +139,23 @@ vector<AABB3D> Elevator::getHitboxes() const {
 
 	vector<AABB3D> hitb;
 
-	for(int i = 0; i < this->doors[0]->getHitboxes().size();i++){
+	for (int i = 0; i < this->doors[0]->getHitboxes().size(); i++) {
 		hitb.push_back(this->doors[0]->getHitboxes().at(i));
 		hitb.push_back(this->doors[1]->getHitboxes().at(i));
 	}
 
 	return hitb;
 
+}
+
+/**
+ * Méthode permettant d'intéragir avec la porte
+ */
+void Elevator::interaction() {
+	if (isClosed) {
+		this->open();
+	} else {
+		this->close();
+	}
 }
 
