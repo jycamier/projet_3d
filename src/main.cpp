@@ -9,6 +9,8 @@
 #include "factory/Etage_Factory.h"
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
+#include "elements_interactif/elements_interactif_decor/Button.h"
+
 
 
 // Taille de la fenêtre
@@ -82,7 +84,7 @@ int main(int argc, char *argv[]) {
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.createEtage(0);
+	Etage* rez_de_chaussee = factory.createEtage(1);
 
 	/**
 	 * Set de l'étage courrant dans la camera
