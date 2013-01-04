@@ -67,7 +67,7 @@ void Button::draw()
     gluQuadricDrawStyle(quadriqueFace, GLU_FILL);
 
     glTranslated(position->x,position->y,position->z); // choix de l’emplacement cylindre
-    glRotatef( orientation, 0, 1, 0 );
+    glRotatef( -orientation, 0, 1, 0 );
     gluDisk(quadriqueFace,0, this->diametre, 20, 20);
        
     glPopMatrix();

@@ -15,25 +15,26 @@ Elevator::Elevator(double x, double y, double z, double longueur,
 	isClosed = true;
 
 	// int texture_happy = loadTexture("textures/smilet_happy.jpg");
+	this->loadTextures();
 
 	this->buttons.push_back(
 			new Button(this->position->x - 1, 8, this->position->z + 9, 'x',
-					0.5, 0));
+					0.5, texture_bouton_1));
 	this->buttons.push_back(
 			new Button(this->position->x - 1, 8, this->position->z + 11, 'x',
-					0.5, 0));
+					0.5, texture_bouton_2));
 	this->buttons.push_back(
 			new Button(this->position->x - 1, 6, this->position->z + 9, 'x',
-					0.5, 0));
+					0.5, texture_bouton_2));
 	this->buttons.push_back(
 			new Button(this->position->x - 1, 6, this->position->z + 11, 'x',
-					0.5, 0));
+					0.5, texture_bouton_4));
 	this->buttons.push_back(
 			new Button(this->position->x - 1, 4, this->position->z + 9, 'x',
-					0.5, 0));
+					0.5, texture_bouton_5));
 	this->buttons.push_back(
 			new Button(this->position->x - 1, 4, this->position->z + 11, 'x',
-					0.5, 0));
+					0.5, texture_bouton_6));
 }
 
 Elevator::~Elevator() {
@@ -159,3 +160,11 @@ void Elevator::interaction() {
 	}
 }
 
+void Elevator::loadTextures(){
+	texture_bouton_1 = loadTexture("textures/stare_1.jpg");
+	texture_bouton_2 = loadTexture("textures/stare_2.jpg");
+	texture_bouton_3 = loadTexture("textures/stare_3.jpg");
+	texture_bouton_4 = loadTexture("textures/stare_4.jpg");
+	texture_bouton_5 = loadTexture("textures/stare_5.jpg");
+	texture_bouton_6 = loadTexture("textures/stare_6.jpg");
+}
