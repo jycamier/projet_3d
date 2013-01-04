@@ -5,16 +5,19 @@
 using namespace std;
 
 Elevator::Elevator(double x, double y, double z, double longueur,
-		double largeur, double hauteur) :
+		double largeur, double hauteur, int textporte, int textplafond, int textplancher) :
 		ElementInteractifDecor(x, y, z) {
+
 	this->lenght = longueur;
 	this->width = largeur;
 	this->height = hauteur;
+	this->texture_porte = textporte;
+	this->texture_plafond = textplafond;
+	this->texture_plancher = textplancher;
+
 	this->createElevatorShaft();
 	this->createElevatorDoors();
 	isClosed = true;
-
-	// int texture_happy = loadTexture("textures/smilet_happy.jpg");
 
 	this->buttons.push_back(
 			new Button(this->position->x - 1, 8, this->position->z + 9, 'x',
@@ -40,6 +43,29 @@ Elevator::~Elevator() {
 
 }
 
+void Elevator::drawElevatorFloorAndCeiling()
+{
+	glBindTexture(GL_TEXTURE_2D,texture_plancher);
+	glBegin(GL_QUADS);	
+
+	glTexCoord2d(20,10); glVertex3d(this->position->x ,this->position->y,this->position->z);
+	glTexCoord2d(10,10); glVertex3d(this->position->x,this->position->y,this->position->z + width);
+	glTexCoord2d(10,20); glVertex3d(this->position->x - lenght,this->position->y,this->position->z + width);
+	glTexCoord2d(20,20); glVertex3d(this->position->x - lenght,this->position->y,this->position->z);
+
+	glEnd() ;
+
+	glBindTexture(GL_TEXTURE_2D,texture_plafond);	
+	glBegin(GL_QUADS);	
+	
+	glTexCoord2d(20,10); glVertex3d(this->position->x ,this->height,this->position->z);
+	glTexCoord2d(10,10); glVertex3d(this->position->x,this->height,this->position->z + width);
+	glTexCoord2d(10,20); glVertex3d(this->position->x - lenght,this->height,this->position->z + width);
+	glTexCoord2d(20,20); glVertex3d(this->position->x - lenght,this->height,this->position->z);
+
+	glEnd() ;
+}
+
 void Elevator::createElevatorShaft() {
 	vector<Point> points;
 	points.push_back(
@@ -53,17 +79,18 @@ void Elevator::createElevatorShaft() {
 					this->position->z));
 	this->walls.push_back(
 			new Mur(this->position->x, this->position->y, this->position->z,
-					points, this->height, 0));
+					points, this->height, this->texture_porte));
 }
 
 void Elevator::createElevatorDoors() {
+
 	vector<Point> points;
 	points.push_back(
 			Point(this->position->x - lenght / 2, this->position->y,
 					this->position->z + 1));
 	this->doors.push_back(
 			new Mur(this->position->x, this->position->y, this->position->z + 1,
-					points, this->height, 0, true));
+					points, this->height, this->texture_porte, true));
 	points.clear();
 
 	points.push_back(
@@ -71,20 +98,21 @@ void Elevator::createElevatorDoors() {
 					this->position->z + 1));
 	this->doors.push_back(
 			new Mur(this->position->x - lenght / 2, this->position->y,
-					this->position->z + 1, points, this->height, 0, true));
+					this->position->z + 1, points, this->height, this->texture_porte, true));
 	points.clear();
 }
 
 void Elevator::draw() {
 	int i = 0;
-
+	
+	glColor3ub(223, 223, 223);
 	while (i < this->walls.size()) {
 		this->walls[i]->draw();
 		i++;
 	}
 	i = 0;
 
-	glColor3ub(0, 0, 255);
+	
 	while (i < this->doors.size()) {
 		this->doors[i]->draw();
 		i++;
@@ -95,6 +123,8 @@ void Elevator::draw() {
 		this->buttons[i]->draw();
 		i++;
 	}
+
+	this->drawElevatorFloorAndCeiling();
 }
 
 void Elevator::open() {

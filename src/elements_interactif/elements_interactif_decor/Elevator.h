@@ -18,11 +18,15 @@ class Elevator : public ElementInteractifDecor {
 		vector<Mur*> doors;
 		vector<Button*> buttons;
 		bool isClosed;
+		int texture_porte;
+		int texture_plancher;
+		int texture_plafond;
 
 	public:
-		Elevator(double,double,double,double,double,double);
+		Elevator(double,double,double,double,double,double,int,int,int);
 		~Elevator();
 		void createElevatorShaft();
+		void drawElevatorFloorAndCeiling();
 		void createElevatorDoors();
 		void open();
 		void close();

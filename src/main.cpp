@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include "sdlglutils.h"
 #include "etage.h"
+#include "Menu.h"
 #include "factory/Etage_Factory.h"
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
@@ -78,19 +79,39 @@ int main(int argc, char *argv[]) {
 
 	glEnable (GL_TEXTURE_2D);
 
+	/*glEnable(GL_LIGHTING);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_COLOR_MATERIAL); 
+
+///test lumière
+	GLfloat lum0_pos[] = {65,14,20,1};
+	glLightfv(GL_LIGHT0, GL_POSITION, lum0_pos);
+	GLfloat lum0_diff[] = {1.0,0,0,0.0};
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lum0_diff);
+	GLfloat lum0_spec[] = {1.0,0,0,0.0};
+	glLightfv(GL_LIGHT0, GL_SPECULAR, lum0_spec);
+/////////////////////////////////////////////////////////*/
+
+
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.createEtage(0);
+	Etage* rez_de_chaussee = factory.createEtage(1);
 
 	/**
 	 * Set de l'étage courrant dans la camera
 	 */
 	camera->setCurrentStare(rez_de_chaussee);
 
+	Menu* menu;
+
+
 	while (continuer) {
+
 		while (SDL_PollEvent(&event)) {
+				
 			switch (event.type) {
 			case SDL_QUIT:
 				exit(0);
@@ -168,6 +189,7 @@ int main(int argc, char *argv[]) {
 			}
 
 		}
+
 		camera->setCollisionTab(CollisionTab);
 
 		//gestion images par secondes
@@ -216,7 +238,6 @@ int main(int argc, char *argv[]) {
 		//axe des x en violet
 
 		///////////////////////////////////////////////////////////////
-
 		rez_de_chaussee->draw();
 
 		// Affichage (en double buffering)
