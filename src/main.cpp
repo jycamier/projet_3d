@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.createEtage(0);
+	Etage* rez_de_chaussee = factory.loadEtage(0);
 
 	/**
 	 * Set de l'étage courrant dans la camera
@@ -99,6 +99,12 @@ int main(int argc, char *argv[]) {
 				switch (event.key.keysym.sym) {
 				case SDLK_p:
 					takeScreenshot("test.bmp");
+					break;
+				case SDLK_t:
+					rez_de_chaussee = factory.loadEtage(1);
+					break;
+				case SDLK_a:
+					rez_de_chaussee = factory.loadEtage(0);
 					break;
 				case SDLK_ESCAPE:
 					exit(0);

@@ -14,11 +14,40 @@
 #include "../elements_interactif/elements_interactif_decor/Porte.h"
 #include "../elements_interactif/elements_interactif_decor/Button.h"
 
+/**
+ * Créer l'espace de stockage dans le vecteur pour 4 étages
+ */
 EtageFactory::EtageFactory()
 {
 
+//	Etage* e = NULL;
+//
+//	for (int i = 0; i < 5;i++){
+//		this->etages.insert( i, e);
+//	}
+
 }
 
+/**
+ * Permet de Charger les étages et de les créer si ceux-ci ne le sont pas
+ */
+Etage* EtageFactory::loadEtage(int etage){
+
+	Etage* e;
+
+	if (this->etages.size() == etage){
+		e = this->createEtage(etage);
+		this->etages.insert(this->etages.begin()+etage,e);
+	}else{
+		e = this->etages.at(etage);
+	}
+
+	return e;
+}
+
+/**
+ * Créer des étages
+ */
 Etage* EtageFactory::createEtage(int etage)
 {
 	int texture_plafond;
@@ -28,7 +57,7 @@ Etage* EtageFactory::createEtage(int etage)
 
 	switch(etage)
 	{
-		case -1 : 
+		case 0 :
 		{
 			texture_plafond = loadTexture("textures/plafond1.jpg");
 			texture_sol = loadTexture("textures/floor.jpg");
@@ -43,7 +72,7 @@ Etage* EtageFactory::createEtage(int etage)
 		}
 		break;
 
-		case 0 : 
+		case 1 :
 		{
 			//chargement des textures
 			int texture_pilier = loadTexture("textures/pilier1.jpg");
@@ -82,7 +111,7 @@ Etage* EtageFactory::createEtage(int etage)
 
 		break;
 
-		case 1 :
+		case 2 :
 		{
 			//chargement des textures
 			texture_plafond = loadTexture("textures/plafond1.jpg");
@@ -135,23 +164,13 @@ Etage* EtageFactory::createEtage(int etage)
 		} 
 		break;
 
-		case 2 : 
+		case 3 :
 		{
 
 		}
 		break;
 
-		case 3 : 
-		{
 
-		}
-		break;
-
-		case 4 : 
-		{
-
-		}
-		break;
 
 		default :
 		{

@@ -6,18 +6,27 @@
 #include <GL/glu.h>
 #include "../etage.h"
 #include <iostream> 
+#include <vector>
 
 using namespace std;
 
-class EtageFactory
-{
-	private :
+class EtageFactory {
+	private:
+		vector<Etage*> etages;
+		Etage* createEtage(int);
 
-	public :
+	public:
 
 		EtageFactory();
-		Etage* createEtage(int);
 		~EtageFactory();
+		Etage* loadEtage(int);
+
+		vector<Etage*> getEtages() const {
+			return etages;
+		}
+
+
+
 
 };
 
