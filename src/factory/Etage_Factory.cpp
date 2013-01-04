@@ -55,6 +55,9 @@ Etage* EtageFactory::createEtage(int etage)
 	int texture_murs;
 	int texture_happy;
 
+	//creation de l'étage
+	Etage* createdStare;
+
 	switch(etage)
 	{
 		case 0 :
@@ -63,12 +66,8 @@ Etage* EtageFactory::createEtage(int etage)
 			texture_sol = loadTexture("textures/floor.jpg");
 			texture_murs = loadTexture("textures/wall.jpg");
 
-			//creation de l'étage
-			Etage* cave = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
-			cave->addElementDecor(new Table(0,0,0,0,10,7,2));
-
-			return cave;
-
+			createdStare = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
+			createdStare->addElementDecor(new Table(0,0,0,0,10,7,2));
 		}
 		break;
 
@@ -83,32 +82,29 @@ Etage* EtageFactory::createEtage(int etage)
 			texture_happy = loadTexture("textures/smilet_happy.jpg");
 
 			//creation de l'étage
-			Etage* rez_de_chaussee = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
+			createdStare = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
 			
 			//ajout des élement de décor dans l'étage
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,-40,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,-20,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,-20,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,0,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,0,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,0,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Pilier(-20,0,20,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Pilier(20,0,20,texture_pilier,2,15));
-			rez_de_chaussee->addElementDecor(new Fountain(10.0, 3.0, 10.0));
-			rez_de_chaussee->addElementDecor(new Guichet(80,0,30,20,15,10));
-			rez_de_chaussee->addElementDecor(new Guichet(80,0,10,20,15,10));
-			rez_de_chaussee->addElementDecor(new Guichet(80,0,-10,20,15,10));
-			rez_de_chaussee->addElementDecor(new Escalier(70,0,80,70,-20,0));
-			rez_de_chaussee->addElementDecor(new Escalier(37,0,80,70,20,0));
+			createdStare->addElementDecor(new Pilier(20,0,-40,texture_pilier,2,15));
+			createdStare->addElementDecor(new Pilier(-20,0,-20,texture_pilier,2,15));
+			createdStare->addElementDecor(new Pilier(20,0,-20,texture_pilier,2,15));
+			createdStare->addElementDecor(new Pilier(-20,0,0,texture_pilier,2,15));
+			createdStare->addElementDecor(new Pilier(-20,0,0,texture_pilier,2,15));
+			createdStare->addElementDecor(new Pilier(20,0,0,texture_pilier,2,15));
+			createdStare->addElementDecor(new Pilier(-20,0,20,texture_pilier,2,15));
+			createdStare->addElementDecor(new Pilier(20,0,20,texture_pilier,2,15));
+			createdStare->addElementDecor(new Fountain(10.0, 3.0, 10.0));
+			createdStare->addElementDecor(new Guichet(80,0,30,20,15,10));
+			createdStare->addElementDecor(new Guichet(80,0,10,20,15,10));
+			createdStare->addElementDecor(new Guichet(80,0,-10,20,15,10));
+			createdStare->addElementDecor(new Escalier(70,0,80,70,-20,0));
+			createdStare->addElementDecor(new Escalier(37,0,80,70,20,0));
 
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(50,0,0,'N'));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(10,0,-10,'S'));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(35,0,-50,'E'));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(40,0,-20,'O'));
-
-			return rez_de_chaussee;
+			createdStare->addElementDecorInteractif(new Pnj(50,0,0,'N'));
+			createdStare->addElementDecorInteractif(new Pnj(10,0,-10,'S'));
+			createdStare->addElementDecorInteractif(new Pnj(35,0,-50,'E'));
+			createdStare->addElementDecorInteractif(new Pnj(40,0,-20,'O'));
 		}
-
 		break;
 
 		case 2 :
@@ -120,7 +116,7 @@ Etage* EtageFactory::createEtage(int etage)
 			int texture_murs_bureau = loadTexture("textures/mur1.jpg");
 
 			//creation de l'étage
-			Etage* etage1 = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
+			createdStare = new Etage(80,15,80,texture_plafond,texture_sol,texture_murs,0);
 			
 			//utilisé pour définir les coordonnées des murs ci-après
 			vector<Point> points;
@@ -145,22 +141,19 @@ Etage* EtageFactory::createEtage(int etage)
 			Mur *mur2Salle2 = new Mur(-10,0,-10,points, 15,texture_murs_bureau);
 			points.clear();
 
-			etage1->addElementDecor(mur1Salle1);
-			etage1->addElementDecor(mur1Salle2);
-			etage1->addElementDecor(mur2Salle1);
-			etage1->addElementDecor(mur2Salle2);
-			etage1->addElementDecor(new Table(50,0,20,0,10,12,5));
-			etage1->addElementDecor(new Chaise(52,0,19,0,5,4,3,'S'));
-			etage1->addElementDecor(new Chaise(52,0,29,0,5,4,3,'N'));
-			etage1->addElementDecor(new Chaise(49,0,26,0,5,4,3,'E'));
-			etage1->addElementDecor(new Chaise(60,0,26,0,5,4,3,'W'));
+			createdStare->addElementDecor(mur1Salle1);
+			createdStare->addElementDecor(mur1Salle2);
+			createdStare->addElementDecor(mur2Salle1);
+			createdStare->addElementDecor(mur2Salle2);
+			createdStare->addElementDecor(new Table(50,0,20,0,10,12,5));
+			createdStare->addElementDecor(new Chaise(52,0,19,0,5,4,3,'S'));
+			createdStare->addElementDecor(new Chaise(52,0,29,0,5,4,3,'N'));
+			createdStare->addElementDecor(new Chaise(49,0,26,0,5,4,3,'E'));
+			createdStare->addElementDecor(new Chaise(60,0,26,0,5,4,3,'W'));
 
-			etage1->addElementDecorInteractif(new Pnj(-50,0,-13,'N'));
-			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
-			etage1->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
-
-			return etage1;
-
+			createdStare->addElementDecorInteractif(new Pnj(-50,0,-13,'N'));
+			createdStare->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
+			createdStare->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
 		} 
 		break;
 
@@ -170,14 +163,35 @@ Etage* EtageFactory::createEtage(int etage)
 		}
 		break;
 
-
-
-		default :
-		{
-
-		}
-		break;
 	}
+
+
+	/**
+	 * CONSTRUCTION DES BOUTONS ELEVATOR
+	 */
+	int texture_bouton_1 = loadTexture("textures/stare_1.jpg");
+	int texture_bouton_2 = loadTexture("textures/stare_2.jpg");
+	int texture_bouton_3 = loadTexture("textures/stare_3.jpg");
+	int texture_bouton_4 = loadTexture("textures/stare_4.jpg");
+	int texture_bouton_5 = loadTexture("textures/stare_5.jpg");
+	int texture_bouton_6 = loadTexture("textures/stare_6.jpg");
+
+	Point* pts = createdStare->getElevator()->getPosition();
+
+	createdStare->getElevator()->addButton(new Button(pts->x - 1, 8, pts->z + 9, 'x',
+			0.5, texture_bouton_1));
+	createdStare->getElevator()->addButton(new Button(pts->x - 1, 8, pts->z + 11, 'x',
+			0.5, texture_bouton_2));
+	createdStare->getElevator()->addButton(new Button(pts->x - 1, 6, pts->z + 9, 'x',
+			0.5, texture_bouton_3));
+	createdStare->getElevator()->addButton(new Button(pts->x - 1, 6, pts->z + 11, 'x',
+			0.5, texture_bouton_4));
+	createdStare->getElevator()->addButton(new Button(pts->x - 1, 4, pts->z + 9, 'x',
+			0.5, texture_bouton_5));
+	createdStare->getElevator()->addButton(new Button(pts->x - 1, 4, pts->z + 11, 'x',
+			0.5, texture_bouton_6));
+
+	return createdStare;
 
 }
 	

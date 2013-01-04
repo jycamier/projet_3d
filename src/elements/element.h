@@ -20,7 +20,7 @@ struct AABB3D {
 class Element {
 protected:
 	vector<AABB3D> _hitboxes;
-
+  	Point *position;
 	virtual void UpdateHitbox();
 	bool hitboxCreated;
 public:
@@ -42,6 +42,9 @@ public:
 	 */
 	void drawHitboxes();
 
+	Point* getPosition() const {
+		return position;
+	}
 };
 
 #endif

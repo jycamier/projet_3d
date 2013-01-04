@@ -80,6 +80,10 @@ public:
 	vector<Element*> getElements() const {
 		return elements;
 	}
+
+	Elevator* getElevator() const {
+		return elevator;
+	}
 };
 
 #endif // ETAGE_H_INCLUDED

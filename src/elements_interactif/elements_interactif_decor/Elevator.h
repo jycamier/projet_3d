@@ -46,6 +46,7 @@ public:
 	vector<Button*> getButtons() const {
 		return buttons;
 	}
+	void addButton(Button*);
 };
 
 #endif // ELEVATOR_H_INCLUDED
