@@ -269,3 +269,17 @@ void Etage::draw()
 
 }
 
+/**
+ * Méthode d'init des éléments intéractif
+ */
+void Etage::initElementInteractifDecor(){
+
+	//bouton
+	for(int i = 0; i < this->elevator->getButtons().size(); i++){
+		this->addElementDecorInteractif(this->elevator->getButtons().at(i));
+	}
+
+}
+
+
+

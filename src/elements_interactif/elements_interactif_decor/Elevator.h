@@ -9,40 +9,43 @@
 
 using namespace std;
 
-class Elevator : public ElementInteractifDecor {
-	
-	private :
+class Elevator: public ElementInteractifDecor {
 
-		double lenght;
-		double width;
-		double height;
-		vector<Mur*> walls;
-		vector<Mur*> doors;
-		vector<Button*> buttons;
-		bool isClosed;
+private:
 
-		//Textures bouton ascensseur
-		int texture_bouton_1;
-		int texture_bouton_2;
-		int texture_bouton_3;
-		int texture_bouton_4;
-		int texture_bouton_5;
-		int texture_bouton_6;
+	double lenght;
+	double width;
+	double height;
+	vector<Mur*> walls;
+	vector<Mur*> doors;
+	vector<Button*> buttons;
+	bool isClosed;
 
-		void loadTextures();
+	//Textures bouton ascensseur
+	int texture_bouton_1;
+	int texture_bouton_2;
+	int texture_bouton_3;
+	int texture_bouton_4;
+	int texture_bouton_5;
+	int texture_bouton_6;
 
-	public:
-		Elevator(double,double,double,double,double,double);
-		~Elevator();
-		void createElevatorShaft();
-		void createElevatorDoors();
-		void open();
-		void close();
-		void draw();
+	void loadTextures();
 
-		void interaction();
-		vector<AABB3D> getHitboxes()const;
+public:
+	Elevator(double, double, double, double, double, double);
+	~Elevator();
+	void createElevatorShaft();
+	void createElevatorDoors();
+	void open();
+	void close();
+	void draw();
+
+	void interaction();
+	vector<AABB3D> getHitboxes() const;
+
+	vector<Button*> getButtons() const {
+		return buttons;
+	}
 };
-
 
 #endif // ELEVATOR_H_INCLUDED

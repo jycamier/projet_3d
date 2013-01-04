@@ -37,6 +37,8 @@ protected:
 	int texture_murs;
 	int texture_sol;
 
+	void initElementInteractifDecor();
+
 public:
 
 	vector<ElementDecor*> decor;
@@ -57,6 +59,7 @@ public:
 	void addElementDecorInteractif(ElementInteractifDecor*);
 	void removeElementDecor(ElementDecor*);
 	void clearElementsDecor();
+
 
 	double getLargeurEtage() const {
 		return largeur_etage;
