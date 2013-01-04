@@ -121,6 +121,7 @@ int main(int argc, char *argv[]) {
 							for (int j = 0; j < eltInt->getHitboxes().size(); j++) {
 								if (Collision(camera->getTarget().X, camera->getTarget().Y,
 										camera->getTarget().Z, eltInt->getHitboxes().at(j))) {
+									printf("TEST_INTERACTION\n");
 									eltInt->interaction();
 								}
 							}

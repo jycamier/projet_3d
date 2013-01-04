@@ -12,19 +12,13 @@
 #include "../elements_decor/Chaise.h"
 #include "../elements_interactif/elements_interactif_decor/Pnj.h"
 #include "../elements_interactif/elements_interactif_decor/Porte.h"
-#include "../elements_interactif/elements_interactif_decor/Button.h"
+#include "../elements_interactif/elements_interactif_decor/ButtonEtage.h"
 
 /**
  * Créer l'espace de stockage dans le vecteur pour 4 étages
  */
 EtageFactory::EtageFactory()
 {
-
-//	Etage* e = NULL;
-//
-//	for (int i = 0; i < 5;i++){
-//		this->etages.insert( i, e);
-//	}
 
 }
 
@@ -165,7 +159,6 @@ Etage* EtageFactory::createEtage(int etage)
 
 	}
 
-
 	/**
 	 * CONSTRUCTION DES BOUTONS ELEVATOR
 	 */
@@ -178,18 +171,18 @@ Etage* EtageFactory::createEtage(int etage)
 
 	Point* pts = createdStare->getElevator()->getPosition();
 
-	createdStare->getElevator()->addButton(new Button(pts->x - 1, 8, pts->z + 9, 'x',
-			0.5, texture_bouton_1));
-	createdStare->getElevator()->addButton(new Button(pts->x - 1, 8, pts->z + 11, 'x',
-			0.5, texture_bouton_2));
-	createdStare->getElevator()->addButton(new Button(pts->x - 1, 6, pts->z + 9, 'x',
-			0.5, texture_bouton_3));
-	createdStare->getElevator()->addButton(new Button(pts->x - 1, 6, pts->z + 11, 'x',
-			0.5, texture_bouton_4));
-	createdStare->getElevator()->addButton(new Button(pts->x - 1, 4, pts->z + 9, 'x',
-			0.5, texture_bouton_5));
-	createdStare->getElevator()->addButton(new Button(pts->x - 1, 4, pts->z + 11, 'x',
-			0.5, texture_bouton_6));
+	createdStare->getElevator()->addButton(new ButtonEtage(pts->x - 1, 8, pts->z + 9, 'x',
+			0.5, texture_bouton_1, this, 0));
+	createdStare->getElevator()->addButton(new ButtonEtage(pts->x - 1, 8, pts->z + 11, 'x',
+			0.5, texture_bouton_2, this, 1));
+	createdStare->getElevator()->addButton(new ButtonEtage(pts->x - 1, 8, pts->z + 13, 'x',
+			0.5, texture_bouton_3, this, 2));
+	createdStare->getElevator()->addButton(new ButtonEtage(pts->x - 1, 8, pts->z + 15, 'x',
+			0.5, texture_bouton_4, this, 3));
+//	createdStare->getElevator()->addButton(new ButtonEtage(pts->x - 1, 4, pts->z + 9, 'x',
+//			0.5, texture_bouton_5, this, 5));
+//	createdStare->getElevator()->addButton(new ButtonEtage(pts->x - 1, 4, pts->z + 11, 'x',
+//			0.5, texture_bouton_6, this, 6));
 
 	return createdStare;
 
