@@ -5,12 +5,14 @@
 #include <vector>
 #include "../../elements_decor/Mur.h"
 #include "Button.h"
+#include "../../sdlglutils.h"
 
 using namespace std;
 
 class Elevator : public ElementInteractifDecor {
 	
 	private :
+
 		double lenght;
 		double width;
 		double height;
@@ -21,6 +23,16 @@ class Elevator : public ElementInteractifDecor {
 		int texture_porte;
 		int texture_plancher;
 		int texture_plafond;
+
+		//Textures bouton ascensseur
+		int texture_bouton_1;
+		int texture_bouton_2;
+		int texture_bouton_3;
+		int texture_bouton_4;
+		int texture_bouton_5;
+		int texture_bouton_6;
+
+		void loadTextures();
 
 	public:
 		Elevator(double,double,double,double,double,double,int,int,int);
