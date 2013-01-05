@@ -11,23 +11,25 @@
 using namespace std;
 
 class EtageFactory {
-	private:
-		vector<Etage*> etages;
-		Etage* createEtage(int);
+private:
+	Etage* currentStare;
+	vector<Etage*> etages;
+	Etage* createEtage(int);
 
-	public:
+public:
 
-		EtageFactory();
-		~EtageFactory();
-		Etage* loadEtage(int);
+	EtageFactory();
+	~EtageFactory();
+	void loadEtage(int);
+	void draw();
 
-		vector<Etage*> getEtages() const {
-			return etages;
-		}
+	vector<Etage*> getEtages() const {
+		return etages;
+	}
 
-
-
-
+	Etage* getCurrentStare() const {
+		return currentStare;
+	}
 };
 
 #endif // ETAGE_FACTORY_H_INCLUDED

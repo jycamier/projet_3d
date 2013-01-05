@@ -82,12 +82,12 @@ int main(int argc, char *argv[]) {
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
 	EtageFactory factory;
-	Etage* rez_de_chaussee = factory.loadEtage(0);
+	factory.loadEtage(0);
 
 	/**
 	 * Set de l'étage courrant dans la camera
 	 */
-	camera->setCurrentStare(rez_de_chaussee);
+	camera->setCurrentStare(factory.getCurrentStare());
 
 	while (continuer) {
 		while (SDL_PollEvent(&event)) {
@@ -101,10 +101,10 @@ int main(int argc, char *argv[]) {
 					takeScreenshot("test.bmp");
 					break;
 				case SDLK_t:
-					rez_de_chaussee = factory.loadEtage(1);
+					factory.loadEtage(1);
 					break;
 				case SDLK_a:
-					rez_de_chaussee = factory.loadEtage(0);
+					factory.loadEtage(0);
 					break;
 				case SDLK_ESCAPE:
 					exit(0);
@@ -116,12 +116,11 @@ int main(int argc, char *argv[]) {
 					now = SDL_GetTicks();
 					if (next_interaction <= now) {
 						next_interaction = now + 500;
-						for (int i = 0; i < rez_de_chaussee->getDecorInteractif().size(); i++) {
-							ElementInteractifDecor * eltInt = rez_de_chaussee->getDecorInteractif().at(i);
+						for (int i = 0; i < factory.getCurrentStare()->getDecorInteractif().size(); i++) {
+							ElementInteractifDecor * eltInt = factory.getCurrentStare()->getDecorInteractif().at(i);
 							for (int j = 0; j < eltInt->getHitboxes().size(); j++) {
 								if (Collision(camera->getTarget().X, camera->getTarget().Y,
 										camera->getTarget().Z, eltInt->getHitboxes().at(j))) {
-									printf("TEST_INTERACTION\n");
 									eltInt->interaction();
 								}
 							}
@@ -151,8 +150,8 @@ int main(int argc, char *argv[]) {
 		vector<AABB3D> hitb;
 		bool CollisionTab[8] = {false,false,false,false,false,false,false,false};
 
-		for (int i = 0; i < rez_de_chaussee->getElements().size(); i++) {
-			hitb = rez_de_chaussee->getElements().at(i)->getHitboxes();
+		for (int i = 0; i < factory.getCurrentStare()->getElements().size(); i++) {
+			hitb = factory.getCurrentStare()->getElements().at(i)->getHitboxes();
 
 			for (int j = 0; j < hitb.size(); j++) {
 
@@ -224,7 +223,7 @@ int main(int argc, char *argv[]) {
 
 		///////////////////////////////////////////////////////////////
 
-		rez_de_chaussee->draw();
+		factory.draw();
 
 		// Affichage (en double buffering)
 		glFlush();
