@@ -21,11 +21,13 @@ Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, doubl
 	this->base = base_etage;
 
 	int texture_happy = loadTexture("textures/smilet_happy.jpg");
+	int texture_porte_ascenseur = loadTexture("textures/porte_metal.jpg");
+	int texture_plafond_plancher_ascenseur = loadTexture("textures/bois.jpg");
 	int longueur_porte_ascenseur = (longueur_etage-10);
 	double xButton = longueur_etage-longueur_porte_ascenseur+2;
 	double zButton = longueur_etage-26;
 
-	this->elevator = new Elevator(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25,20,25,15);
+	this->elevator = new Elevator(longueur_etage-longueur_porte_ascenseur,base,longueur_etage-25,20,25,15,texture_porte_ascenseur,texture_plafond_plancher_ascenseur,texture_plafond_plancher_ascenseur);
 	this->addElementDecorInteractif(elevator);
 	
 	this->addElementDecorInteractif(new Button(xButton,7,zButton,'z',0.6,texture_happy,elevator));
@@ -83,13 +85,27 @@ void Etage::drawSurface()
 
 	glBegin(GL_QUADS);		
 	glColor3ub(223,223,223);
+	// glNormal3f(0,1,0);
+
+	// GLfloat sol_amb[] = {0.5,0.5,0.5, 1.0};
+	// glMaterialfv(GL_FRONT, GL_AMBIENT, sol_amb);
+	// GLfloat sol_diff[] = {1.0,1.0,1.0, 1.0};
+	// glMaterialfv(GL_FRONT,GL_DIFFUSE, sol_diff);
+
 
 	glTexCoord2d(20,10); glVertex3d(-longueur_etage,base,-largeur_etage);
 	glTexCoord2d(10,10); glVertex3d(-longueur_etage,base,largeur_etage-25);
 	glTexCoord2d(10,20); glVertex3d(longueur_etage,base,largeur_etage-25);
 	glTexCoord2d(20,20); glVertex3d(longueur_etage,base,-largeur_etage);	
-	glEnd() ;
 
+	// glNormal3f(0,1,0); 
+
+	// glTexCoord2i(0,0); glVertex3i(-longueur_etage,base,-largeur_etage);
+	// glTexCoord2i(0,0); glVertex3i(-longueur_etage,base,largeur_etage-25);
+	// glTexCoord2i(0,0); glVertex3i(longueur_etage,base,largeur_etage-25);
+	// glTexCoord2i(0,0); glVertex3i(longueur_etage,base,-largeur_etage);
+
+	glEnd() ;
 
 	//plafond
 	glBindTexture(GL_TEXTURE_2D, texture_plafond);

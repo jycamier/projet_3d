@@ -99,10 +99,16 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecor(new Escalier(70, 0, 80, 70, -20, 0));
 		createdStare->addElementDecor(new Escalier(37, 0, 80, 70, 20, 0));
 
-		createdStare->addElementDecorInteractif(new Pnj(50, 0, 0, 'N'));
-		createdStare->addElementDecorInteractif(new Pnj(10, 0, -10, 'S'));
-		createdStare->addElementDecorInteractif(new Pnj(35, 0, -50, 'E'));
-		createdStare->addElementDecorInteractif(new Pnj(40, 0, -20, 'O'));
+//		createdStare->addElementDecorInteractif(new Pnj(50, 0, 0, 'N'));
+//		createdStare->addElementDecorInteractif(new Pnj(10, 0, -10, 'S'));
+//		createdStare->addElementDecorInteractif(new Pnj(35, 0, -50, 'E'));
+//		createdStare->addElementDecorInteractif(new Pnj(40, 0, -20, 'O'));
+
+		createdStare->addElementDecorInteractif(new Pnj(50,0,0,'N',"1"));
+		createdStare->addElementDecorInteractif(new Pnj(10,0,-10,'S',"2"));
+		createdStare->addElementDecorInteractif(new Pnj(35,0,-50,'E',"3"));
+		createdStare->addElementDecorInteractif(new Pnj(40,0,-20,'O',"4"));
+
 	}
 		break;
 
@@ -150,12 +156,12 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecor(new Chaise(49, 0, 26, 0, 5, 4, 3, 'E'));
 		createdStare->addElementDecor(new Chaise(60, 0, 26, 0, 5, 4, 3, 'W'));
 
-		createdStare->addElementDecorInteractif(new Pnj(-50, 0, -13, 'N'));
-		createdStare->addElementDecorInteractif(new Pnj(50, 0, -10, 'E'));
-		createdStare->addElementDecorInteractif(
-				new Porte(10, 0, 0, 'x', 10, 15));
+		createdStare->addElementDecorInteractif(new Pnj(-50,0,-13,'N',"5"));
+		createdStare->addElementDecorInteractif(new Pnj(50,0,-10,'E',"6"));
+		createdStare->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
+		createdStare->addElementDecorInteractif(new Porte(-10,0,0,'x',10,15));
 	}
-		break;
+	break;
 
 	case 3: {
 

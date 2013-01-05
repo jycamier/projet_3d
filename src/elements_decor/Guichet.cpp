@@ -16,8 +16,11 @@ Guichet::Guichet(double x, double y, double z, double longueur, double largeur,
 	this->width = largeur;
 	int espace = width + 8;
 
+
+	// const unsigned char texte[100]  = "je suis guichetier";
+
 	this->personnage = new Pnj(this->position->x - this->width / 2, 0,
-			this->position->z - longueur / 2, 'E');
+			this->position->z - longueur / 2, 'E',"je suis guichetier");
 
 	this->texture_mur = loadTexture("textures/mur_bureau.jpg");
 

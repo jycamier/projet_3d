@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include "../sdlglutils.h"
 
 using namespace std;
 
@@ -62,6 +63,9 @@ void Mur::draw() {
 	double z2;
 
 	double epaisseur_mur;
+	GLfloat sol_amb[] = {0.5,0.5,0.5, 1.0};
+	GLfloat sol_diff[] = {1.0,1.0,1.0, 1.0};
+	GLfloat sol_brill[] = {128};
 
 	while (i < this->coordinates.size()) {
 		epaisseur_mur = this->epaisseur;
@@ -96,7 +100,12 @@ void Mur::draw() {
 				}
 				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin (GL_QUADS);
+					glNormal3f(0,0,1);
 
+	// glMaterialfv(GL_FRONT, GL_AMBIENT, sol_amb);
+	// glMaterialfv(GL_FRONT,GL_DIFFUSE, sol_diff);
+	// glMaterialfv(GL_FRONT,GL_SHININESS, sol_brill);
+	
 				glTexCoord2d(5, 2);
 				glVertex3d(x1, y1, z1 + epaisseur_mur);
 				glTexCoord2d(2, 2);
@@ -110,6 +119,12 @@ void Mur::draw() {
 
 				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin(GL_QUADS);
+					glNormal3f(0,0,1);
+
+	// glMaterialfv(GL_FRONT, GL_AMBIENT, sol_amb);
+	// glMaterialfv(GL_FRONT,GL_DIFFUSE, sol_diff);
+	// glMaterialfv(GL_FRONT,GL_SHININESS, sol_brill);
+
 
 				glTexCoord2d(5, 2);
 				glVertex3d(x1, y1, z1 - epaisseur_mur);
@@ -147,6 +162,12 @@ void Mur::draw() {
 				}
 				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin (GL_QUADS);
+					glNormal3f(0,0,1);
+
+	// glMaterialfv(GL_FRONT, GL_AMBIENT, sol_amb);
+	// glMaterialfv(GL_FRONT,GL_DIFFUSE, sol_diff);
+	// glMaterialfv(GL_FRONT,GL_SHININESS, sol_brill);
+
 
 				glTexCoord2d(5, 2);
 				glVertex3d(x1 + epaisseur_mur, y1, z1);
@@ -161,6 +182,12 @@ void Mur::draw() {
 
 				glBindTexture(GL_TEXTURE_2D, this->texture);
 				glBegin(GL_QUADS);
+					glNormal3f(0,0,1);
+
+	// glMaterialfv(GL_FRONT, GL_AMBIENT, sol_amb);
+	// glMaterialfv(GL_FRONT,GL_DIFFUSE, sol_diff);
+	// glMaterialfv(GL_FRONT,GL_SHININESS, sol_brill);
+
 
 				glTexCoord2d(5, 2);
 				glVertex3d(x1 - epaisseur_mur, y1, z1);

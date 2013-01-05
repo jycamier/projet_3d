@@ -20,6 +20,9 @@ private:
 	vector<Mur*> doors;
 	vector<Button*> buttons;
 	bool isClosed;
+	int texture_porte;
+	int texture_plancher;
+	int texture_plafond;
 
 	//Textures bouton ascensseur
 	int texture_bouton_1;
@@ -32,9 +35,10 @@ private:
 	void loadTextures();
 
 public:
-	Elevator(double, double, double, double, double, double);
+	Elevator(double,double,double,double,double,double,int,int,int);
 	~Elevator();
 	void createElevatorShaft();
+	void drawElevatorFloorAndCeiling();
 	void createElevatorDoors();
 	void open();
 	void close();
@@ -47,6 +51,7 @@ public:
 		return buttons;
 	}
 	void addButton(Button*);
+
 };
 
 #endif // ELEVATOR_H_INCLUDED

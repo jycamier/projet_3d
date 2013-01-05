@@ -7,7 +7,7 @@ fi
 
 mkdir bin
 cd src/
-g++ -lSDL -lGL -lGLU -lSDL_image **/*.cpp *.cpp **/**/*.cpp  -o ../bin/main
+g++ -lSDL -lGL -lGLU -lglut -lSDL_image **/*.cpp *.cpp **/**/*.cpp  -o ../bin/main
 ../bin/main
 
 

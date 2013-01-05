@@ -10,16 +10,6 @@ Chaise::Chaise(double x, double y, double z, int text, double longu, double larg
 	this->longueur = longu;
 	this->largeur = larg;
 	this->orientation = direction;
-
-	// if (direction == 'N') {
-	// 	this->orientation = 0;
-	// } else if (direction == 'S') {
-	// 	this->orientation = -180;
-	// } else if (direction == 'E') {
-	// 	this->orientation = 90;
-	// } else if (direction == 'O') {
-	// 	this->orientation = -90;
-	// }
 		
 }
 Chaise::~Chaise(){
@@ -178,6 +168,30 @@ void Chaise::drawDossier()
 		glPushMatrix();
 		glTranslated(xDossierBarreau2 ,baseDossier,zDossierBarreau2); // choix de l’emplacement cylindre
 		glRotatef( -90, 1, 0, 0 );
+		gluCylinder(quadriquePieds,0.2,0.2,baseDossier + hauteur/2,20,20);
+		glPopMatrix();
+
+		// glPushMatrix();
+		// glTranslated(xDossierBarreau1 ,baseDossier + hauteur/2,zDossierBarreau1); // choix de l’emplacement cylindre
+		// // glRotatef( -90, 1, 0, 0 );
+		// gluCylinder(quadriquePieds,0.2,0.2,baseDossier + hauteur/2,20,20);
+		// glPopMatrix();
+
+		// glPushMatrix();
+		// glTranslated(xDossierBarreau1 ,(baseDossier + hauteur/2)+1,zDossierBarreau1); // choix de l’emplacement cylindre
+		// // glRotatef( -90, 1, 0, 0 );
+		// gluCylinder(quadriquePieds,0.2,0.2,baseDossier + hauteur/2,20,20);
+		// glPopMatrix();		
+
+		glPushMatrix();
+		glTranslated(xDossierBarreau2 ,baseDossier + hauteur/2,zDossierBarreau1); // choix de l’emplacement cylindre
+		// glRotatef( -90, 1, 0, 0 );
+		gluCylinder(quadriquePieds,0.2,0.2,baseDossier + hauteur/2,20,20);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(xDossierBarreau2 ,(baseDossier + hauteur/2)+1,zDossierBarreau1); // choix de l’emplacement cylindre
+		// glRotatef( -90, 1, 0, 0 );
 		gluCylinder(quadriquePieds,0.2,0.2,baseDossier + hauteur/2,20,20);
 		glPopMatrix();		
 		

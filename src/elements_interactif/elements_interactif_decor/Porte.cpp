@@ -36,6 +36,7 @@ Porte::Porte(double x, double y, double z, char direction, double taille, double
 	this->door = new Mur(this->position->x,this->position->y,this->position->z,points,this->height,texture_porte, true);
 	points.clear();
 	this->open = true;
+	this->interaction();
 
 }
 

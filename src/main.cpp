@@ -1,11 +1,13 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <GL/freeglut.h>
 #include <math.h>
 #include <vector>
 #include <cstdlib>
 #include "sdlglutils.h"
 #include "etage.h"
+#include "Menu.h"
 #include "factory/Etage_Factory.h"
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
@@ -17,6 +19,28 @@
 #define FRAMES_PER_SECOND 50
 
 FreeFlyCamera * camera;
+
+void displayString(char string[], float r, float g, float b, int cx, int y)
+{
+        glColor3f(r, g, b); // our fonts color
+
+        /* think of the following this way:
+         * our center x is x.
+         * take the length of our string and * by 9 for the char width
+         * and thats how wide in pixels the resulting thing will be.
+         * right?
+         * now, divide that by 2 to center it
+         */
+        int x = cx - ((strlen(string) * 9) / 2);
+        y = y - 7; // y - ~(15 / 2). id rather not use float, so 7 isn't too diff than 7.5
+
+        for(unsigned int i = 0; i != strlen(string) - 1; ++i)
+        {
+                glRasterPos3f(x, y, 0);
+                glutBitmapCharacter(GLUT_BITMAP_8_BY_13, string[i]);
+                x = x + 9; // accomidate for the next letter
+        }
+}
 
 void stop() {
 	delete camera;
@@ -47,6 +71,7 @@ bool CollisionZ(float z, AABB3D box) {
 
 int main(int argc, char *argv[]) {
 
+	glutInit(&argc, argv);
 // Initialisation de SDL
 	SDL_Init (SDL_INIT_VIDEO);
 
@@ -76,12 +101,23 @@ int main(int argc, char *argv[]) {
 	Uint32 next_interaction = 0; // variable enregistrant le moment du dernier tir
 	Uint32 now; // heure actuelle
 
+	SDL_Rect position_txt;
 	glEnable (GL_TEXTURE_2D);
+	SDL_Color couleur_txt = {0, 0, 0};
+	// TTF_Font * police = TTF_OpenFont("simplicity.ttf", 65);
+	// SDL_Surface * texte = NULL;
+	// texte = TTF_RenderText_Blended(police, "alialoalu !", couleur_txt);
+
+/////////////////////////////////////////////////////////*/
+
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
 	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
 
+	const unsigned char tmp[100] = "text to render";
+
 	EtageFactory factory;
+
 	factory.loadEtage(0);
 
 	/**
@@ -89,8 +125,21 @@ int main(int argc, char *argv[]) {
 	 */
 	camera->setCurrentStare(factory.getCurrentStare());
 
+	Menu* menu;
+
+
 	while (continuer) {
+
+			glEnable (GL_DEPTH_TEST);
+		glClearColor(0.6, 0.6, 0.6, 1);
+		// On efface la fenêtre
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glMatrixMode (GL_MODELVIEW);
+		glLoadIdentity();
+
+
 		while (SDL_PollEvent(&event)) {
+				
 			switch (event.type) {
 			case SDL_QUIT:
 				exit(0);
@@ -144,6 +193,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
+
 		/**
 		 * GESTION DES COLLISIONS
 		 */
@@ -174,6 +224,7 @@ int main(int argc, char *argv[]) {
 			}
 
 		}
+
 		camera->setCollisionTab(CollisionTab);
 
 		//gestion images par secondes
@@ -191,12 +242,14 @@ int main(int argc, char *argv[]) {
 		//Update de la position dela camera
 		camera->animate(elapsed_time);
 
-		glEnable (GL_DEPTH_TEST);
-		glClearColor(0.6, 0.6, 0.6, 1);
-		// On efface la fenêtre
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glMatrixMode (GL_MODELVIEW);
-		glLoadIdentity();
+
+
+		// glEnable (GL_DEPTH_TEST);
+		// glClearColor(0.6, 0.6, 0.6, 1);
+		// // On efface la fenêtre
+		// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		// glMatrixMode (GL_MODELVIEW);
+		// glLoadIdentity();
 
 		//remplace un appel manuel à gluLookAt
 		camera->look();

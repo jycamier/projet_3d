@@ -6,7 +6,8 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-// #include <S>
+#include <GL/freeglut.h>
+#include <string>
 
 using namespace std;
 
@@ -22,11 +23,15 @@ class Pnj : public ElementInteractifDecor {
 		int texture_happy;
 		int texture_jambes;
 		int texture_torse;
+		char* blabla;
+		bool talk;
 
 		double orientation;
 
 	public:
-		Pnj(double,double,double,char);
+		Pnj(double,double,double,char,char*);
+		void interaction();
+		void parler();
 		~Pnj();
 		void draw();
 };
