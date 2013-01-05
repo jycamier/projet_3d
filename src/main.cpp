@@ -76,6 +76,9 @@ int main(int argc, char *argv[]) {
 	Uint32 next_interaction = 0; // variable enregistrant le moment du dernier tir
 	Uint32 now; // heure actuelle
 
+	Uint32 next_folie = 0; // variable enregistrant le moment du dernier tir
+	Uint32 now_folie; // heure actuelle
+
 	glEnable (GL_TEXTURE_2D);
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
@@ -93,6 +96,8 @@ int main(int argc, char *argv[]) {
 	 * Set de l'étage courrant dans la camera
 	 */
 	camera->setCurrentStare(factory.getCurrentStare());
+
+	int iteration = 0;
 
 	while (true) {
 		/**
@@ -120,7 +125,7 @@ int main(int argc, char *argv[]) {
 					camera->setEtat(new EtatIntermediaire(camera));
 					break;
 				case SDLK_l:
-					camera->setEtat(new EtatNormal(camera));
+					
 					break;
 				case SDLK_k:
 					camera->setEtat(new EtatMaboul(camera));
@@ -251,6 +256,25 @@ int main(int argc, char *argv[]) {
 		///////////////////////////////////////////////////////////////
 
 		factory.draw();
+		now_folie = SDL_GetTicks();
+		if (next_folie <= now_folie) {
+			next_folie = now_folie + 1000;
+
+			if (iteration == 30)
+			{
+				camera->setEtat(new EtatIntermediaire(camera));
+			}
+			else if (iteration == 60)
+			{
+				camera->setEtat(new EtatMaboul(camera));
+			}
+			else if (iteration > 80)
+			{
+				exit(0);
+			}
+			iteration++;
+
+		}
 
 		// Affichage (en double buffering)
 		glFlush();

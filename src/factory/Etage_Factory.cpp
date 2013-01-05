@@ -26,16 +26,13 @@ EtageFactory::EtageFactory() {
  */
 void EtageFactory::loadEtage(int etage) {
 
-	Etage* e;
-
 	if (this->etages.size() == etage) {
-		e = this->createEtage(etage);
-		this->etages.insert(this->etages.begin() + etage, e);
-	} else {
-		e = this->etages.at(etage);
-	}
+		this->currentStare = this->createEtage(etage);
+		this->etages.insert(this->etages.begin() + etage, this->currentStare);
+	} else if(this->etages.size() > etage){
+		this->currentStare = this->etages.at(etage);
+	} 
 
-	this->currentStare = e;
 }
 
 /**
@@ -52,17 +49,7 @@ Etage* EtageFactory::createEtage(int etage) {
 
 	switch (etage) {
 	case 0: {
-		texture_plafond = loadTexture("textures/plafond1.jpg");
-		texture_sol = loadTexture("textures/floor.jpg");
-		texture_murs = loadTexture("textures/wall.jpg");
 
-		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
-				texture_murs, 0);
-		createdStare->addElementDecor(new Table(0, 0, 0, 0, 10, 7, 2));
-	}
-		break;
-
-	case 1: {
 		//chargement des textures
 		int texture_pilier = loadTexture("textures/pilier1.jpg");
 		int texture_guichet = loadTexture("textures/wall.jpg");
@@ -109,6 +96,17 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecorInteractif(new Pnj(35,0,-50,'E',"3"));
 		createdStare->addElementDecorInteractif(new Pnj(40,0,-20,'O',"4"));
 
+	}
+		break;
+
+	case 1: {
+		texture_plafond = loadTexture("textures/plafond1.jpg");
+		texture_sol = loadTexture("textures/floor.jpg");
+		texture_murs = loadTexture("textures/wall.jpg");
+
+		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
+				texture_murs, 0);
+		createdStare->addElementDecor(new Table(0, 0, 0, 0, 10, 7, 2));
 	}
 		break;
 
@@ -165,6 +163,13 @@ Etage* EtageFactory::createEtage(int etage) {
 
 	case 3: {
 
+		printf("%s\n", "totodebut");
+		texture_plafond = loadTexture("textures/plafond1.jpg");
+		texture_sol = loadTexture("textures/sol_dernier_etage.jpg");
+		texture_murs = loadTexture("textures/mur_dernier_etage.jpg");
+
+		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,texture_murs, 0);
+		printf("%s\n", "totofin");
 	}
 		break;
 
@@ -184,10 +189,10 @@ Etage* EtageFactory::createEtage(int etage) {
 
 	createdStare->getElevator()->addButton(
 			new ButtonEtage(pts->x - 1, 8, pts->z + 9, 'x', 0.5,
-					texture_bouton_1, this, 0));
+					texture_bouton_1, this, 1));
 	createdStare->getElevator()->addButton(
 			new ButtonEtage(pts->x - 1, 8, pts->z + 11, 'x', 0.5,
-					texture_bouton_2, this, 1));
+					texture_bouton_2, this, 0));
 	createdStare->getElevator()->addButton(
 			new ButtonEtage(pts->x - 1, 8, pts->z + 13, 'x', 0.5,
 					texture_bouton_3, this, 2));
