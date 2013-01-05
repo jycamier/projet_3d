@@ -23,13 +23,13 @@ class Pnj : public ElementInteractifDecor {
 		int texture_happy;
 		int texture_jambes;
 		int texture_torse;
-		char* blabla;
+		string blabla;
 		bool talk;
 
 		double orientation;
 
 	public:
-		Pnj(double,double,double,char,char*);
+		Pnj(double,double,double,char,string);
 		void interaction();
 		void parler();
 		~Pnj();

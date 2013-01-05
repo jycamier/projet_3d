@@ -11,6 +11,7 @@
 #include "factory/Etage_Factory.h"
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
+#include "Character.h"
 
 
 // Taille de la fenêtre
@@ -18,7 +19,7 @@
 #define HAUTEUR 600
 #define FRAMES_PER_SECOND 50
 
-FreeFlyCamera * camera;
+Character * camera;
 
 void stop() {
 	delete camera;
@@ -90,7 +91,7 @@ int main(int argc, char *argv[]) {
 
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
-	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
+	camera = new Character(Vector3D(0, 8, 0));
 
 	const unsigned char tmp[100] = "text to render";
 
@@ -124,6 +125,12 @@ int main(int argc, char *argv[]) {
 				break;
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
+				case SDLK_m:
+					camera->changerDirection();
+					break;
+				case SDLK_l:
+					camera->remettreDirection();
+					break;
 				case SDLK_p:
 					takeScreenshot("test.bmp");
 					break;
