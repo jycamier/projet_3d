@@ -101,10 +101,10 @@ Etage* EtageFactory::createEtage(int etage)
 			rez_de_chaussee->addElementDecor(new Escalier(70,0,80,70,-20,0));
 			rez_de_chaussee->addElementDecor(new Escalier(37,0,80,70,20,0));
 
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(50,0,0,'N'));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(10,0,-10,'S'));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(35,0,-50,'E'));
-			rez_de_chaussee->addElementDecorInteractif(new Pnj(40,0,-20,'O'));
+			rez_de_chaussee->addElementDecorInteractif(new Pnj(50,0,0,'N',"1"));
+			rez_de_chaussee->addElementDecorInteractif(new Pnj(10,0,-10,'S',"2"));
+			rez_de_chaussee->addElementDecorInteractif(new Pnj(35,0,-50,'E',"3"));
+			rez_de_chaussee->addElementDecorInteractif(new Pnj(40,0,-20,'O',"4"));
 
 			return rez_de_chaussee;
 		}
@@ -155,8 +155,8 @@ Etage* EtageFactory::createEtage(int etage)
 			etage1->addElementDecor(new Chaise(49,0,26,0,5,4,3,'E'));
 			etage1->addElementDecor(new Chaise(60,0,26,0,5,4,3,'W'));
 
-			etage1->addElementDecorInteractif(new Pnj(-50,0,-13,'N'));
-			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E'));
+			etage1->addElementDecorInteractif(new Pnj(-50,0,-13,'N',"5"));
+			etage1->addElementDecorInteractif(new Pnj(50,0,-10,'E',"6"));
 			etage1->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
 			etage1->addElementDecorInteractif(new Porte(-10,0,0,'x',10,15));
 

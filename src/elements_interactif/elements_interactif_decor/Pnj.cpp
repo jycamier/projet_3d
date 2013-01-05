@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-Pnj::Pnj(double x, double y, double z, char direction) :
+Pnj::Pnj(double x, double y, double z, char direction, char* discour) :
 		ElementInteractifDecor(x, y, z) {
 	this->quadriqueTete = gluNewQuadric();
 	this->quadriqueTorse = gluNewQuadric();
@@ -13,10 +13,16 @@ Pnj::Pnj(double x, double y, double z, char direction) :
 	this->quadriqueBrasDroit = gluNewQuadric();
 	this->quadriqueJambeGauche = gluNewQuadric();
 	this->quadriqueJambeDroite = gluNewQuadric();
+	this->talk = false;
 
-		texture_happy = loadTexture("textures/smilet_happy.jpg");
-		texture_jambes = loadTexture("textures/texture_jean.jpg");
-		texture_torse = loadTexture("textures/texture_torse.jpg");
+
+	// strcpy( (char*) this->blabla, "Hello World" );
+	this->blabla = discour;
+	
+
+	texture_happy = loadTexture("textures/smilet_happy.jpg");
+	texture_jambes = loadTexture("textures/texture_jean.jpg");
+	texture_torse = loadTexture("textures/texture_torse.jpg");
 
 	if (direction == 'N') {
 		this->orientation = 0;
@@ -30,7 +36,34 @@ Pnj::Pnj(double x, double y, double z, char direction) :
 
 }
 
+void Pnj::parler()
+{
+	if (this->talk)
+	{
+		this->talk = false;
+	}
+	else
+	{
+		this->talk = true;
+	}
+
+}
+
+void Pnj::interaction()
+{
+	this->parler();
+}
+
 void Pnj::draw() {
+
+	unsigned char tmp[100] = "toto\n";
+	if (this->talk)
+	{
+		glRasterPos3i(this->position->x,this->position->y + 13,this->position->z);
+		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char *) this->blabla);
+		glColor3ub(223, 223, 223);
+	}
 
 	glPushMatrix();
 	gluQuadricTexture(quadriqueTete, GL_TRUE);
