@@ -63,13 +63,6 @@ void FreeFlyCamera::OnKeyboard(const SDL_KeyboardEvent & event) {
 
 void FreeFlyCamera::animate(Uint32 timestep) {
 
-	/**
-	 * TEst
-	 */
-//	cout << "ColX : " << _collisionTab[0] << "\n" ;
-//	cout << "ColZ : " << _collisionTab[1] << "\n" ;
-
-
 	double realspeed = (_keystates[_keyconf["boost"]]) ? 10 * _speed : _speed;
 	if (_keystates[_keyconf["forward"]]) {
 
