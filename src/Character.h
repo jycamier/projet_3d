@@ -7,6 +7,7 @@
 #include "freeflycamera.h"
 #include "state/EtatNormal.h"
 #include "state/EtatIntermediaire.h"
+#include "state/EtatMaboul.h"
 
 class Character : public FreeFlyCamera {
     protected:

@@ -1,3 +1,4 @@
+#include <sstream>
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -13,6 +14,7 @@
 #include "freeflycamera.h"
 #include "Character.h"
 
+using namespace std;
 
 // Taille de la fenêtre
 #define LARGEUR 800
@@ -83,9 +85,6 @@ int main(int argc, char *argv[]) {
 	SDL_Rect position_txt;
 	glEnable (GL_TEXTURE_2D);
 	SDL_Color couleur_txt = {0, 0, 0};
-	// TTF_Font * police = TTF_OpenFont("simplicity.ttf", 65);
-	// SDL_Surface * texte = NULL;
-	// texte = TTF_RenderText_Blended(police, "alialoalu !", couleur_txt);
 
 /////////////////////////////////////////////////////////*/
 
@@ -104,8 +103,8 @@ int main(int argc, char *argv[]) {
 	 */
 	camera->setCurrentStare(factory.getCurrentStare());
 
-	Menu* menu;
-
+	ostringstream ostr; //output string stream
+	string theNumberString;
 
 	while (continuer) {
 
@@ -130,6 +129,9 @@ int main(int argc, char *argv[]) {
 					break;
 				case SDLK_l:
 					camera->setEtat(new EtatNormal(camera));
+					break;
+				case SDLK_k:
+					camera->setEtat(new EtatMaboul(camera));
 					break;
 				case SDLK_p:
 					takeScreenshot("test.bmp");
@@ -226,15 +228,6 @@ int main(int argc, char *argv[]) {
 
 		//Update de la position dela camera
 		camera->animate(elapsed_time);
-
-
-
-		// glEnable (GL_DEPTH_TEST);
-		// glClearColor(0.6, 0.6, 0.6, 1);
-		// // On efface la fenêtre
-		// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// glMatrixMode (GL_MODELVIEW);
-		// glLoadIdentity();
 
 		//remplace un appel manuel à gluLookAt
 		camera->look();

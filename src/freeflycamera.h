@@ -67,10 +67,11 @@ public:
     // const KeyConf& getKeyconf() const {
     //     return _keyconf;
     // }
-
-protected:
     double _speed;
     double _sensivity;
+
+protected:
+    
 
     bool* _collisionTab;
 
