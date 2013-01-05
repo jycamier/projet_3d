@@ -3,20 +3,15 @@
 Character::Character(const Vector3D & position) : FreeFlyCamera(position)
 {
 	this->fou = false;
+	this->etat = new EtatNormal(this);
 }
 
-void Character::changerDirection()
+
+void Character::animate(Uint32 timestep)
 {
-	_keyconf["forward"] = SDLK_s;
-	_keyconf["backward"] = SDLK_z;
+	this->etat->modifierComportement();
+	FreeFlyCamera::animate(timestep);
 }
-
-void Character::remettreDirection()
-{
-	_keyconf["forward"] = SDLK_z;
-	_keyconf["backward"] = SDLK_s;
-}
-
 
 Character::~Character()
 {

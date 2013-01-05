@@ -12,6 +12,10 @@ using namespace std;
 class FreeFlyCamera
 {
 public:
+    typedef std::map<std::string,SDLKey> KeyConf;
+    KeyConf _keyconf;
+
+
     FreeFlyCamera(const Vector3D & position = Vector3D(0,0,0));
 
     virtual void OnMouseMotion(const SDL_MouseMotionEvent & event);
@@ -60,6 +64,10 @@ public:
 		return _left;
 	}
 
+    // const KeyConf& getKeyconf() const {
+    //     return _keyconf;
+    // }
+
 protected:
     double _speed;
     double _sensivity;
@@ -73,8 +81,8 @@ protected:
 
     typedef std::map<SDLKey,bool> KeyStates;
     KeyStates _keystates;
-    typedef std::map<std::string,SDLKey> KeyConf;
-    KeyConf _keyconf;
+    // typedef std::map<std::string,SDLKey> KeyConf;
+    
 
     Vector3D _position;
     Vector3D _target;

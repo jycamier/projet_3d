@@ -126,10 +126,10 @@ int main(int argc, char *argv[]) {
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
 				case SDLK_m:
-					camera->changerDirection();
+					camera->setEtat(new EtatIntermediaire(camera));
 					break;
 				case SDLK_l:
-					camera->remettreDirection();
+					camera->setEtat(new EtatNormal(camera));
 					break;
 				case SDLK_p:
 					takeScreenshot("test.bmp");
