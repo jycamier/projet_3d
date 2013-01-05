@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-Pnj::Pnj(double x, double y, double z, char direction, char* discour) :
+Pnj::Pnj(double x, double y, double z, char direction, string discour) :
 		ElementInteractifDecor(x, y, z) {
 	this->quadriqueTete = gluNewQuadric();
 	this->quadriqueTorse = gluNewQuadric();
@@ -56,12 +56,13 @@ void Pnj::interaction()
 
 void Pnj::draw() {
 
-	unsigned char tmp[100] = "toto\n";
+	// unsigned char tmp[100] = "toto\n";
 	if (this->talk)
 	{
 		glRasterPos3i(this->position->x,this->position->y + 13,this->position->z);
 		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
-		glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char *) this->blabla);
+		const unsigned char* toto = reinterpret_cast<const unsigned char*>(this->blabla.c_str());
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18, toto);
 		glColor3ub(223, 223, 223);
 	}
 

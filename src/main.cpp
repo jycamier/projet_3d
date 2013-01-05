@@ -12,6 +12,7 @@
 #include "factory/Etage_Factory.h"
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
+#include "Character.h"
 
 
 // Taille de la fenêtre
@@ -113,7 +114,7 @@ int main(int argc, char *argv[]) {
 
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
-	camera = new FreeFlyCamera(Vector3D(0, 8, 0));
+	camera = new Character(Vector3D(0, 8, 0));
 
 	const unsigned char tmp[100] = "text to render";
 
