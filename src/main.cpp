@@ -20,28 +20,6 @@
 
 FreeFlyCamera * camera;
 
-void displayString(char string[], float r, float g, float b, int cx, int y)
-{
-        glColor3f(r, g, b); // our fonts color
-
-        /* think of the following this way:
-         * our center x is x.
-         * take the length of our string and * by 9 for the char width
-         * and thats how wide in pixels the resulting thing will be.
-         * right?
-         * now, divide that by 2 to center it
-         */
-        int x = cx - ((strlen(string) * 9) / 2);
-        y = y - 7; // y - ~(15 / 2). id rather not use float, so 7 isn't too diff than 7.5
-
-        for(unsigned int i = 0; i != strlen(string) - 1; ++i)
-        {
-                glRasterPos3f(x, y, 0);
-                glutBitmapCharacter(GLUT_BITMAP_8_BY_13, string[i]);
-                x = x + 9; // accomidate for the next letter
-        }
-}
-
 void stop() {
 	delete camera;
 	SDL_Quit();
