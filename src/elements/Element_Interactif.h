@@ -3,10 +3,6 @@
 
 #include "element.h"
 class ElementInteractif : public Element {
-    protected:
-        
-      	Point *position;
-
     public:
 
         ElementInteractif(double, double, double);

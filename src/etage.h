@@ -58,6 +58,8 @@ public:
 	void removeElementDecor(ElementDecor*);
 	void clearElementsDecor();
 
+	void initElementInteractifDecor();
+
 	double getLargeurEtage() const {
 		return largeur_etage;
 	}
@@ -76,6 +78,10 @@ public:
 
 	vector<Element*> getElements() const {
 		return elements;
+	}
+
+	Elevator* getElevator() const {
+		return elevator;
 	}
 };
 
