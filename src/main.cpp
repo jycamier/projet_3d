@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include "sdlglutils.h"
 #include "etage.h"
-#include "Menu.h"
 #include "factory/Etage_Factory.h"
 #include "elements_decor/Escalier.h"
 #include "freeflycamera.h"
@@ -51,52 +50,41 @@ bool CollisionZ(float z, AABB3D box) {
 int main(int argc, char *argv[]) {
 
 	glutInit(&argc, argv);
-// Initialisation de SDL
+	// Initialisation de SDL
 	SDL_Init (SDL_INIT_VIDEO);
 
-// Création de la surface d'affichage qui est en OpenGL
-
+	// Création de la surface d'affichage qui est en OpenGL
 	atexit(stop);
 	SDL_WM_SetCaption("La maison qui rend fou", NULL);
-
 	SDL_Surface* ecran = SDL_SetVideoMode(LARGEUR, HAUTEUR, 32, SDL_OPENGL);
 
-// Initialisation de l'affichage OpenGL
+	// Initialisation de l'affichage OpenGL
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(70, (double) LARGEUR / HAUTEUR, 1, 200);
 	SDL_Flip(ecran);
-
-	bool continuer = true;
 	SDL_Event event;
 	SDL_EnableKeyRepeat(10, 10); // Activation de la répétition de touches
-	int hauteur_vue = 10;
+
 
 	//variables pour le calcul des images par secondes
 	Uint32 last_time = SDL_GetTicks(); // derniere mise à jour
 	Uint32 current_time; //heure actuelle,
 	Uint32 elapsed_time; //heure actuelle,
-
 	Uint32 next_interaction = 0; // variable enregistrant le moment du dernier tir
 	Uint32 now; // heure actuelle
 
-	SDL_Rect position_txt;
 	glEnable (GL_TEXTURE_2D);
-	SDL_Color couleur_txt = {0, 0, 0};
-	// TTF_Font * police = TTF_OpenFont("simplicity.ttf", 65);
-	// SDL_Surface * texte = NULL;
-	// texte = TTF_RenderText_Blended(police, "alialoalu !", couleur_txt);
-
-/////////////////////////////////////////////////////////*/
-
 
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
 	camera = new Character(Vector3D(0, 8, 0));
 
 	const unsigned char tmp[100] = "text to render";
 
+	/**
+	 * INITIALISATION DE LA FACTORY
+	 */
 	EtageFactory factory;
-
 	factory.loadEtage(0);
 
 	/**
@@ -104,12 +92,11 @@ int main(int argc, char *argv[]) {
 	 */
 	camera->setCurrentStare(factory.getCurrentStare());
 
-	Menu* menu;
-
-
-	while (continuer) {
-
-			glEnable (GL_DEPTH_TEST);
+	while (true) {
+		/**
+		 * INITIALISATION OPENGL
+		 */
+		glEnable (GL_DEPTH_TEST);
 		glClearColor(0.6, 0.6, 0.6, 1);
 		// On efface la fenêtre
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -117,8 +104,10 @@ int main(int argc, char *argv[]) {
 		glLoadIdentity();
 
 
+		/**
+		 * GESTION DES EVENEMENTS
+		 */
 		while (SDL_PollEvent(&event)) {
-				
 			switch (event.type) {
 			case SDL_QUIT:
 				exit(0);
@@ -145,7 +134,7 @@ int main(int argc, char *argv[]) {
 					break;
 				case SDLK_e:
 					/**
-					 * GESTION DES INTERACTIONS
+					 * GESTION DES INTERAgit CTIONS
 					 */
 					now = SDL_GetTicks();
 					if (next_interaction <= now) {
@@ -212,7 +201,9 @@ int main(int argc, char *argv[]) {
 
 		camera->setCollisionTab(CollisionTab);
 
-		//gestion images par secondes
+		/**
+		 * GESTION FPS
+		 */
 		current_time = SDL_GetTicks();
 		elapsed_time = current_time - last_time;
 		while (current_time - last_time < (1000 / FRAMES_PER_SECOND)) {
@@ -221,22 +212,16 @@ int main(int argc, char *argv[]) {
 			current_time = SDL_GetTicks();
 			elapsed_time = current_time - last_time;
 		}
-
 		last_time = SDL_GetTicks();
 
-		//Update de la position dela camera
+		/**
+		 * UPDATE de la position dela camera
+		 */
 		camera->animate(elapsed_time);
 
-
-
-		// glEnable (GL_DEPTH_TEST);
-		// glClearColor(0.6, 0.6, 0.6, 1);
-		// // On efface la fenêtre
-		// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// glMatrixMode (GL_MODELVIEW);
-		// glLoadIdentity();
-
-		//remplace un appel manuel à gluLookAt
+		/*
+		 * UPDATE LookAt
+		 */
 		camera->look();
 
 		//repère
