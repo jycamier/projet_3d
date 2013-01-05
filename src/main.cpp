@@ -19,7 +19,7 @@
 #define HAUTEUR 600
 #define FRAMES_PER_SECOND 50
 
-FreeFlyCamera * camera;
+Character * camera;
 
 void displayString(char string[], float r, float g, float b, int cx, int y)
 {
@@ -147,6 +147,12 @@ int main(int argc, char *argv[]) {
 				break;
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
+				case SDLK_m:
+					camera->changerDirection();
+					break;
+				case SDLK_l:
+					camera->remettreDirection();
+					break;
 				case SDLK_p:
 					takeScreenshot("test.bmp");
 					break;

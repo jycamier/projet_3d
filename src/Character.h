@@ -10,9 +10,13 @@
 class Character : public FreeFlyCamera {
     protected:
         
+    	bool fou;
+
     public:
 
         Character(const Vector3D &);
+        void changerDirection();
+        void remettreDirection();
         ~Character();
 };
 
