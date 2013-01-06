@@ -4,6 +4,7 @@
 #include "../etage.h"
 #include "../sdlglutils.h"
 #include "../elements_decor/Mur.h"
+#include "../elements_decor/Tableau.h"
 #include "../elements_decor/Pilier.h"
 #include "../elements_decor/fountain.h"
 #include "../elements_decor/Escalier.h"
@@ -13,6 +14,8 @@
 #include "../elements_interactif/elements_interactif_decor/Pnj.h"
 #include "../elements_interactif/elements_interactif_decor/Porte.h"
 #include "../elements_interactif/elements_interactif_decor/ButtonEtage.h"
+#include "../elements_interactif/elements_interactif_decor/Charbon.h"
+#include "../elements_interactif/elements_interactif_decor/Sucre.h"
 
 /**
  * Créer l'espace de stockage dans le vecteur pour 4 étages
@@ -57,6 +60,8 @@ Etage* EtageFactory::createEtage(int etage) {
 		texture_sol = loadTexture("textures/carrelage1.jpg");
 		texture_murs = loadTexture("textures/mur1.jpg");
 		texture_happy = loadTexture("textures/smilet_happy.jpg");
+		int texture_tableau1 = loadTexture("textures/umadbro.jpg");
+		int texture_tableau2 = loadTexture("textures/trollface.jpg");
 
 		//creation de l'étage
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
@@ -85,6 +90,11 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecor(new Guichet(80, 0, -10, 20, 15, 10));
 		createdStare->addElementDecor(new Escalier(70, 0, 80, 70, -20, 0));
 		createdStare->addElementDecor(new Escalier(37, 0, 80, 70, 20, 0));
+		createdStare->addElementDecor(new Tableau(-79.5, 7, 0,1,-5,-10,'N',texture_tableau1));
+		createdStare->addElementDecor(new Tableau(-79.5, 7, -40,1,-5,-10,'N',texture_tableau2));
+		createdStare->addElementDecor(new Tableau(-79.5, 7, -20,1,-5,-10,'N',texture_tableau1));
+		createdStare->addElementDecor(new Tableau(-79.5, 7, -60,1,-5,-10,'N',texture_tableau2));
+
 
 //		createdStare->addElementDecorInteractif(new Pnj(50, 0, 0, 'N'));
 //		createdStare->addElementDecorInteractif(new Pnj(10, 0, -10, 'S'));
@@ -103,10 +113,17 @@ Etage* EtageFactory::createEtage(int etage) {
 		texture_plafond = loadTexture("textures/plafond1.jpg");
 		texture_sol = loadTexture("textures/floor.jpg");
 		texture_murs = loadTexture("textures/wall.jpg");
+	
 
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
 				texture_murs, 0);
-		createdStare->addElementDecor(new Table(0, 0, 0, 0, 10, 7, 2));
+		createdStare->addElementDecorInteractif(new Charbon(-50,0,-13));
+		createdStare->addElementDecorInteractif(new Charbon(-50,0,-10));
+		createdStare->addElementDecorInteractif(new Charbon(-50,0,-7));
+		createdStare->addElementDecorInteractif(new Charbon(-53,6,-13));
+		createdStare->addElementDecorInteractif(new Charbon(-53,6,-13));
+		createdStare->addElementDecorInteractif(new Charbon(-53,6,-10));
+
 	}
 		break;
 
@@ -149,6 +166,7 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecor(mur2Salle1);
 		createdStare->addElementDecor(mur2Salle2);
 		createdStare->addElementDecor(new Table(50, 0, 20, 0, 10, 12, 5));
+		createdStare->addElementDecor(new Table(-8, 0, -70, 0, 10, 12, 5));
 		createdStare->addElementDecor(new Chaise(52, 0, 19, 0, 5, 4, 3, 'S'));
 		createdStare->addElementDecor(new Chaise(52, 0, 29, 0, 5, 4, 3, 'N'));
 		createdStare->addElementDecor(new Chaise(49, 0, 26, 0, 5, 4, 3, 'E'));
@@ -158,6 +176,7 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecorInteractif(new Pnj(50,0,-10,'E',"6"));
 		createdStare->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
 		createdStare->addElementDecorInteractif(new Porte(-10,0,0,'x',10,15));
+		createdStare->addElementDecorInteractif(new Sucre(0,5.5,-60));
 	}
 	break;
 

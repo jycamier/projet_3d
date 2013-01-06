@@ -92,10 +92,12 @@ int main(int argc, char *argv[]) {
 	 * INITIALISATION DE LA FACTORY
 	 */
 	EtageFactory factory;
-	factory.loadEtage(0);
-	factory.loadEtage(1);
-	factory.loadEtage(2);
 	factory.loadEtage(3);
+	factory.loadEtage(0);
+	factory.loadEtage(2);
+	factory.loadEtage(1);
+
+
 
 	/**
 	 * Set de l'étage courrant dans la camera
