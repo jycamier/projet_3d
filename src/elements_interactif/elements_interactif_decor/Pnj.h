@@ -13,7 +13,7 @@ using namespace std;
 
 class Pnj : public ElementInteractifDecor {
 	
-	private :
+	protected :
 		GLUquadricObj * quadriqueTete;
 		GLUquadricObj * quadriqueTorse;
 		GLUquadricObj * quadriqueBrasDroit;
@@ -31,7 +31,7 @@ class Pnj : public ElementInteractifDecor {
 	public:
 		Pnj(double,double,double,char,string);
 		void interaction();
-		void parler();
+		virtual void parler();
 		~Pnj();
 		void draw();
 };

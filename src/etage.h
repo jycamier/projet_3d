@@ -23,19 +23,15 @@ protected:
 	double base;
 	Elevator* elevator;
 
-	// vector<ElementDecor*> decor;
-// <<<<<<< HEAD
-	
-// =======
-// 	vector<ElementDecor*> decor;
-// 	vector<ElementInteractifDecor*> decorInteractif;
-// 	vector<Element*> elements;
-
-// >>>>>>> 7bc4cac0357f9d3fe8255cffe763a4d4891e6ed8
-
 	int texture_plafond;
 	int texture_murs;
 	int texture_sol;
+
+	/**
+	 * QUETES
+	 */
+	vector<bool> quete;
+	int nbrQuete;
 
 public:
 
@@ -45,7 +41,7 @@ public:
 
 	Etage(); // Non implémenté donc inutilisable
 	Etage(const Etage &); // Constructeur de copie, non implémenté donc interdit
-	Etage(double, double, double, int, int, int, double);
+	Etage(double, double, double, int, int, int, double, int);
 
 	void draw();
 	void drawSurface();
@@ -83,6 +79,21 @@ public:
 	Elevator* getElevator() const {
 		return elevator;
 	}
+
+	vector<bool> getQuete() const {
+		return quete;
+	}
+
+	void setQueteValue(int i, bool val){
+		this->quete[i] = val;
+	}
+
+	/**
+	 * DEBUG
+	 *
+	 */
+	void debugQuetes();
+
 };
 
 #endif // ETAGE_H_INCLUDED
