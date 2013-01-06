@@ -22,6 +22,8 @@ using namespace std;
 
 Character * camera;
 
+bool stopCollision = false;
+
 void stop() {
 	delete camera;
 	SDL_Quit();
@@ -127,11 +129,12 @@ int main(int argc, char *argv[]) {
 				break;
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
-				case SDLK_m:
-					camera->setEtat(new EtatIntermediaire(camera));
-					break;
-				case SDLK_l:
-					
+				case SDLK_m: // Touchen pour tricher, quand on est emmerder par la gestion des collisions
+					now = SDL_GetTicks();
+					if (next_interaction <= now) {
+						next_interaction = now + 500;
+						(stopCollision)? stopCollision=false : stopCollision=true;
+					}
 					break;
 				case SDLK_k:
 					camera->setEtat(new EtatMaboul(camera));
@@ -150,7 +153,7 @@ int main(int argc, char *argv[]) {
 					break;
 				case SDLK_e:
 					/**
-					 * GESTION DES INTERAgit CTIONS
+					 * GESTION DES INTERACTION CTIONS
 					 */
 					now = SDL_GetTicks();
 					if (next_interaction <= now) {
@@ -187,35 +190,38 @@ int main(int argc, char *argv[]) {
 		/**
 		 * GESTION DES COLLISIONS
 		 */
-		vector<AABB3D> hitb;
-		bool CollisionTab[8] = {false,false,false,false,false,false,false,false};
+			vector<AABB3D> hitb;
+			bool CollisionTab[8] = {false,false,false,false,false,false,false,false};
 
-		for (int i = 0; i < factory.getCurrentStare()->getElements().size(); i++) {
-			hitb = factory.getCurrentStare()->getElements().at(i)->getHitboxes();
+			if (!stopCollision){
+				for (int i = 0; i < factory.getCurrentStare()->getElements().size(); i++) {
+								hitb = factory.getCurrentStare()->getElements().at(i)->getHitboxes();
 
-			for (int j = 0; j < hitb.size(); j++) {
+								for (int j = 0; j < hitb.size(); j++) {
 
-				if (Collision(camera->getTarget().X, camera->getTarget().Y,
-						camera->getTarget().Z, hitb.at(j))) {
-					//Avancer
-					CollisionTab[0] = CollisionX(camera->getTarget().X, hitb.at(j));
-					CollisionTab[1] = CollisionZ(camera->getTarget().Z, hitb.at(j));
-					//reculer
-					CollisionTab[2] = CollisionX(camera->getPosition().X-camera->getForward().X, hitb.at(j));
-					CollisionTab[3] = CollisionZ(camera->getPosition().Z-camera->getForward().Z, hitb.at(j));
-					//aller à gauche
-					CollisionTab[4] = CollisionX(camera->getPosition().X+camera->getLeft().X, hitb.at(j)) && CollisionTab[0];
-					CollisionTab[5] = CollisionZ(camera->getPosition().Z+camera->getLeft().Z, hitb.at(j)) && CollisionTab[1];
-					//aller à droite
-					CollisionTab[6] = CollisionX(camera->getPosition().X-camera->getLeft().X, hitb.at(j))&& CollisionTab[0];
-					CollisionTab[7] = CollisionZ(camera->getPosition().Z-camera->getLeft().Z, hitb.at(j))&& CollisionTab[1];
+									if (Collision(camera->getTarget().X, camera->getTarget().Y,
+											camera->getTarget().Z, hitb.at(j))) {
+										//Avancer
+										CollisionTab[0] = CollisionX(camera->getTarget().X, hitb.at(j));
+										CollisionTab[1] = CollisionZ(camera->getTarget().Z, hitb.at(j));
+										//reculer
+										CollisionTab[2] = CollisionX(camera->getPosition().X-camera->getForward().X, hitb.at(j));
+										CollisionTab[3] = CollisionZ(camera->getPosition().Z-camera->getForward().Z, hitb.at(j));
+										//aller à gauche
+										CollisionTab[4] = CollisionX(camera->getPosition().X+camera->getLeft().X, hitb.at(j)) && CollisionTab[0];
+										CollisionTab[5] = CollisionZ(camera->getPosition().Z+camera->getLeft().Z, hitb.at(j)) && CollisionTab[1];
+										//aller à droite
+										CollisionTab[6] = CollisionX(camera->getPosition().X-camera->getLeft().X, hitb.at(j))&& CollisionTab[0];
+										CollisionTab[7] = CollisionZ(camera->getPosition().Z-camera->getLeft().Z, hitb.at(j))&& CollisionTab[1];
+									}
+
+								}
+
 				}
-
 			}
 
-		}
+			camera->setCollisionTab(CollisionTab);
 
-		camera->setCollisionTab(CollisionTab);
 
 		/**
 		 * GESTION FPS
