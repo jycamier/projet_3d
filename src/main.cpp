@@ -91,9 +91,15 @@ int main(int argc, char *argv[]) {
 	 */
 	EtageFactory factory;
 	factory.loadEtage(0);
+	factory.loadEtage(1);
+	factory.loadEtage(2);
+	factory.loadEtage(3);
 
 	/**
 	 * Set de l'étage courrant dans la camera
+	 factory.loadEtage(1);
+	 factory.loadEtage(2);
+	 factory.loadEtage(3);
 	 */
 	camera->setCurrentStare(factory.getCurrentStare());
 
@@ -256,25 +262,25 @@ int main(int argc, char *argv[]) {
 		///////////////////////////////////////////////////////////////
 
 		factory.draw();
-		now_folie = SDL_GetTicks();
-		if (next_folie <= now_folie) {
-			next_folie = now_folie + 1000;
+		// now_folie = SDL_GetTicks();
+		// if (next_folie <= now_folie) {
+		// 	next_folie = now_folie + 1000;
 
-			if (iteration == 30)
-			{
-				camera->setEtat(new EtatIntermediaire(camera));
-			}
-			else if (iteration == 60)
-			{
-				camera->setEtat(new EtatMaboul(camera));
-			}
-			else if (iteration > 80)
-			{
-				exit(0);
-			}
-			iteration++;
+		// 	if (iteration == 30)
+		// 	{
+		// 		camera->setEtat(new EtatIntermediaire(camera));
+		// 	}
+		// 	else if (iteration == 60)
+		// 	{
+		// 		camera->setEtat(new EtatMaboul(camera));
+		// 	}
+		// 	else if (iteration > 80)
+		// 	{
+		// 		exit(0);
+		// 	}
+		// 	iteration++;
 
-		}
+		// }
 
 		// Affichage (en double buffering)
 		glFlush();

@@ -163,13 +163,63 @@ Etage* EtageFactory::createEtage(int etage) {
 
 	case 3: {
 
-		printf("%s\n", "totodebut");
 		texture_plafond = loadTexture("textures/plafond1.jpg");
 		texture_sol = loadTexture("textures/sol_dernier_etage.jpg");
 		texture_murs = loadTexture("textures/mur_dernier_etage.jpg");
 
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,texture_murs, 0);
-		printf("%s\n", "totofin");
+		createdStare->addElementDecor(new Chaise(22, 0, -30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(22, 0, -20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(22, 0, -10, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(32, 0, -30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(32, 0, -20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(32, 0, -10, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(42, 0, -30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(42, 0, -20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(42, 0, -10, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(52, 0, -30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(52, 0, -20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(52, 0, -10, 0, 5, 4, 3, 'W'));
+
+		createdStare->addElementDecor(new Chaise(22, 0, 30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(22, 0, 20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(22, 0, 10, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(32, 0, 30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(32, 0, 20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(32, 0, 10, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(42, 0, 30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(42, 0, 20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(42, 0, 10, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(52, 0, 30, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(52, 0, 20, 0, 5, 4, 3, 'W'));
+		createdStare->addElementDecor(new Chaise(52, 0, 10, 0, 5, 4, 3, 'W'));
+
+		createdStare->addElementDecor(new Chaise(-22, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-22, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-22, 0,30, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-32, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-32, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-32, 0,30, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-42, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-42, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-42, 0,30, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-52, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-52, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(-52, 0,30, 0, 5, 4, 3, 'E'));
+
+		createdStare->addElementDecor(new Chaise(22, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(22, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(22, 0,30, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(32, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(32, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(32, 0,30, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(42, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(42, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(42, 0,30, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(52, 0,10, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(52, 0,20, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecor(new Chaise(52, 0,30, 0, 5, 4, 3, 'E'));
+		createdStare->addElementDecorInteractif(new Pnj(0,0,-70,'N',"Je suis le roi, apportez moi un café et je vous donnerais le laisser passer!!!"));
 	}
 		break;
 
