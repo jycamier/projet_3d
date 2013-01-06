@@ -10,8 +10,15 @@
 
 using namespace std;
 
-Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, double base_etage)
+Etage::Etage(double x, double y, double z, int plafond, int sol, int murs, double base_etage, int nbrq)
 {
+	/**
+	 * GESTION DU NOMBRE DE QUETES PAR ETAGE
+	 */
+	this->nbrQuete = nbrq;
+	for(int i = 0; i < nbrQuete;i++)
+		quete.push_back(false);
+
 	this->longueur_etage = x;
 	this->hauteur_etage = y;
 	this->largeur_etage = z;
@@ -300,5 +307,11 @@ void Etage::initElementInteractifDecor(){
 
 }
 
+/**
+ * Méthode de débug
+ */
+void Etage::debugQuetes(){
 
+	printf("Nombre de quete : %d", nbrQuete);
 
+}

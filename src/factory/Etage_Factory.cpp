@@ -16,6 +16,7 @@
 #include "../elements_interactif/elements_interactif_decor/ButtonEtage.h"
 #include "../elements_interactif/elements_interactif_decor/Charbon.h"
 #include "../elements_interactif/elements_interactif_decor/Sucre.h"
+#include "../quete/PnjQuete.h"
 
 /**
  * Créer l'espace de stockage dans le vecteur pour 4 étages
@@ -29,12 +30,16 @@ EtageFactory::EtageFactory() {
  */
 void EtageFactory::loadEtage(int etage) {
 
-	if (this->etages.size() == etage) {
+	if (this->etages.size() == 0 || (this->etages.size() == etage && this->verifiedAcheivementQuest())) {
 		this->currentStare = this->createEtage(etage);
 		this->etages.insert(this->etages.begin() + etage, this->currentStare);
 	} else if(this->etages.size() > etage){
 		this->currentStare = this->etages.at(etage);
 	} 
+
+	if(!this->verifiedAcheivementQuest()){
+		printf("VOUS NE POUVEZ PAS ACCEDER A L'ETAGE SUIVANT\n");
+	}
 
 }
 
@@ -49,9 +54,12 @@ Etage* EtageFactory::createEtage(int etage) {
 
 	//creation de l'étage
 	Etage* createdStare;
+	//Nombre de quetes par étage
+	int nbrQte;
 
 	switch (etage) {
 	case 0: {
+		nbrQte = 1;
 
 		//chargement des textures
 		int texture_pilier = loadTexture("textures/pilier1.jpg");
@@ -65,7 +73,7 @@ Etage* EtageFactory::createEtage(int etage) {
 
 		//creation de l'étage
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
-				texture_murs, 0);
+				texture_murs, 0, nbrQte);
 
 		//ajout des élement de décor dans l'étage
 		createdStare->addElementDecor(
@@ -96,20 +104,26 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecor(new Tableau(-79.5, 7, -60,1,-5,-10,'N',texture_tableau2));
 
 
-//		createdStare->addElementDecorInteractif(new Pnj(50, 0, 0, 'N'));
-//		createdStare->addElementDecorInteractif(new Pnj(10, 0, -10, 'S'));
-//		createdStare->addElementDecorInteractif(new Pnj(35, 0, -50, 'E'));
-//		createdStare->addElementDecorInteractif(new Pnj(40, 0, -20, 'O'));
+		createdStare->addElementDecorInteractif(new Pnj(50,0,0,'N',"Non merci, j'ai pas franchement le temps de discuter"));
+		createdStare->addElementDecorInteractif(new Pnj(10,0,-10,'S',"Le port ? C'est en bas de la ville"));
+		createdStare->addElementDecorInteractif(new Pnj(35,0,-50,'E',"Si vous pouviez me grater le dos, just en bas à gauche..."));
 
-		createdStare->addElementDecorInteractif(new Pnj(50,0,0,'N',"1"));
-		createdStare->addElementDecorInteractif(new Pnj(10,0,-10,'S',"2"));
-		createdStare->addElementDecorInteractif(new Pnj(35,0,-50,'E',"3"));
-		createdStare->addElementDecorInteractif(new Pnj(40,0,-20,'O',"4"));
+		/**
+		 * ELEMENTS DE QUETES
+		 */
+		createdStare->addElementDecorInteractif(
+				new PnjQuete(40, 0, -20, 'O',
+						"Tenez mon bon monsieur, voici la clef de l'ascenseur.",
+						nbrQte, 0,
+						"Avez-vous remplis votre formulaire administratif ?",
+						createdStare));
 
 	}
 		break;
 
 	case 1: {
+		nbrQte = 2;
+
 		texture_plafond = loadTexture("textures/plafond1.jpg");
 		texture_sol = loadTexture("textures/floor.jpg");
 		texture_murs = loadTexture("textures/wall.jpg");
@@ -124,10 +138,14 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecorInteractif(new Charbon(-53,6,-13));
 		createdStare->addElementDecorInteractif(new Charbon(-53,6,-10));
 
+
+		createdStare->addElementDecor(new Table(0, 0, 0, 0, 10, 7, 2));
 	}
 		break;
 
 	case 2: {
+		nbrQte = 3;
+
 		//chargement des textures
 		texture_plafond = loadTexture("textures/plafond1.jpg");
 		texture_sol = loadTexture("textures/moquette.jpg");
@@ -136,7 +154,7 @@ Etage* EtageFactory::createEtage(int etage) {
 
 		//creation de l'étage
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
-				texture_murs, 0);
+				texture_murs, 0,nbrQte);
 
 		//utilisé pour définir les coordonnées des murs ci-après
 		vector<Point> points;
@@ -177,16 +195,40 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
 		createdStare->addElementDecorInteractif(new Porte(-10,0,0,'x',10,15));
 		createdStare->addElementDecorInteractif(new Sucre(0,5.5,-60));
+
+		/**
+		 * ELEMENTS DE QUETES
+		 */
+		createdStare->addElementDecorInteractif(
+				new PnjQuete(-50,0,-13,'N',
+						"Tenez mon bon monsieur, voici du Pain.",
+						nbrQte, 0,
+						"Avez-vous remplis votre formulaire administratif ?",
+						createdStare));
+		createdStare->addElementDecorInteractif(
+				new PnjQuete(50,0,-10,'E',
+						"Tenez mon bon monsieur, voici du Boursin.",
+						nbrQte, 1,
+						"Avez-vous remplis votre formulaire administratif ?",
+						createdStare));
+		createdStare->addElementDecorInteractif(
+				new PnjQuete(55,0,-10,'E',
+						"Tenez mon bon monsieur, voici du Flan.",
+						nbrQte, 2,
+						"Avez-vous remplis votre formulaire administratif ?",
+						createdStare));
 	}
 	break;
 
 	case 3: {
 
+		nbrQte = 6;
+
 		texture_plafond = loadTexture("textures/plafond1.jpg");
 		texture_sol = loadTexture("textures/sol_dernier_etage.jpg");
 		texture_murs = loadTexture("textures/mur_dernier_etage.jpg");
 
-		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,texture_murs, 0);
+		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,texture_murs, 0,nbrQte);
 		createdStare->addElementDecor(new Chaise(22, 0, -30, 0, 5, 4, 3, 'W'));
 		createdStare->addElementDecor(new Chaise(22, 0, -20, 0, 5, 4, 3, 'W'));
 		createdStare->addElementDecor(new Chaise(22, 0, -10, 0, 5, 4, 3, 'W'));
@@ -288,5 +330,21 @@ EtageFactory::~EtageFactory() {
  */
 void EtageFactory::draw() {
 	this->currentStare->draw();
+}
+
+/**
+ * Vérifie que toutes les quetes ont été faite avant de passer  l'étage supérieur
+ */
+bool EtageFactory::verifiedAcheivementQuest(){
+
+	bool isVerified = true;
+	int i = 0;
+
+	while(i < currentStare->getQuete().size() && isVerified){
+		isVerified = currentStare->getQuete().at(i);
+		i++;
+	}
+
+	return isVerified;
 }
 

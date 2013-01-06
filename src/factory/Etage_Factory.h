@@ -30,6 +30,8 @@ public:
 	Etage* getCurrentStare() const {
 		return currentStare;
 	}
+
+	bool verifiedAcheivementQuest();
 };
 
 #endif // ETAGE_FACTORY_H_INCLUDED

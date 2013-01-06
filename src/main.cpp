@@ -98,7 +98,6 @@ int main(int argc, char *argv[]) {
 	factory.loadEtage(1);
 
 
-
 	/**
 	 * Set de l'étage courrant dans la camera
 	 factory.loadEtage(1);
