@@ -59,10 +59,8 @@ void Pnj::draw() {
 	if (this->talk)
 	{
 		glRasterPos3i(this->position->x,this->position->y + 13,this->position->z);
-		// glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
 		const unsigned char* toto = reinterpret_cast<const unsigned char*>(this->blabla.c_str());
 		glutBitmapString(GLUT_BITMAP_HELVETICA_18, toto);
-		// glColor3ub(223, 223, 223);
 	}
 
 	glPushMatrix();

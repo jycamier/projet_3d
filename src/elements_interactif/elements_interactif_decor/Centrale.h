@@ -1,7 +1,7 @@
 #ifndef CENTRALE_H_INCLUDED
 #define CENTRALE_H_INCLUDED
 
-#include "../../elements/Element_Interactif_Decor.h"
+#include "../../elements/Element_Interactif_Decor_Quete.h"
 #include <vector>
 #include <SDL/SDL.h>
 #include <GL/gl.h>
@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class Centrale : public ElementInteractifDecor {
+class Centrale : public ElementInteractifDecorQuete {
 	
 	private :
 		
@@ -23,10 +23,9 @@ class Centrale : public ElementInteractifDecor {
 		
 	public:
 
-		Centrale(double,double,double,double,double,double);
+		Centrale(double,double,double,double,double,double, int, int, string, Etage*);
 		~Centrale();
 		void draw();
-		void interaction();
 
 
 };
