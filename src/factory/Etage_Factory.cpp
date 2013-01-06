@@ -130,7 +130,7 @@ Etage* EtageFactory::createEtage(int etage) {
 	
 
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
-				texture_murs, 0);
+				texture_murs, 0, nbrQte);
 		createdStare->addElementDecorInteractif(new Charbon(-50,0,-13));
 		createdStare->addElementDecorInteractif(new Charbon(-50,0,-10));
 		createdStare->addElementDecorInteractif(new Charbon(-50,0,-7));
