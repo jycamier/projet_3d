@@ -96,13 +96,8 @@ int main(int argc, char *argv[]) {
 	factory.loadEtage(2);
 	factory.loadEtage(3);
 
-
-
 	/**
 	 * Set de l'étage courrant dans la camera
-	 factory.loadEtage(1);
-	 factory.loadEtage(2);
-	 factory.loadEtage(3);
 	 */
 	camera->setCurrentStare(factory.getCurrentStare());
 
