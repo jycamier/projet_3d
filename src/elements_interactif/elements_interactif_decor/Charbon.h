@@ -1,7 +1,7 @@
 #ifndef CHARBON_H_INCLUDED
 #define CHARBON_H_INCLUDED
 
-#include "../../elements/Element_Interactif_Decor.h"
+#include "../../elements/Element_Interactif_Decor_Quete.h"
 #include <vector>
 #include <SDL/SDL.h>
 #include <GL/gl.h>
@@ -9,21 +9,18 @@
 
 using namespace std;
 
-class Charbon : public ElementInteractifDecor {
-	
-	private :
+class Charbon: public ElementInteractifDecorQuete {
 
-		GLUquadricObj * quadriqueCharbon;
-		int texture_charbon;
-		
-	public:
-		Charbon(double,double,double);
-		~Charbon();
-		void draw();
-		void interaction();
+private:
 
+	GLUquadricObj * quadriqueCharbon;
+	int texture_charbon;
+
+public:
+	Charbon(double, double, double, int, int, string, Etage*);
+	~Charbon();
+	void draw();
 
 };
-
 
 #endif // CHARBON_H_INCLUDED

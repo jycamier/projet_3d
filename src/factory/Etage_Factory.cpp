@@ -131,15 +131,18 @@ Etage* EtageFactory::createEtage(int etage) {
 	
 
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
-				texture_murs, 0,nbrQte);
-		createdStare->addElementDecorInteractif(new Charbon(1,6,5));
-		createdStare->addElementDecorInteractif(new Charbon(3,6,4));
-		createdStare->addElementDecorInteractif(new Charbon(5,6,5));
-		createdStare->addElementDecorInteractif(new Marteau(8, 6,4));
-		createdStare->addElementDecorInteractif(new Centrale(75,0,-50,-5,-6,-5));
+				texture_murs, 0, nbrQte);
 
 		createdStare->addElementDecor(new Table(0, 0, 0, 0, 10, 10, 5));
 
+		/**
+		 * ELEMENTS DE QUETES
+		 */
+		createdStare->addElementDecorInteractif(new Marteau(8,6,4));
+		createdStare->addElementDecorInteractif(new Charbon(1,6,9,nbrQte, 0,
+				"Vous venez de ramasser du charbon",
+				createdStare));
+		createdStare->addElementDecorInteractif(new Centrale(75,0,-50,-5,-6,-5));
 	}
 		break;
 
@@ -194,7 +197,7 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecorInteractif(new Pnj(50,0,-10,'E',"6"));
 		createdStare->addElementDecorInteractif(new Porte(10,0,0,'x',10,15));
 		createdStare->addElementDecorInteractif(new Porte(-10,0,0,'x',10,15));
-		createdStare->addElementDecorInteractif(new Sucre(0,5.5,-60));
+		//createdStare->addElementDecorInteractif(new Sucre(0,5.5,-60));
 
 		/**
 		 * ELEMENTS DE QUETES
