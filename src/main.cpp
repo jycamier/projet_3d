@@ -20,9 +20,15 @@ using namespace std;
 #define HAUTEUR 600
 #define FRAMES_PER_SECOND 50
 
+#define TEMPS_INTERMEDIAIRE 120
+#define TEMPS_MABOUL 240
+#define TEMPS_GAMEOVER 360
+
 Character * camera;
 
 bool stopCollision = false;
+
+
 
 void stop() {
 	delete camera;
@@ -241,48 +247,33 @@ int main(int argc, char *argv[]) {
 		 */
 		camera->look();
 
-		//repère
-		///////////////////////////////////////////////////////////////
-		//axe des z en jaune
-
-		glBegin (GL_LINES);
-		glColor3ub(255, 255, 0);
-		glVertex3d(0, 0.5, 0);
-		glVertex3d(80, 0.5, 0);
-
-		glEnd();
-
-		glBegin(GL_LINES);
-		glColor3ub(255, 0, 255);
-		glVertex3d(0, 0.5, 0);
-		glVertex3d(0, 0.5, 80);
-
-		glEnd();
-
-		//axe des x en violet
-
-		///////////////////////////////////////////////////////////////
-
+		/**
+		 * DRAW de l'ETAGE DEPUIS LA FACTORY
+		 */
 		factory.draw();
-		// now_folie = SDL_GetTicks();
-		// if (next_folie <= now_folie) {
-		// 	next_folie = now_folie + 1000;
 
-		// 	if (iteration == 30)
-		// 	{
-		// 		camera->setEtat(new EtatIntermediaire(camera));
-		// 	}
-		// 	else if (iteration == 60)
-		// 	{
-		// 		camera->setEtat(new EtatMaboul(camera));
-		// 	}
-		// 	else if (iteration > 80)
-		// 	{
-		// 		exit(0);
-		// 	}
-		// 	iteration++;
+		/**
+		 * GESTION DU COMPTEUR DE FOLIE
+		 */
+		 now_folie = SDL_GetTicks();
+		 if (next_folie <= now_folie) {
+		 	next_folie = now_folie + 1000;
 
-		// }
+		 	if (iteration == TEMPS_INTERMEDIAIRE)
+		 	{
+		 		camera->setEtat(new EtatIntermediaire(camera));
+		 	}
+		 	else if (iteration == TEMPS_MABOUL)
+		 	{
+		 		camera->setEtat(new EtatMaboul(camera));
+		 	}
+		 	else if (iteration > TEMPS_GAMEOVER)
+		 	{
+		 		exit(0);
+		 	}
+		 	iteration++;
+
+		 }
 
 		// Affichage (en double buffering)
 		glFlush();
