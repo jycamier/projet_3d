@@ -138,17 +138,8 @@ int main(int argc, char *argv[]) {
 						(stopCollision)? stopCollision=false : stopCollision=true;
 					}
 					break;
-				case SDLK_k:
-					camera->setEtat(new EtatMaboul(camera));
-					break;
 				case SDLK_p:
 					takeScreenshot("test.bmp");
-					break;
-				case SDLK_t:
-					factory.loadEtage(1);
-					break;
-				case SDLK_a:
-					factory.loadEtage(0);
 					break;
 				case SDLK_ESCAPE:
 					exit(0);
