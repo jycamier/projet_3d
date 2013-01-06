@@ -16,6 +16,8 @@
 #include "../elements_interactif/elements_interactif_decor/ButtonEtage.h"
 #include "../elements_interactif/elements_interactif_decor/Charbon.h"
 #include "../elements_interactif/elements_interactif_decor/Sucre.h"
+#include "../elements_interactif/elements_interactif_decor/Marteau.h"
+#include "../elements_interactif/elements_interactif_decor/Centrale.h"
 #include "../quete/PnjQuete.h"
 
 /**
@@ -103,7 +105,6 @@ Etage* EtageFactory::createEtage(int etage) {
 		createdStare->addElementDecor(new Tableau(-79.5, 7, -20,1,-5,-10,'N',texture_tableau1));
 		createdStare->addElementDecor(new Tableau(-79.5, 7, -60,1,-5,-10,'N',texture_tableau2));
 
-
 		createdStare->addElementDecorInteractif(new Pnj(50,0,0,'N',"Non merci, j'ai pas franchement le temps de discuter"));
 		createdStare->addElementDecorInteractif(new Pnj(10,0,-10,'S',"Le port ? C'est en bas de la ville"));
 		createdStare->addElementDecorInteractif(new Pnj(35,0,-50,'E',"Si vous pouviez me grater le dos, just en bas à gauche..."));
@@ -130,16 +131,15 @@ Etage* EtageFactory::createEtage(int etage) {
 	
 
 		createdStare = new Etage(80, 15, 80, texture_plafond, texture_sol,
-				texture_murs, 0);
-		createdStare->addElementDecorInteractif(new Charbon(-50,0,-13));
-		createdStare->addElementDecorInteractif(new Charbon(-50,0,-10));
-		createdStare->addElementDecorInteractif(new Charbon(-50,0,-7));
-		createdStare->addElementDecorInteractif(new Charbon(-53,6,-13));
-		createdStare->addElementDecorInteractif(new Charbon(-53,6,-13));
-		createdStare->addElementDecorInteractif(new Charbon(-53,6,-10));
+				texture_murs, 0,nbrQte);
+		createdStare->addElementDecorInteractif(new Charbon(1,6,5));
+		createdStare->addElementDecorInteractif(new Charbon(3,6,4));
+		createdStare->addElementDecorInteractif(new Charbon(5,6,5));
+		createdStare->addElementDecorInteractif(new Marteau(8, 6,4));
+		createdStare->addElementDecorInteractif(new Centrale(75,0,-50,-5,-6,-5));
 
+		createdStare->addElementDecor(new Table(0, 0, 0, 0, 10, 10, 5));
 
-		createdStare->addElementDecor(new Table(0, 0, 0, 0, 10, 7, 2));
 	}
 		break;
 

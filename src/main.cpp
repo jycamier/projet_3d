@@ -86,16 +86,16 @@ int main(int argc, char *argv[]) {
 	//Initialisation de la classe Personnage incarnant notre Personnage de jeu
 	camera = new Character(Vector3D(0, 8, 0));
 
-	const unsigned char tmp[100] = "text to render";
 
 	/**
 	 * INITIALISATION DE LA FACTORY
 	 */
 	EtageFactory factory;
-	factory.loadEtage(3);
 	factory.loadEtage(0);
-	factory.loadEtage(2);
 	factory.loadEtage(1);
+	factory.loadEtage(2);
+	factory.loadEtage(3);
+
 
 
 	/**
